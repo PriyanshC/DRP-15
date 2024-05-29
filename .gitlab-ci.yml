@@ -18,6 +18,7 @@ deploy-vm:
   script:
     - fuser -k 80/tcp || true
     - docker stop backendcontainer || true
+    - docker rm backendcontainer || true
     - docker build -t backendimage tarefaConnectBackend/
     - docker run -d --name backendcontainer -p 80:80 backendimage
 
