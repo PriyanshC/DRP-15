@@ -1,7 +1,7 @@
-#stages:
+stages:
   # - build
   # - test
-#  - deploy
+  - deploy
 
 # build:
 #   stage: build
@@ -12,6 +12,14 @@
 #   stage: test
 #   script:
 #     - 
+
+deploy-vm:
+  stage: deploy
+  script:
+    - fuser -k 80/tcp || true
+    - docker stop backendcontainer || true
+    - docker build -t backendimage tarefaConnectBackend/
+    - docker run -d --name backendcontainer -p 80:80 backendimage
 
 #deploy-heroku:
 #  image: ruby:latest
