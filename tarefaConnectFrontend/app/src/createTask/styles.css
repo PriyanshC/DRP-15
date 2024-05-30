@@ -11,6 +11,19 @@
     border-right: 1px solid black;
   }
 
+.CurrentTaskButton {
+    background-color: #FBD930;
+    width: 12em;
+    height: 2em;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: rgb(73, 73, 73);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: 1em;
+}
+
 .CurrentTaskTitle {
     margin: 0px;
     color:rgb(73, 73, 73);
@@ -58,8 +71,7 @@
 }
 
 .PostButton {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-inline: 40px;
     border-radius: 10px;
     background-color: #015CAB;
     color: white;

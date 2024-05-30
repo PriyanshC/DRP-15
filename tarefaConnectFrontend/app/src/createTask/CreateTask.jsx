@@ -18,7 +18,33 @@ function LeftPanel() {
             Your Current Tasks
         </h1>
         <hr></hr>
+        {CurrentTaskSection()}
     </div>;
+}
+
+const taskData = [
+    {
+      title: "Gardening Every Week",
+    },
+    { 
+      title: "Broken Toilet Seat"
+    },
+    {
+      title: "Faulty Light Bulb"
+    }
+  ]
+
+function CurrentTaskSection() {
+    const tasks = taskData.map((item) => {
+        return (
+            <div>
+                <button className="CurrentTaskButton">
+                   {item.title}
+                </button>
+            </div>
+        );
+    })
+    return <div className="CurrentTasks">{tasks}</div>
 }
 
 function RightPanel() {

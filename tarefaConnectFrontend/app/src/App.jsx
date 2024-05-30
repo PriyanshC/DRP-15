@@ -1,6 +1,13 @@
 import './App.css';
 import Header from './header/Header';
 import LoginLanding from './loginLanding/LoginLanding';
+import CreateTask from './createTask/CreateTask';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import styles from './Global'
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -9,7 +16,21 @@ function App() {
   return (
     <main className="App" style={{fontFamily:mainStyle}}>
       <Header />
-      <LoginLanding />
+      <Router>
+        <Routes>
+          <Route 
+            exact 
+            path='/'
+            element ={<LoginLanding/>}
+          />
+
+          <Route 
+            exact 
+            path='/createTask'
+            element ={<CreateTask/>}
+          />
+        </Routes>
+      </Router>
     </main>
   );
 }
