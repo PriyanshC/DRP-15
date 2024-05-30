@@ -1,0 +1,41 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  height: 70px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.MenuSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex-grow: 0.1;
+  justify-content: space-around;
+}
+
+.LeftSection {
+  justify-content: space-around;
+}
+
+.RightSection {
+  justify-content: space-around;
+}
+
+.HeaderIcon {
+  margin: auto;
+  text-align: center;
+  font-size: 35px;
+  padding: 0;
+}
+
+.MenuIcon {
+  font-size: 40px;
+  padding-right: 0px;
+  margin-right: 0px;
+}
+
+
