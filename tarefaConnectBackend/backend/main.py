@@ -1,14 +1,41 @@
-from fastapi import FastAPI
+from typing import Generator
+
+from fastapi import Depends, FastAPI
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+from . import crud, models, schemas
+from .database import SessionLocal, engine
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+# Dependency
+def get_db() -> Generator:
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
 
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+class Task(BaseModel):
+    title: str
+    description: str
 
+
+@app.get("/create-task", response_model=list[schemas.Task])
+def get_all_tasks(db: Session = Depends(get_db)):
+    return crud.get_all_tasks(db)
+
+
+@app.post("/create-task", response_model=schemas.Task)
+def create_task(new_task: schemas.TaskCreate, db: Session = Depends(get_db)):
+    return crud.create_task(db, new_task)
+
+
+@app.get("/tasks/{task_id}", response_model=schemas.Task)
+def get_task(task_id: int, db: Session = Depends(get_db)):
+    return crud.get_task(db, task_id)
