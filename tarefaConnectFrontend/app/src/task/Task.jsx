@@ -25,7 +25,7 @@ export default function Task({ startingIndex = -1 }) {
   const [renderBool, setRender] = useState(false);
 
   const renderTasks = () => {
-    setRender(!renderBool)
+    setRender(!renderBool);
   }
 
   useEffect(() => {
@@ -61,7 +61,6 @@ function CurrentTaskPanel({ changeIndex, data }) {
       <div className="CurrentTasks">
         {data.map(([title, index]) => {
           var styles = (index === selected ? { backgroundColor: 'blue', color: 'white' } : {});
-          console.log(styles);
           return (
             <div key={index}>
               <button className="CurrentTaskButton" style={styles} onClick={() => { changeIndex(index); changeSelected(index) }}>
