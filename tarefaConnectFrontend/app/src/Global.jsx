@@ -8,7 +8,7 @@ const colorSet1 = {
 
 const fontSet = {
   heading: 'Righteous',
-  paragraph: 'Serif',
+  paragraph: 'Verdana, Helvetica, Sans-serif, Serif',
   alternative: ""
 }
 

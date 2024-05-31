@@ -1,0 +1,133 @@
+.Container {
+    display: flex;
+    height: 100vh; 
+}
+
+.RightContainer {
+    display: flex;
+    flex: 4;
+    flex-direction: column;
+    grid-template-rows: 2fr 1fr;
+    background-color: white;
+    height: 100vh;
+}
+
+.TaskContainer {
+    flex: 1.2;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.TaskRepliesPanel {
+    flex: 1;
+    background-color: white;
+    text-align: left;
+}
+
+.ReplyElement {
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 20px;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.ReplyName {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: x-large;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: rgb(73, 73, 73)
+}
+
+.star-rating {
+    display: inline-block;
+
+}
+
+.stars-container {
+    direction: rtl;
+    flex-direction: row;
+}
+
+.star, .golden-star {
+    font-size: 2em;
+    display: inline-block;
+}
+
+.star {
+    color: #ddd;
+}
+
+.golden-star {
+    color: #FBD930;
+}
+
+.ReplyNameContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.Divider {
+    width: 1px;
+    background-color: black;
+}
+
+.ReplyMessage {
+    margin-right: 20px;
+}
+
+.ReplyMessageContainer {
+    display: flex;
+    flex: 3;
+    align-items: center;
+}
+
+.TaskInfoPanel {
+    flex: 1.25;
+    border-bottom: 1px solid black;
+    background-color: white;
+    text-align: left;
+}
+
+.TaskName, .RepliesHeader {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bolder;
+    color: rgb(73, 73, 73);
+}
+
+.TaskName {
+    font-size: x-large;
+    padding-top: 40px;
+    padding-left: 60px;
+}
+
+.RepliesHeader {
+    font-size: xx-large;
+    padding-left: 40px;
+}
+
+.TaskDescription {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: larger;
+    color: rgb(127, 123, 123);
+    padding-left: 20px;
+    padding-right: 40px; 
+    text-overflow: ellipsis;
+}
+
+.TaskLocationPanel {
+    flex: 1;
+    background-color: cadetblue;
+    border-bottom: 1px solid black;
+}
