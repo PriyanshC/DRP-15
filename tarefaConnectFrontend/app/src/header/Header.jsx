@@ -29,7 +29,7 @@ const leftHeader = [
     key: "home",
     class: "bi-house-door-fill",
     iconClass: 'HomeIcon  HeaderIcon',
-    redirectTo: ""
+    redirectTo: "/"
   }
 ];
 
