@@ -1,5 +1,11 @@
+.Container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
 .LeftPanel {
-    flex: 1;
+    flex-grow: 1;
     background-color: white;
     padding: 20px;
     border-right: 1px solid black;

@@ -1,10 +1,5 @@
-.Container {
-    display: flex;
-    height: 100vh;
-}
-
 .RightPanel {
-    flex: 4;
+    flex-grow: 4;
     background-color: white;
 }
 
