@@ -10,7 +10,7 @@ services:
     ports:
       - "127.0.0.1:80:80" # may be 80
     expose:
-      - 8000
+      - 80
 
   frontend:
 #    env_file:
