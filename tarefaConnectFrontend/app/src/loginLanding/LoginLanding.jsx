@@ -1,8 +1,9 @@
-import { Link, redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
 import styles from '../Global'
 
+// eslint-disable-next-line
 const panelData = [
   {
     id: 0,

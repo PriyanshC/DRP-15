@@ -20,6 +20,7 @@ export default function Task({ startingIndex = -1 }) {
         }
     ]
     const [index, setIndex] = useState(startingIndex);
+    // eslint-disable-next-line
     const [taskData, setTaskData] = useState(exampleTasks);
     return (
         <div className="Container">

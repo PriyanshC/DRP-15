@@ -6,8 +6,7 @@ import Task from './task/Task';
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Navigate,
+  Route
 } from "react-router-dom";
 import styles from './Global'
 import "bootstrap-icons/font/bootstrap-icons.css";

@@ -76,7 +76,7 @@ function RepliesSection() {
 }
 
 function StarDisplay({ number }) {
-    var stars = new Array()
+    var stars = [];
     for (let i = 0; i < 5 - number; i++) {
         stars.push(
             <div className="star" key={i}>&#9733;</div>
