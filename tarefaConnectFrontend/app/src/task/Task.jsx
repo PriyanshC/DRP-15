@@ -1,8 +1,7 @@
 import "./panelStyle.css";
-import "./createTask.css";
 
-import CreateTask from "./CreateTask";
-import TaskDisplay from "./TaskDisplay"
+import CreateTask from "./create/CreateTask";
+import TaskDisplay from "./display/TaskDisplay"
 import { useState } from "react";
 
 export default function Task({ startingIndex = -1 }) {
@@ -31,11 +30,7 @@ export default function Task({ startingIndex = -1 }) {
 }
 
 function TaskContentPanel({ index, data }) {
-    return (
-        <div>
-            {index == -1 ? <CreateTask /> : <TaskDisplay taskData={data[index]} />}
-        </div>
-    );
+    return (index === -1 ? <CreateTask /> : <TaskDisplay taskData={data[index]} />);
 }
 
 function CurrentTaskPanel({ changeIndex, data }) {
