@@ -7,7 +7,6 @@
 .RightPanel {
     flex: 4;
     background-color: white;
-    padding: 20px;
 }
 
 .CreateTaskTitle {
