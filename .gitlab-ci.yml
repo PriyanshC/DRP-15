@@ -17,14 +17,9 @@ deploy-vm:
   stage: deploy
   script:
     - fuser -k 80/tcp || true
-    - /usr/bin/python3.10 -m venv env
-    - source env/bin/activate
     - cd tarefaConnectFrontend/app
-    - npm ci
-    - npm install react-scripts@3.4.1 -g
     - npm run build
     - cd ../..
-    - pip install --no-cache-dir --upgrade -r tarefaConnectBackend/requirements.txt
     - sudo /home/pc1822/drp_15/env/bin/fastapi run tarefaConnectBackend/backend/main.py --port 80 &
 
 #deploy-heroku:
