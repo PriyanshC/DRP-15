@@ -42,13 +42,14 @@ function CreateTask() {
           </label>
         </div>
         <button
+          type='button'
           className="PostButton"
-          type="submit"
-          onSubmit={() => {
+          onClick={() => {
             api.post("create-task", {
               title: title,
               description: desc
             }).catch(err => console.log(err));
+            return false;
           }}
         >
           Post
