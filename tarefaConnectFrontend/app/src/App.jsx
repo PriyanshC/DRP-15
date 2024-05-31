@@ -2,6 +2,7 @@ import './App.css';
 import Header from './header/Header';
 import LoginLanding from './loginLanding/LoginLanding';
 import CreateTask from './createTask/CreateTask';
+import CurrentTask from './currentTasks/CurrentTasks'
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,6 +29,11 @@ function App() {
             exact 
             path='/createTask'
             element ={<CreateTask/>}
+          />
+          <Route 
+            exact 
+            path='/currentTask'
+            element ={<CurrentTask/>}
           />
         </Routes>
       </Router>

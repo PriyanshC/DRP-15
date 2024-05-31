@@ -1,55 +1,20 @@
 import "./styles.css";
 import styles from '../Global';
+import CurrentTaskPanel from '../currentTasks/CurrentTaskPanel'
 
 function CreateTask() {
     const style = styles();
-
   return (
     <div className="Container">
-        {LeftPanel()}
+        {CurrentTaskPanel()}
         {RightPanel()}
     </div>
   );
 }
 
-function LeftPanel() {
-    return <div className="LeftPanel">
-        <h1 className="CurrentTaskTitle">
-            Your Current Tasks
-        </h1>
-        <hr></hr>
-        {CurrentTaskSection()}
-    </div>;
-}
-
-const taskData = [
-    {
-      title: "Gardening Every Week",
-    },
-    { 
-      title: "Broken Toilet Seat"
-    },
-    {
-      title: "Faulty Light Bulb"
-    }
-  ]
-
-function CurrentTaskSection() {
-    const tasks = taskData.map((item) => {
-        return (
-            <div>
-                <button className="CurrentTaskButton">
-                   {item.title}
-                </button>
-            </div>
-        );
-    })
-    return <div className="CurrentTasks">{tasks}</div>
-}
-
 function RightPanel() {
     return (
-    <div className="RightPanel">
+    <div className="RightPanel" id="TaskRightPanel">
       <h1 className="CreateTaskTitle">
         Create a New Task
       </h1>
@@ -60,10 +25,11 @@ function RightPanel() {
             Title:
           </label>
           <input
+            style={{padding:5}}
             type="text"
             class="form-control"
             id="TaskTitleField"
-            placeholder="title..."
+            placeholder="what do you need?"
           />
         </div>
         <div className="RightPanelElement">
@@ -71,7 +37,7 @@ function RightPanel() {
             Description:
           </label>
           <textarea className="DescriptionTextArea"
-            placeholder="description..."
+            placeholder="tell us a little more..."
           />
         </div>
         <div className="RightPanelElement">
