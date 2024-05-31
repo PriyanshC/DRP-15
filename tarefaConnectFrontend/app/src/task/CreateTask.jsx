@@ -1,33 +1,21 @@
-import "./styles.css";
-import styles from '../Global';
-import CurrentTaskPanel from '../currentTasks/CurrentTaskPanel'
+import './createTask.css'
 
 function CreateTask() {
-    const style = styles();
   return (
-    <div className="Container">
-        {CurrentTaskPanel()}
-        {RightPanel()}
-    </div>
-  );
-}
-
-function RightPanel() {
-    return (
     <div className="RightPanel" id="TaskRightPanel">
       <h1 className="CreateTaskTitle">
         Create a New Task
       </h1>
-      
+
       <form>
         <div className="RightPanelElement">
           <label className="FieldLabel">
             Title:
           </label>
           <input
-            style={{padding:5}}
+            style={{ padding: '5px' }}
             type="text"
-            class="form-control"
+            className="form-control"
             id="TaskTitleField"
             placeholder="what do you need?"
           />
@@ -41,18 +29,18 @@ function RightPanel() {
           />
         </div>
         <div className="RightPanelElement">
-          <label className="FieldLabel"> 
+          <label className="FieldLabel">
             Task Location:
-         </label>
+          </label>
         </div>
         <button
-        className="PostButton" 
-        type="submit">
+          className="PostButton"
+          type="submit">
           Post
         </button>
       </form>
     </div>
-    );
+  );
 }
 
 export default CreateTask;

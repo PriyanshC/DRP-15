@@ -3,7 +3,7 @@
     background-color: white;
     padding: 20px;
     border-right: 1px solid black;
-  }
+}
 
 .CurrentTaskButton {
     background-color: #FBD930;
@@ -20,10 +20,10 @@
 
 .CurrentTaskTitle {
     margin: 0px;
-    color:rgb(73, 73, 73);
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(73, 73, 73);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-weight: bold;
-    font-size:x-large;
-    padding-bottom: 20px; 
+    font-size: x-large;
+    padding-bottom: 20px;
 }

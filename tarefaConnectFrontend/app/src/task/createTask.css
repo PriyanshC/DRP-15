@@ -1,7 +1,6 @@
 .Container {
     display: flex;
-    grid-template-columns: 1fr 4fr;
-    height: 100vh; 
+    height: 100vh;
 }
 
 .RightPanel {
@@ -11,11 +10,11 @@
 
 .CreateTaskTitle {
     margin: 0px;
-    color:rgb(73, 73, 73);
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(73, 73, 73);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-weight: bold;
-    font-size:xx-large;
+    font-size: xx-large;
     padding-bottom: 20px;
 }
 
@@ -25,13 +24,13 @@
 }
 
 .FieldLabel {
-    color:rgb(73, 73, 73);
+    color: rgb(73, 73, 73);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-size: x-large;
     font-weight: bolder;
     margin-right: 15px;
-    vertical-align:top;
+    vertical-align: top;
 }
 
 .DescriptionTextArea {

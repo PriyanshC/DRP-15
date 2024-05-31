@@ -2,7 +2,6 @@ import { Link, redirect } from 'react-router-dom';
 import './styles.css';
 
 import styles from '../Global'
-import { useState } from 'react';
 
 const panelData = [
   {
@@ -15,7 +14,7 @@ const panelData = [
     id: 1,
     buttonText: "Create A Task",
     body: "Tell taskers what exactly you need doing by creating a task!",
-    redirectTo: "/createTask"
+    redirectTo: "/task"
   }
 ]
 
@@ -31,7 +30,7 @@ const panelDataExample = [
     id: 1,
     buttonText: "Create A Task",
     body: "Tell taskers what exactly you need doing by creating a task!",
-    redirectTo: "/createTask"
+    redirectTo: "/task"
   },
   {
     id: 2,
@@ -73,16 +72,3 @@ function LoginLandingButton({ props, text }) {
   );
 
 }
-
-// const panels = panelData.map((item) => {
-//   return (
-//     <div key={item.buttonText} className="LoginLandingItem">
-//       <Link to={item.redirectTo}>
-//       <LoginLandingButton props= />
-//         <button className="LoginLandingButton">
-//           {item.buttonText}
-//         </button>
-//       </Link>
-//       <p className="LoginLandingText">{item.body}</p>
-//     </div>);
-// })
