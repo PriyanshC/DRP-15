@@ -37,7 +37,7 @@ export default function Header() {
       <MenuSection colour={style.colours.primary} data={leftHeader} />
 
       <h1 style={{ margin: 'auto', color: style.colours.primary, flexGrow: 1, fontFamily: style.fonts.heading }}>
-        TarefaConnect(hi mark)
+        TarefaConnect(hi jamie)
       </h1>
 
       <MenuSection colour={style.colours.primary} data={rightHeader} />
