@@ -20,6 +20,8 @@ deploy-vm:
     - /usr/bin/python3.10 -m venv env
     - source env/bin/activate
     - cd tarefaConnectFrontend/app
+    - npm ci
+    - npm install react-scripts@3.4.1 -g
     - npm run build
     - cd ../..
     - pip install --no-cache-dir --upgrade -r tarefaConnectBackend/requirements.txt
