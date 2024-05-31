@@ -1,6 +1,8 @@
 .RightPanel {
-    flex-grow: 4;
     background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
 }
 
 .CreateTaskTitle {

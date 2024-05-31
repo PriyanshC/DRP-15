@@ -5,9 +5,7 @@
 
 .RightContainer {
     display: flex;
-    flex-grow: 4;
     flex-direction: column;
-    grid-template-rows: 2fr 1fr;
     background-color: white;
     height: 100vh;
 }
