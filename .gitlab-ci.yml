@@ -25,7 +25,7 @@ deploy-vm:
     - npm run build
     - cd ../..
     - pip install --no-cache-dir --upgrade -r tarefaConnectBackend/requirements.txt
-    - sudo /home/pc1822/drp_15/env/bin/fastapi run tarefaConnectBackend/backend/main.py --port 80 &
+    - sudo /home/pc1822/drp_15/env/bin/fastapi run tarefaConnectBackend/backend/main.py --port 80 &> runner.log &
 
 #deploy-heroku:
 #  image: ruby:latest
