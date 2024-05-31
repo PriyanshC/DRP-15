@@ -24,7 +24,7 @@
   justify-content: space-around;
 }
 
-.HeaderTitle {
+.HeaderTitle, .MenuButton {
   display: flex;
   align-items: center;
 }

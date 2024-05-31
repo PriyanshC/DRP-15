@@ -1,7 +1,9 @@
 import './App.css';
+import CheckHeader from './header/CheckHeader'
 import Header from './header/Header';
 import LoginLanding from './loginLanding/LoginLanding';
 import Task from './task/Task';
+import LoginRegister from './loginRegister/LoginRegister'
 import axios from 'axios';
 
 import {
@@ -24,22 +26,16 @@ function App() {
   return (
     <main className="App" style={{ fontFamily: mainStyle }}>
       <Router>
-      <Header />
+      <CheckHeader>
+        <Header />
+      </CheckHeader>  
         <Routes>
           <Route path='/'>
             <Route index element={<LoginLanding />} />
             <Route path='task' element={<Task />} />
+            <Route path='loginRegister' element={<LoginRegister />} />            
             <Route path='*' element={<LoginLanding />} />
           </Route>
-          {/* <Route
-            path='/'
-            element={<LoginLanding />}
-          />
-          <Route
-            exact
-            path='/task'
-            element={<Task />}
-          /> */}
         </Routes>
       </Router>
     </main>

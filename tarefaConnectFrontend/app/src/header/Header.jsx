@@ -7,12 +7,14 @@ const rightHeader = [
   {
     key: "messages",
     class: 'bi-envelope-fill',
-    iconClass: 'MessageIcon  HeaderIcon'
+    iconClass: 'MessageIcon  HeaderIcon',
+    redirectTo: ""
   },
   {
     key: 'profile',
     class: 'bi-person-circle',
-    iconClass: 'ProfileIcon  HeaderIcon'
+    iconClass: 'ProfileIcon  HeaderIcon',
+    redirectTo: "/loginRegister"
   }
 ];
 
@@ -20,12 +22,14 @@ const leftHeader = [
   {
     key: "menu",
     class: "bi-list",
-    iconClass: 'MenuIcon HeaderIcon'
+    iconClass: 'MenuIcon HeaderIcon',
+    redirectTo: ""
   },
   {
     key: "home",
     class: "bi-house-door-fill",
-    iconClass: 'HomeIcon  HeaderIcon'
+    iconClass: 'HomeIcon  HeaderIcon',
+    redirectTo: ""
   }
 ];
 
@@ -53,9 +57,11 @@ function MenuSection({ colour, data }) {
     <div className='MenuSection'>
       {data.map((item) => {
         return (
-          <div key={item.key} className={item.iconClass}>
+          <Link className='MenuButton' to={item.redirectTo}>
+            <div key={item.key} className={item.iconClass}>
             <i style={{ color: colour }} className={item.class}></i>
-          </div>
+            </div>
+          </Link> 
         )
       })}
     </div>
