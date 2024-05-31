@@ -1,6 +1,11 @@
+import { useState } from 'react';
 import './createTask.css'
 
+import { api } from '../../App';
+
 function CreateTask() {
+  const [title, changeTitle] = useState("");
+  const [desc, changeDesc] = useState("");
   return (
     <div className="RightPanel" id="TaskRightPanel">
       <h1 className="CreateTaskTitle">
@@ -18,6 +23,7 @@ function CreateTask() {
             className="form-control"
             id="TaskTitleField"
             placeholder="what do you need?"
+            onChange={() => { changeTitle(document.getElementById('TaskTitleField').value) }}
           />
         </div>
         <div className="RightPanelElement">
@@ -26,6 +32,8 @@ function CreateTask() {
           </label>
           <textarea className="DescriptionTextArea"
             placeholder="tell us a little more..."
+            id='taskTextArea'
+            onChange={() => { changeDesc(document.getElementById('taskTextArea').value) }}
           />
         </div>
         <div className="RightPanelElement">
@@ -35,7 +43,14 @@ function CreateTask() {
         </div>
         <button
           className="PostButton"
-          type="submit">
+          type="submit"
+          onSubmit={() => {
+            api.post("create-task", {
+              title: title,
+              description: desc
+            }).catch(err => console.log(err));
+          }}
+        >
           Post
         </button>
       </form>

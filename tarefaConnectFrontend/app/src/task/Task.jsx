@@ -46,6 +46,7 @@ function TaskContentPanel({ index, data }) {
 }
 
 function CurrentTaskPanel({ changeIndex, data }) {
+  const [selected, changeSelected] = useState(-1);
   return (
     <div className="LeftPanel">
       <h1 className="CurrentTaskTitle">
@@ -54,9 +55,11 @@ function CurrentTaskPanel({ changeIndex, data }) {
       <hr></hr>
       <div className="CurrentTasks">
         {data.map(([title, index]) => {
+          var styles = (index === selected ? { backgroundColor: 'blue', color: 'white' } : {});
+          console.log(styles);
           return (
             <div key={index}>
-              <button className="CurrentTaskButton" onClick={() => { changeIndex(index) }}>
+              <button className="CurrentTaskButton" style={styles} onClick={() => { changeIndex(index); changeSelected(index) }}>
                 {title}
               </button>
             </div>
