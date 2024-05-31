@@ -42,7 +42,7 @@ function TaskRepliesPanel(taskName) {
 
 const repliesData = [
     {
-        name: "Andre Casanova",
+        name: " Casanova",
         rating: 5,
         message: "Hey! I am an experienced gardener from Sao Miguel. I have many clients on the island and would love to add your garden to my clients!"
     },

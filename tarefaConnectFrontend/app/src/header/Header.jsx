@@ -1,6 +1,7 @@
 import './styles.css';
 
 import styles from '../Global';
+import { Link } from 'react-router-dom';
 
 const rightHeader = [
   {
@@ -36,9 +37,11 @@ export default function Header() {
 
       <MenuSection colour={style.colours.primary} data={leftHeader} />
 
-      <h1 style={{ margin: 'auto', color: style.colours.primary, flexGrow: 1, fontFamily: style.fonts.heading }}>
-        TarefaConnect(hi jamie)
-      </h1>
+      <Link className='HeaderTitle' to="/" style={{ textDecoration: 'none' }}>
+        <h1  style={{ margin: 'auto', color: style.colours.primary, flexGrow: 1, fontFamily: style.fonts.heading }}>
+          TarefaConnect
+        </h1>
+      </Link>
 
       <MenuSection colour={style.colours.primary} data={rightHeader} />
     </div>

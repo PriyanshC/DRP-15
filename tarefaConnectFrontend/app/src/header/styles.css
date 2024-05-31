@@ -3,7 +3,6 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-
   height: 70px;
   padding: 0px;
   margin: 0px;
@@ -23,6 +22,11 @@
 
 .RightSection {
   justify-content: space-around;
+}
+
+.HeaderTitle {
+  display: flex;
+  align-items: center;
 }
 
 .HeaderIcon {

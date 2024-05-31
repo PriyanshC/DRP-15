@@ -23,8 +23,8 @@ function App() {
   const mainStyle = styles().fonts.paragraph;
   return (
     <main className="App" style={{ fontFamily: mainStyle }}>
-      <Header />
       <Router>
+      <Header />
         <Routes>
           <Route path='/'>
             <Route index element={<LoginLanding />} />
