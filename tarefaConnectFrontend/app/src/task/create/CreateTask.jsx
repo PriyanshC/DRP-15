@@ -3,7 +3,7 @@ import './createTask.css'
 
 import { api } from '../../App';
 
-function CreateTask() {
+function CreateTask({ update }) {
   const [title, changeTitle] = useState("");
   const [desc, changeDesc] = useState("");
   return (
@@ -36,11 +36,11 @@ function CreateTask() {
             onChange={() => { changeDesc(document.getElementById('taskTextArea').value) }}
           />
         </div>
-        <div className="RightPanelElement">
+        {/* <div className="RightPanelElement">
           <label className="FieldLabel">
             Task Location:
           </label>
-        </div>
+        </div> */}
         <button
           type='button'
           className="PostButton"
@@ -49,6 +49,7 @@ function CreateTask() {
               title: title,
               description: desc
             }).catch(err => console.log(err));
+            update();
             return false;
           }}
         >

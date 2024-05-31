@@ -26,8 +26,12 @@ function App() {
       <Header />
       <Router>
         <Routes>
-          <Route
-            exact
+          <Route path='/'>
+            <Route index element={<LoginLanding />} />
+            <Route path='task' element={<Task />} />
+            <Route path='*' element={<LoginLanding />} />
+          </Route>
+          {/* <Route
             path='/'
             element={<LoginLanding />}
           />
@@ -35,7 +39,7 @@ function App() {
             exact
             path='/task'
             element={<Task />}
-          />
+          /> */}
         </Routes>
       </Router>
     </main>
