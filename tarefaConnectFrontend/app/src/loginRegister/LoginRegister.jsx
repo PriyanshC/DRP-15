@@ -34,7 +34,8 @@ function Login({toggleFunc}) {
                     <input type="checkbox" />
                     Remember me
                 </label>
-                <a> Forgot password? </a>
+                {/* Change to anchor */}
+                <label> Forgot password? </label>
             </div>
             <Link to="/" style={{ textDecoration: 'none' }}>
                 <button type='submit'> Login </button>
@@ -42,7 +43,7 @@ function Login({toggleFunc}) {
             <div className="ToRegisterLogin">
                 <p onClick={() => toggleFunc(false)}>
                     Don't have an account yet?
-                    <a> Register </a>
+                    <label> Register </label>
                 </p>
             </div>
         </form>      
@@ -71,7 +72,7 @@ function Register({toggleFunc}) {
         <div className="ToRegisterLogin">
             <p onClick={() => toggleFunc(true)}>
                 Already have an account yet?
-                <a> Login </a>
+                <label> Login </label>
             </p>
         </div>
     </form>  

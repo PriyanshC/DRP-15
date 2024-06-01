@@ -110,7 +110,7 @@
     margin: 20px 0 15px;
 }
 
-.ToRegisterLogin p a {
+.ToRegisterLogin p label{
     color: #fff;
     text-decoration: none;
     font-weight: 600;
