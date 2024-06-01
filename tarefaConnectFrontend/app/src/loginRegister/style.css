@@ -35,6 +35,7 @@
 .Wrapper h1 {
     font-size: 36px;
     text-align: center;
+    user-select: none;
 }
 
 .Wrapper .InputBox {
@@ -103,18 +104,19 @@
     font-weight: 700;
 }
 
-.Wrapper .ToRegister {
+.Wrapper .ToRegisterLogin {
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
 }
 
-.ToRegister p a {
+.ToRegisterLogin p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
 }
 
-.ToRegister:hover {
+.ToRegisterLogin:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
