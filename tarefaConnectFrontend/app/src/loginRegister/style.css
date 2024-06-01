@@ -76,17 +76,13 @@
     margin: 15px 0 15px;
 }
 
-.RememberForgot label input {
+.RememberForgot input label .ForgotPassword{
     accent-color: #fff;
     margin-right: 4px;
-}
-
-.RememberForgot a {
-    color: #fff;
     text-decoration: none;
 }
 
-.RememberForgot a:hover {
+.ForgotPassword:hover {
     text-decoration: underline;
 }
 
