@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './style.css'
 import { Link } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ function Login({toggleFunc}) {
                     <input type="checkbox" />
                     Remember me
                 </label>
-                <a href="#"> Forgot password? </a>
+                <a> Forgot password? </a>
             </div>
             <Link to="/" style={{ textDecoration: 'none' }}>
                 <button type='submit'> Login </button>
@@ -42,7 +42,7 @@ function Login({toggleFunc}) {
             <div className="ToRegisterLogin">
                 <p onClick={() => toggleFunc(false)}>
                     Don't have an account yet?
-                    <a href="#"> Register </a>
+                    <a> Register </a>
                 </p>
             </div>
         </form>      
@@ -71,7 +71,7 @@ function Register({toggleFunc}) {
         <div className="ToRegisterLogin">
             <p onClick={() => toggleFunc(true)}>
                 Already have an account yet?
-                <a href="#"> Login </a>
+                <a> Login </a>
             </p>
         </div>
     </form>  
