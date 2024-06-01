@@ -14,8 +14,8 @@ function LoginRegister() {
 }
 
 function FormPanel({isLogin: index, toggleFunc}) {
-    return index == 0 ? <Login toggleFunc={toggleFunc}/> : 
-    (index == 1 ? <Register toggleFunc={toggleFunc}/> : <ForgotPassword toggleFunc={toggleFunc}/>)
+    return index === 0 ? <Login toggleFunc={toggleFunc}/> : 
+    (index === 1 ? <Register toggleFunc={toggleFunc}/> : <ForgotPassword toggleFunc={toggleFunc}/>)
 }
 
 function Login({toggleFunc}) {
