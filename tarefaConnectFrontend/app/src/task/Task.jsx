@@ -55,10 +55,10 @@ function CurrentTaskPanel({ changeIndex, data }) {
   return (
     <div className="LeftPanel">
       <h1 className="CurrentTaskTitle">
-        Your Current Tasks
+        Current Tasks
       </h1>
-      <hr></hr>
-      <div className="CurrentTasks">
+      <hr style={{ borderColor: 'var(--accent-color)' }}></hr>
+      <div className="TaskList">
         {data.map(([title, index]) => {
           var styles = (index === selected ? { backgroundColor: 'var(--button-press)' } : {});
           return (

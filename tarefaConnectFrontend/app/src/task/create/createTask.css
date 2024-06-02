@@ -1,49 +1,74 @@
 .RightPanel {
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 15px 10px 20px 10px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
+    height: fit-content;
+    border: 1px solid var(--accent-color);
+    background-color: var(--background-secondary);
+    display: flex;
+    flex-direction: column;
+}
+
+.CreateTaskForm {
+    background-color: var(--background-primary);
+    padding: 20px 20px 5px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color)
 }
 
 .CreateTaskTitle {
-    margin: 0px;
+    margin-bottom: 20px;
     font-weight: bold;
-    font-size: xx-large;
-    padding-bottom: 20px;
+    font-size: 35px;
 }
 
 .RightPanelElement {
-    text-align: center;
-    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .FieldLabel {
+    text-align: right;
     font-style: italic;
-    font-size: x-large;
+    width: 150px;
+    font-size: 20px;
     font-weight: bold;
     margin-right: 15px;
-    vertical-align: top;
 }
 
-.DescriptionTextArea {
+.DescriptionInput {
     resize: none;
     width: 300px;
     height: 150px;
-    padding: 10px;
+    padding: 5px;
     background-color: var(--background-secondary);
     border: 1px solid var(--accent-color);
-    color: var(--accent-color);
+    color: var(--font-color-primary);
+    font-size: 15px;
 }
 
 .PostButton {
-    padding-inline: 40px;
+    padding-block: 5px;
+    margin: auto;
+    margin-top: 20px;
     border-radius: 10px;
+    padding-inline: 50px;
     background-color: var(--button-color);
     font-style: italic;
     font-weight: bold;
-    font-size: xx-large;
+    font-size: 30px;
 }
 
-.form-control {
+.TitleInput {
+    font-weight: bold;
+    font-size: 15px;
     background-color: var(--background-secondary);
     border: 1px solid var(--accent-color);
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    color: var(--font-color-primary);
 }

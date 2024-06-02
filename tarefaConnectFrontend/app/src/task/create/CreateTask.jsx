@@ -3,57 +3,51 @@ import './CreateTask.css'
 
 import { api } from '../../App';
 
-function CreateTask({ update }) {
-  const [title, changeTitle] = useState("");
-  const [desc, changeDesc] = useState("");
+export default function CreateTask() {
+  const [formData, updateForm] = useState({ title: '', desc: '' })
+
+  const handleChange = (e) => {
+    updateForm(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const handleSubmit = () => {
+    api.post("create-task", formData).catch(err => console.log(err));
+  }
+
   return (
-    <div className="RightPanel" id="TaskRightPanel">
+    <div className="RightPanel">
       <h1 className="CreateTaskTitle">
         Create a New Task
       </h1>
 
-      <form>
+      <form className='CreateTaskForm'>
         <div className="RightPanelElement">
-          <label className="FieldLabel">
-            Title:
-          </label>
+          <label className="FieldLabel">Title:</label>
           <input
-            style={{ padding: '5px' }}
             type="text"
-            className="form-control"
-            id="TaskTitleField"
+            className="TitleInput"
+            name='title'
             placeholder="What do you need?"
-            onChange={() => { changeTitle(document.getElementById('TaskTitleField').value) }}
+            onChange={handleChange}
           />
         </div>
         <div className="RightPanelElement">
           <label className="FieldLabel">
             Description:
           </label>
-          <textarea className="DescriptionTextArea"
+          <textarea className="DescriptionInput"
             placeholder="Tell us a little more..."
-            id='taskTextArea'
-            onChange={() => { changeDesc(document.getElementById('taskTextArea').value) }}
+            name='desc'
+            onChange={handleChange}
           />
         </div>
-        <button
-          type='button'
-          className="PostButton"
-          onClick={() => {
-            api.post("create-task", {
-              title: title,
-              description: desc
-            }).catch(err => console.log(err));
-            update();
-            return false;
-          }}
-          style={{ color: 'inherit' }}
-        >
-          Post
-        </button>
       </form>
+      <button className="PostButton" style={{ color: 'inherit' }} onClick={() => { handleSubmit }} >
+        Post
+      </button>
     </div>
   );
 }
-
-export default CreateTask;

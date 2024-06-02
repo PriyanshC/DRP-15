@@ -39,7 +39,7 @@ export default function Header() {
       <MenuSection data={leftHeader} />
 
       <Link className='HeaderTitle' to="/" style={{ textDecoration: 'inherit', color: 'inherit' }}>
-        <h1 className='HeaderTitleText'>
+        <h1 className='HeaderTitleText' style={{ fontSize: 'inherit' }}>
           TarefaConnect
         </h1>
       </Link>
@@ -54,8 +54,8 @@ function MenuSection({ data }) {
     <div className='MenuSection'>
       {data.map((item) => {
         return (
-          <Link className='MenuButton' to={item.redirectTo}>
-            <div key={item.key} className={item.iconClass + ' HeaderIcon'}>
+          <Link key={item.key} className='MenuButton' to={item.redirectTo}>
+            <div className={item.iconClass + ' HeaderIcon'}>
               <i className={item.class}></i>
             </div>
           </Link>

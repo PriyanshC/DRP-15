@@ -5,9 +5,10 @@
   justify-content: space-between;
   border-bottom: 1px solid var(--accent-color);
   background-color: var(--background-secondary);
-  height: 70px;
+  height: min(max(70px, 6vw), 100px);
   padding: 0px;
   margin: 0px;
+  font-size: min(max(35px, 3vw), 50px);
 }
 
 .MenuSection {
@@ -18,35 +19,28 @@
   justify-content: space-around;
 }
 
-.LeftSection {
-  justify-content: space-around;
-}
-
-.RightSection {
-  justify-content: space-around;
-}
-
 .HeaderTitle,
 .MenuButton {
   display: flex;
   align-items: center;
+  margin: 0px 5px 0px 5px;
 }
 
 .HeaderIcon {
   margin: auto;
   text-align: center;
-  font-size: 35px;
   padding: 0;
   color: var(--font-color-secondary);
 }
 
 .MenuIcon {
-  font-size: 40px;
+  font-size: max(40px, 'inherit');
   padding-right: 0px;
   margin-right: 0px;
 }
 
 .HeaderTitleText {
+
   margin: auto;
   flex-grow: 1;
   color: var(--font-color-secondary);
