@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import './LoginLanding.css';
 
-import styles from '../Global'
-
 // eslint-disable-next-line
 const panelData = [
   {

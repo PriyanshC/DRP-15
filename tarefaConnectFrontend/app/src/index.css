@@ -1,7 +1,7 @@
 :root {
   --background-primary: rgb(210, 210, 210);
   --background-secondary: white;
-  --background-tertiary: #015cab1e;
+  --background-tertiary: #fbd93013;
   --font-color-primary: black;
   --font-color-secondary: #015CAB;
   --accent-color: #656565;
@@ -15,7 +15,7 @@
 [data-theme='dark'] {
   --background-primary: rgb(30, 30, 30);
   --background-secondary: rgb(60, 60, 60);
-  --background-tertiary: #fbd93013;
+  --background-tertiary: #015cab1e;
   --font-color-primary: white;
   --font-color-secondary: #FBD930;
   --accent-color: #656565;
