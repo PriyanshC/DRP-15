@@ -1,7 +1,7 @@
-import './createTask.css'
+import './CreateTask.css'
 
 import { useState } from 'react';
-import { api } from '../../App';
+import { api } from '../../App.tsx';
 
 export default function CreateTask() {
   const [formData, updateForm] = useState({ title: '', desc: '' })

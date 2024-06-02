@@ -1,10 +1,17 @@
+.HeaderWrapper {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--accent-color);
+  background-color: var(--background-secondary);
+}
+
 .Header {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  border-bottom: 1px solid var(--accent-color);
-  background-color: var(--background-secondary);
   height: min(max(70px, 6vw), 100px);
   padding: 0px;
   margin: 0px;

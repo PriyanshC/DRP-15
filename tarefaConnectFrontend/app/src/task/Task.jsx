@@ -3,7 +3,7 @@ import "./Task.css";
 import CreateTask from "./create/CreateTask";
 import TaskDisplay from "./display/TaskDisplay"
 import { useEffect, useState } from "react";
-import { api } from "../App";
+import { api } from "../App.tsx";
 
 export default function Task({ startingIndex = -1 }) {
   const exampleTasks = [
@@ -60,7 +60,7 @@ function CurrentTaskPanel({ changeIndex, data }) {
       <hr style={{ borderColor: 'var(--accent-color)' }}></hr>
       <div className="TaskList">
         {data.map(([title, index]) => {
-          var styles = (index === selected ? { backgroundColor: 'var(--button-press)' } : {});
+          var styles = (index === selected ? { backgroundColor: 'var(--button-press-highlight)' } : {});
           return (
             <div key={index}>
               <button className="CurrentTaskButton" style={styles} onClick={() => { changeIndex(index); changeSelected(index) }}>

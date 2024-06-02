@@ -28,6 +28,7 @@
     height: var(--height);
     line-height: var(--height);
     width: 240px;
+    font-family: var(--font-family-title);
     text-align: center;
     font-size: 25px;
     white-space: nowrap;

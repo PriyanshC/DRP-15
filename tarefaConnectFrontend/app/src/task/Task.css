@@ -32,4 +32,9 @@
     color: var(--font-color);
     font-weight: bolder;
     font-size: 15px;
+    transition: all 0.3s;
+}
+
+.CurrentTaskButton:hover {
+    background-color: var(--button-press);
 }

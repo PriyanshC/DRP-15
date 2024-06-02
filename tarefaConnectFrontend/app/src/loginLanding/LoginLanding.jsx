@@ -42,20 +42,13 @@ const panelDataExample = [
 ]
 
 export default function LoginLanding() {
-  const style = styles();
-  const buttonProps = {
-    background: style.colours.secondary,
-    hover: style.colours.primary,
-    textFont: style.fonts.heading,
-    textColour: 'black'
-  };
   return (
     <div className="LoginLanding">
       {panelDataExample.map((item) => {
         return (
           <div key={item.id} className="LoginLandingItem">
             <Link to={item.redirectTo} style={{ textDecoration: 'inherit', color: 'inherit' }}>
-              <LoginLandingButton props={buttonProps} text={item.buttonText} />
+              <LoginLandingButton text={item.buttonText} />
             </Link>
             <p className="LoginLandingText">{item.body}</p>
           </div>
@@ -65,9 +58,9 @@ export default function LoginLanding() {
   );
 }
 
-function LoginLandingButton({ props, text }) {
+function LoginLandingButton({ text }) {
   return (
-    <div style={{ fontFamily: props.textFont }} className='LoginLandingButton'>
+    <div className='LoginLandingButton'>
       {text}
     </div>
   );
