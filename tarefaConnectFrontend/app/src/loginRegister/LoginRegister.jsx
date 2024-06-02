@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import './LoginRegister.css'
+
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function LoginRegister() {
