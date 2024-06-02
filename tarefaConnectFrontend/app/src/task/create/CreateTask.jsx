@@ -45,7 +45,7 @@ export default function CreateTask() {
           />
         </div>
       </form>
-      <button className="PostButton" style={{ color: 'inherit' }} onClick={() => { handleSubmit }} >
+      <button className="PostButton" style={{ color: 'inherit' }} onClick={() => { handleSubmit() }} >
         Post
       </button>
     </div>
