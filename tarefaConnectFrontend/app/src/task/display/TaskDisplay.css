@@ -6,7 +6,6 @@
 .RightContainer {
     display: flex;
     flex-direction: column;
-    background-color: white;
     height: 100vh;
 }
 
@@ -19,7 +18,6 @@
 
 .TaskRepliesPanel {
     flex: 1;
-    background-color: white;
     text-align: left;
 }
 
@@ -28,23 +26,20 @@
     margin-right: 60px;
     margin-bottom: 20px;
     display: flex;
-    border: 1px solid black;
+    border: 1px solid var(--accent-color);
     border-radius: 10px;
 }
 
 .ReplyName {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-weight: bolder;
     font-size: x-large;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: rgb(73, 73, 73)
 }
 
 .star-rating {
     display: inline-block;
-
 }
 
 .stars-container {
@@ -76,7 +71,6 @@
 
 .Divider {
     width: 1px;
-    background-color: black;
 }
 
 .ReplyMessage {
@@ -91,17 +85,14 @@
 
 .TaskInfoPanel {
     flex: 1.25;
-    border-bottom: 1px solid black;
-    background-color: white;
+    border-bottom: 1px solid var(--accent-color);
     text-align: left;
 }
 
 .TaskName,
 .RepliesHeader {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-weight: bolder;
-    color: rgb(73, 73, 73);
 }
 
 .TaskName {
@@ -116,11 +107,9 @@
 }
 
 .TaskDescription {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-weight: bold;
     font-size: larger;
-    color: rgb(127, 123, 123);
     padding-left: 20px;
     padding-right: 40px;
     text-overflow: ellipsis;
@@ -129,5 +118,5 @@
 .TaskLocationPanel {
     flex: 1;
     background-color: cadetblue;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--accent-color);
 }

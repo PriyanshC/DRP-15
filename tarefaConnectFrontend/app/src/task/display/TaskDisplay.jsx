@@ -1,4 +1,4 @@
-import './style.css';
+import './TaskDisplay.css';
 
 export default function TaskDisplay({ taskData }) {
     return (
@@ -7,7 +7,7 @@ export default function TaskDisplay({ taskData }) {
                 <TaskInfoPanel taskData={taskData} />
                 <TaskLocationPanel />
             </div>
-            <TaskRepliesPanel taskName />
+            <TaskRepliesPanel />
         </div>
     );
 }
@@ -31,10 +31,11 @@ function TaskInfoPanel({ taskData }) {
     );
 }
 
-function TaskRepliesPanel(taskName) {
+function TaskRepliesPanel() {
     return (
+        // Conditionally render this depending on # of replies
         <div className="TaskRepliesPanel">
-            <h1 className="RepliesHeader"> Replies </h1>
+            <h1 className="RepliesHeader">Replies from Taskers!</h1>
             <RepliesSection />
         </div>
     );

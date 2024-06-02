@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './createTask.css'
+import './CreateTask.css'
 
 import { api } from '../../App';
 
@@ -22,7 +22,7 @@ function CreateTask({ update }) {
             type="text"
             className="form-control"
             id="TaskTitleField"
-            placeholder="what do you need?"
+            placeholder="What do you need?"
             onChange={() => { changeTitle(document.getElementById('TaskTitleField').value) }}
           />
         </div>
@@ -31,16 +31,11 @@ function CreateTask({ update }) {
             Description:
           </label>
           <textarea className="DescriptionTextArea"
-            placeholder="tell us a little more..."
+            placeholder="Tell us a little more..."
             id='taskTextArea'
             onChange={() => { changeDesc(document.getElementById('taskTextArea').value) }}
           />
         </div>
-        {/* <div className="RightPanelElement">
-          <label className="FieldLabel">
-            Task Location:
-          </label>
-        </div> */}
         <button
           type='button'
           className="PostButton"
@@ -52,6 +47,7 @@ function CreateTask({ update }) {
             update();
             return false;
           }}
+          style={{ color: 'inherit' }}
         >
           Post
         </button>

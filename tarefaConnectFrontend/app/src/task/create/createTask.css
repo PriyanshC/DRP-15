@@ -1,5 +1,4 @@
 .RightPanel {
-    background-color: white;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
@@ -7,9 +6,6 @@
 
 .CreateTaskTitle {
     margin: 0px;
-    color: rgb(73, 73, 73);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-style: italic;
     font-weight: bold;
     font-size: xx-large;
     padding-bottom: 20px;
@@ -21,11 +17,9 @@
 }
 
 .FieldLabel {
-    color: rgb(73, 73, 73);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-size: x-large;
-    font-weight: bolder;
+    font-weight: bold;
     margin-right: 15px;
     vertical-align: top;
 }
@@ -35,15 +29,21 @@
     width: 300px;
     height: 150px;
     padding: 10px;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
 }
 
 .PostButton {
     padding-inline: 40px;
     border-radius: 10px;
-    background-color: #015CAB;
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: var(--button-color);
     font-style: italic;
     font-weight: bold;
     font-size: xx-large;
+}
+
+.form-control {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-color);
 }

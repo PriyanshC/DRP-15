@@ -1,4 +1,4 @@
-import "./panelStyle.css";
+import "./Task.css";
 
 import CreateTask from "./create/CreateTask";
 import TaskDisplay from "./display/TaskDisplay"
@@ -25,7 +25,7 @@ export default function Task({ startingIndex = -1 }) {
   const [renderBool, setRender] = useState(false);
 
   const renderTasks = () => {
-    setRender(!renderBool);
+    setRender((prev) => !prev);
   }
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function CurrentTaskPanel({ changeIndex, data }) {
       <hr></hr>
       <div className="CurrentTasks">
         {data.map(([title, index]) => {
-          var styles = (index === selected ? { backgroundColor: 'blue', color: 'white' } : {});
+          var styles = (index === selected ? { backgroundColor: 'var(--button-press)' } : {});
           return (
             <div key={index}>
               <button className="CurrentTaskButton" style={styles} onClick={() => { changeIndex(index); changeSelected(index) }}>

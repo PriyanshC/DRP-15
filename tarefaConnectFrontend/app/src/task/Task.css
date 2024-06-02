@@ -6,19 +6,21 @@
 
 .LeftPanel {
     width: 250px;
-    background-color: white;
     padding: 20px;
-    border-right: 1px solid black;
+    border-right: 1px solid var(--accent-color);
+}
+
+.CurrentTasks {
+    margin-top: 10px;
 }
 
 .CurrentTaskButton {
-    background-color: #FBD930;
+    background-color: var(--button-color);
     width: 12em;
     height: 2em;
     border-radius: 10px;
     margin-bottom: 10px;
-    color: rgb(73, 73, 73);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: var(--font-color);
     font-style: italic;
     font-weight: bolder;
     font-size: 1em;
@@ -26,8 +28,7 @@
 
 .CurrentTaskTitle {
     margin: 0px;
-    color: rgb(73, 73, 73);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: var(--font-color);
     font-style: italic;
     font-weight: bold;
     font-size: x-large;
