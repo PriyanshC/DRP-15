@@ -31,7 +31,10 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @app.post("/api/login", response_model=schemas.User)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
-    return crud.check_user_details(db, user_details)
+    db_user = crud.check_user_details(db, user_details)
+    if db_user is None:
+        raise HTTPException(status_code=401, detail="Incorrect email or password.")
+    return db_user
 
 
 @app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
