@@ -1,9 +1,7 @@
 from typing import Generator
 
-from fastapi import Depends, FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
@@ -12,18 +10,6 @@ from .database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-
-# origins = [
-#     'http://localhost:3000'
-# ]
-#
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"]
-# )
 
 
 # Dependency
@@ -35,24 +21,41 @@ def get_db() -> Generator:
         db.close()
 
 
-class Task(BaseModel):
-    title: str
-    description: str
+@app.post("/api/create-user", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already in use.")
+    return crud.create_user(db, user)
 
 
-@app.get("/api/create-task", response_model=list[schemas.Task])
-def get_all_tasks(db: Session = Depends(get_db)):
-    return crud.get_all_tasks(db)
+@app.post("/api/login", response_model=schemas.User)
+def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
+    return crud.check_user_details(db, user_details)
 
 
-@app.post("/api/create-task", response_model=schemas.Task)
-def create_task(new_task: schemas.TaskCreate, db: Session = Depends(get_db)):
-    return crud.create_task(db, new_task)
+@app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
+def get_user_tasks(user_id: int, limit: int | None, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return crud.get_user_tasks(db, user_id, limit)
+
+
+@app.post("/api/{user_id}/create-task", response_model=schemas.Task)
+def create_task(user_id: int, new_task: schemas.TaskCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return crud.create_task(db, new_task, user_id)
 
 
 @app.get("/api/tasks/{task_id}", response_model=schemas.Task)
 def get_task(task_id: int, db: Session = Depends(get_db)):
-    return crud.get_task(db, task_id)
+    db_task = crud.get_task(db, task_id)
+    if db_task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return db_task
 
 
 app.mount("/", StaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")
