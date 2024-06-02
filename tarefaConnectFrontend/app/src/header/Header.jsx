@@ -1,19 +1,18 @@
 import './styles.css';
 
-import styles from '../Global';
 import { Link } from 'react-router-dom';
 
 const rightHeader = [
   {
     key: "messages",
     class: 'bi-envelope-fill',
-    iconClass: 'MessageIcon  HeaderIcon',
+    iconClass: 'MessageIcon',
     redirectTo: ""
   },
   {
     key: 'profile',
     class: 'bi-person-circle',
-    iconClass: 'ProfileIcon  HeaderIcon',
+    iconClass: 'ProfileIcon',
     redirectTo: "/loginRegister"
   }
 ];
@@ -22,46 +21,44 @@ const leftHeader = [
   {
     key: "menu",
     class: "bi-list",
-    iconClass: 'MenuIcon HeaderIcon',
+    iconClass: 'MenuIcon',
     redirectTo: ""
   },
   {
     key: "home",
     class: "bi-house-door-fill",
-    iconClass: 'HomeIcon  HeaderIcon',
+    iconClass: 'HomeIcon',
     redirectTo: "/"
   }
 ];
 
 export default function Header() {
-  const style = styles();
-
   return (
-    <div className="Header" style={{ backgroundColor: style.colours.backgroundPrimary, borderBottom: '1px solid ' + style.colours.tertiary }}>
+    <div className="Header" >
 
-      <MenuSection colour={style.colours.primary} data={leftHeader} />
+      <MenuSection data={leftHeader} />
 
-      <Link className='HeaderTitle' to="/" style={{ textDecoration: 'none' }}>
-        <h1  style={{ margin: 'auto', color: style.colours.primary, flexGrow: 1, fontFamily: style.fonts.heading }}>
+      <Link className='HeaderTitle' to="/" style={{ textDecoration: 'inherit', color: 'inherit' }}>
+        <h1 className='HeaderTitleText'>
           TarefaConnect
         </h1>
       </Link>
 
-      <MenuSection colour={style.colours.primary} data={rightHeader} />
+      <MenuSection data={rightHeader} />
     </div>
   );
 }
 
-function MenuSection({ colour, data }) {
+function MenuSection({ data }) {
   return (
     <div className='MenuSection'>
       {data.map((item) => {
         return (
           <Link className='MenuButton' to={item.redirectTo}>
-            <div key={item.key} className={item.iconClass}>
-            <i style={{ color: colour }} className={item.class}></i>
+            <div key={item.key} className={item.iconClass + ' HeaderIcon'}>
+              <i className={item.class}></i>
             </div>
-          </Link> 
+          </Link>
         )
       })}
     </div>

@@ -54,7 +54,7 @@ export default function LoginLanding() {
       {panelDataExample.map((item) => {
         return (
           <div key={item.id} className="LoginLandingItem">
-            <Link to={item.redirectTo} style={{ textDecoration: 'none' }}>
+            <Link to={item.redirectTo} style={{ textDecoration: 'inherit', color: 'inherit' }}>
               <LoginLandingButton props={buttonProps} text={item.buttonText} />
             </Link>
             <p className="LoginLandingText">{item.body}</p>
@@ -67,7 +67,7 @@ export default function LoginLanding() {
 
 function LoginLandingButton({ props, text }) {
   return (
-    <div style={{ /*backgroundColor: props.background, */color: props.textColour, fontFamily: props.textFont }} className='LoginLandingButton'>
+    <div style={{ fontFamily: props.textFont }} className='LoginLandingButton'>
       {text}
     </div>
   );

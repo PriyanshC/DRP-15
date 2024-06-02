@@ -3,6 +3,8 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
+  border-bottom: 1px solid var(--accent-color);
+  background-color: var(--background-secondary);
   height: 70px;
   padding: 0px;
   margin: 0px;
@@ -24,7 +26,8 @@
   justify-content: space-around;
 }
 
-.HeaderTitle, .MenuButton {
+.HeaderTitle,
+.MenuButton {
   display: flex;
   align-items: center;
 }
@@ -34,6 +37,7 @@
   text-align: center;
   font-size: 35px;
   padding: 0;
+  color: var(--font-color-secondary);
 }
 
 .MenuIcon {
@@ -42,4 +46,9 @@
   margin-right: 0px;
 }
 
-
+.HeaderTitleText {
+  margin: auto;
+  flex-grow: 1;
+  color: var(--font-color-secondary);
+  font-family: var(--font-family-title);
+}
