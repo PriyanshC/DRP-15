@@ -91,4 +91,5 @@
 .ThemeIcon {
   transition: all 1s;
   margin-left: 10px;
+  font-size: 25px;
 }
