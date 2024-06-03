@@ -41,7 +41,7 @@ export default function CreateTask() {
           </label>
           <textarea className="DescriptionInput"
             placeholder="Tell us a little more..."
-            name='desc'
+            name='description'
             onChange={handleChange}
           />
         </div>
