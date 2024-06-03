@@ -65,6 +65,8 @@
 }
 
 .CollapseIconBar {
+  display: flex;
+  flex-direction: row;
   border: 1px solid var(--accent-color);
   border-radius: 10px;
   margin: 20px;

@@ -22,11 +22,6 @@ export default function Task({ startingIndex = -1 }) {
   ]
   const [index, setIndex] = useState(startingIndex);
   const [taskData, setTaskData] = useState(exampleTasks);
-  const [renderBool, setRender] = useState(false);
-
-  const renderTasks = () => {
-    setRender((prev) => !prev);
-  }
 
   useEffect(() => {
     api.get("create-task")
@@ -36,18 +31,22 @@ export default function Task({ startingIndex = -1 }) {
       .catch(err => {
         console.log(err);
       })
-  }, [renderBool])
+  }, [])
+
+  const addTask = (task) => {
+    setTaskData(prev => [...prev, task])
+  }
 
   return (
     <div className="Container">
       <CurrentTaskPanel changeIndex={setIndex} data={taskData.map((item, index) => [item.title, index])} />
-      <TaskContentPanel index={index} data={taskData} update={renderTasks} />
+      <TaskContentPanel index={index} data={taskData} addTask={addTask} />
     </div>
   );
 }
 
-function TaskContentPanel({ index, data, update }) {
-  return (index === -1 ? <CreateTask update={update} /> : <TaskDisplay taskData={data[index]} />);
+function TaskContentPanel({ index, data, addTask }) {
+  return (index === -1 ? <CreateTask addTask={addTask} /> : <TaskDisplay taskData={data[index]} />);
 }
 
 function CurrentTaskPanel({ changeIndex, data }) {
