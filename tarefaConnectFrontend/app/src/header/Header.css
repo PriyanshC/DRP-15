@@ -16,6 +16,7 @@
   padding: 0px;
   margin: 0px;
   font-size: min(max(35px, 3vw), 50px);
+  background-color: var(--background-secondary);
 }
 
 .MenuSection {
@@ -40,6 +41,10 @@
   color: var(--font-color-secondary);
 }
 
+.HeaderIcon:hover {
+  cursor: pointer;
+}
+
 .MenuIcon {
   font-size: max(40px, 'inherit');
   padding-right: 0px;
@@ -47,9 +52,43 @@
 }
 
 .HeaderTitleText {
-
   margin: auto;
   flex-grow: 1;
   color: var(--font-color-secondary);
   font-family: var(--font-family-title);
+}
+
+.MenuCollapse {
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
+  overflow: hidden;
+}
+
+.CollapseIconBar {
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  margin: 20px;
+  margin-top: 0;
+  background-color: var(--background-tertiary);
+}
+
+.ThemeToggle {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  background-color: var(--background-secondary);
+  padding-inline: 20px;
+  padding-block: 2px;
+  color: var(--font-color-secondary);
+}
+
+.ThemeIcon {
+  transition: all 1s;
+  margin-left: 10px;
 }

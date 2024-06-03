@@ -37,7 +37,7 @@ function App() {
     <main className="App" data-theme={theme} style={{ fontFamily: 'var(--font-family)' }}>
       <Router>
         <CheckHeader>
-          <Header changeTheme={changeTheme} />
+          <Header changeTheme={changeTheme} currentTheme={theme} />
         </CheckHeader>
         <Routes>
           <Route path='/'>

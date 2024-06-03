@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { api } from '../../App.tsx';
 
 export default function CreateTask() {
-  const [formData, updateForm] = useState({ title: '', desc: '' })
+  const [formData, updateForm] = useState({ title: '', description: '' })
 
   const handleChange = (e) => {
     updateForm(prev => ({
