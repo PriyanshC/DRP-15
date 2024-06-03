@@ -14,6 +14,7 @@ export default function CreateTask() {
   }
 
   const handleSubmit = () => {
+    console.log(formData);
     api.post("create-task", formData).catch(err => console.log(err));
   }
 
@@ -45,9 +46,9 @@ export default function CreateTask() {
           />
         </div>
       </form>
-      <div className="PostButton" onClick={() => { handleSubmit() }} >
+      <button className="PostButton" onClick={handleSubmit} >
         Post
-      </div>
+      </button>
     </div>
   );
 }
