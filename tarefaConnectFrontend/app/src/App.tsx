@@ -11,6 +11,7 @@ import {
   Route
 } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import PageNotFound from "./404Page";
 import useLocalStorage from 'use-local-storage';
 import React from 'react';
 
@@ -44,7 +45,7 @@ function App() {
             <Route index element={<LoginLanding />} />
             <Route path='task' element={<Task />} />
             <Route path='loginRegister' element={<LoginRegister />} />
-            <Route path='*' element={<LoginLanding />} />
+            <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
       </Router>

@@ -3,6 +3,7 @@ from typing import Generator
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
@@ -10,6 +11,20 @@ from .database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+
+class SPAStaticFiles(StaticFiles):
+    async def get_response(self, path: str, scope):
+        try:
+            return await super().get_response(path, scope)
+        except (HTTPException, StarletteHTTPException) as ex:
+            if ex.status_code == 404:
+                return await super().get_response("index.html", scope)
+            else:
+                raise ex
+
+
+app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")
 
 
 # Dependency
@@ -61,4 +76,8 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     return db_task
 
 
-app.mount("/", StaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")
+# @app.api_route("/{catchall:path}")
+# async def serve_react_app(catchall: str):
+#     print("hi")
+#     return FileResponse("/index.html")
+
