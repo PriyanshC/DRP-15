@@ -3,7 +3,7 @@ import "./Task.css";
 import CreateTask from "./create/CreateTask";
 import TaskDisplay from "./display/TaskDisplay"
 import { useEffect, useState } from "react";
-import { api } from "../App.tsx";
+// import { api } from "../App.tsx";
 
 export default function Task({ startingIndex = -1 }) {
   const exampleTasks = [
@@ -23,15 +23,15 @@ export default function Task({ startingIndex = -1 }) {
   const [index, setIndex] = useState(startingIndex);
   const [taskData, setTaskData] = useState(exampleTasks);
 
-  // useEffect(() => {
-  //   api.get("create-task")
-  //     .then(data => {
-  //       setTaskData(data.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     })
-  // }, [])
+  useEffect(() => {
+    // api.get("create-task")
+    //   .then(data => {
+    //     setTaskData(data.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+  }, [])
 
   const addTask = (task) => {
     setTaskData(prev => [...prev, task])
