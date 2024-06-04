@@ -1,0 +1,82 @@
+.RightPanel {
+    margin-top: 40px;
+    border-radius: 20px;
+    padding: 15px 10px 20px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    border: 1px solid var(--accent-color);
+    background-color: var(--background-secondary);
+    display: flex;
+    flex-direction: column;
+}
+
+.CreateTaskForm {
+    background-color: var(--background-tertiary);
+    padding: 20px 20px 5px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color)
+}
+
+.CreateTaskTitle {
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.RightPanelElement {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.FieldLabel {
+    text-align: right;
+    font-style: italic;
+    width: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.DescriptionInput {
+    font-family: var(--font-family);
+    resize: none;
+    width: 300px;
+    height: 150px;
+    padding: 5px;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-color);
+    color: var(--font-color-primary);
+    font-size: 15px;
+}
+
+.PostButton {
+    padding-block: 5px;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding-inline: 50px;
+    background-color: var(--button-color);
+    font-style: italic;
+    font-weight: bold;
+    font-size: 30px;
+    transition: all 0.3s;
+    border: 1px solid var(--accent-color);
+}
+
+.PostButton:hover {
+    background-color: var(--button-press);
+}
+
+.TitleInput {
+    font-weight: bold;
+    font-size: 15px;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--accent-color);
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+    color: var(--font-color-primary);
+    font-family: var(--font-family);
+}

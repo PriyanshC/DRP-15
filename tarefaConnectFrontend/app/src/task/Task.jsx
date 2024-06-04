@@ -1,9 +1,9 @@
-import "./panelStyle.css";
+import "./Task.css";
 
 import CreateTask from "./create/CreateTask";
 import TaskDisplay from "./display/TaskDisplay"
 import { useEffect, useState } from "react";
-import { api } from "../App";
+import { api } from "../App.tsx";
 
 export default function Task({ startingIndex = -1 }) {
   const exampleTasks = [
@@ -22,11 +22,6 @@ export default function Task({ startingIndex = -1 }) {
   ]
   const [index, setIndex] = useState(startingIndex);
   const [taskData, setTaskData] = useState(exampleTasks);
-  const [renderBool, setRender] = useState(false);
-
-  const renderTasks = () => {
-    setRender(!renderBool);
-  }
 
   useEffect(() => {
     api.get("create-task")
@@ -36,18 +31,22 @@ export default function Task({ startingIndex = -1 }) {
       .catch(err => {
         console.log(err);
       })
-  }, [renderBool])
+  }, [])
+
+  const addTask = (task) => {
+    setTaskData(prev => [...prev, task])
+  }
 
   return (
     <div className="Container">
       <CurrentTaskPanel changeIndex={setIndex} data={taskData.map((item, index) => [item.title, index])} />
-      <TaskContentPanel index={index} data={taskData} update={renderTasks} />
+      <TaskContentPanel index={index} data={taskData} addTask={addTask} />
     </div>
   );
 }
 
-function TaskContentPanel({ index, data, update }) {
-  return (index === -1 ? <CreateTask update={update} /> : <TaskDisplay taskData={data[index]} />);
+function TaskContentPanel({ index, data, addTask }) {
+  return (index === -1 ? <CreateTask addTask={addTask} /> : <TaskDisplay taskData={data[index]} />);
 }
 
 function CurrentTaskPanel({ changeIndex, data }) {
@@ -55,12 +54,12 @@ function CurrentTaskPanel({ changeIndex, data }) {
   return (
     <div className="LeftPanel">
       <h1 className="CurrentTaskTitle">
-        Your Current Tasks
+        Current Tasks
       </h1>
-      <hr></hr>
-      <div className="CurrentTasks">
+      <hr style={{ borderColor: 'var(--accent-color)' }}></hr>
+      <div className="TaskList">
         {data.map(([title, index]) => {
-          var styles = (index === selected ? { backgroundColor: 'blue', color: 'white' } : {});
+          var styles = (index === selected ? { backgroundColor: 'var(--button-press-highlight)' } : {});
           return (
             <div key={index}>
               <button className="CurrentTaskButton" style={styles} onClick={() => { changeIndex(index); changeSelected(index) }}>

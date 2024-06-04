@@ -1,0 +1,15 @@
+@media (prefers-reduced-motion: no-preference) {
+    .LoadingSpinner {
+        animation: LoadingSpinnerSpin infinite 1s linear;
+    }
+}
+
+@keyframes LoadingSpinnerSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
