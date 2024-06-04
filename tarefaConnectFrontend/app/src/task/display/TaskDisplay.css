@@ -1,123 +1,119 @@
-.Container {
-    display: flex;
-    height: 100vh;
-}
-
-.RightContainer {
+.TaskDisplayPanel {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    width: 70vw;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
 }
 
-.TaskContainer {
-    flex: 1.2;
+.TaskDisplay {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    padding-bottom: 20px;
+    flex-wrap: nowrap;
+}
+
+.TaskInfoPanel {
+    text-align: left;
+    padding: 20px;
+}
+
+.TaskTitle {
+    font-size: 35px;
+    text-decoration-line: underline;
+    text-wrap: wrap;
+    min-width: none;
+}
+
+.TaskDescription {
+    margin-top: 20px;
+    font-size: 20px;
+    text-wrap: wrap;
+    min-width: none;
+}
+
+.MapContainer {
+    width: 500px;
+    min-width: 500px;
+    height: 500px;
 }
 
 .TaskRepliesPanel {
-    flex: 1;
-    text-align: left;
+    padding: 20px;
+    border-top: 1px solid var(--accent-color);
 }
 
-.ReplyElement {
-    margin-left: 60px;
-    margin-right: 60px;
-    margin-bottom: 20px;
+.RepliesHeader {
+    margin-bottom: 10px;
+}
+
+.RepliesContainer {
     display: flex;
-    border: 1px solid var(--accent-color);
-    border-radius: 10px;
-    background-color: var(--background-secondary);
-}
-
-.ReplyName {
-    font-style: italic;
-    font-weight: bolder;
-    font-size: x-large;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.star-rating {
-    display: inline-block;
-}
-
-.stars-container {
-    direction: rtl;
+    flex-wrap: wrap;
     flex-direction: row;
 }
 
-.star,
-.golden-star {
-    font-size: 2em;
-    display: inline-block;
-}
-
-.star {
-    color: #ddd;
-}
-
-.golden-star {
-    color: #FBD930;
+.ReplyElement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    padding: 10px;
 }
 
 .ReplyNameContainer {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: space-around;
+}
+
+.ReplyName {
+    font-size: 25px;
+}
+
+.MessageButton {
+    height: 100%;
+    width: 100px;
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    margin-left: 15px;
+    color: inherit;
+    background-color: var(--button-color);
+    transition: all 0.3s;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.MessageButton:hover {
+    background-color: var(--button-press);
+}
+
+.StarContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
-    align-items: center;
+}
+
+.Star {
+    font-size: 20px;
+    display: inline-block;
+}
+
+.BlankStar {
+    color: gray;
+}
+
+.GoldenStar {
+    color: gold;
 }
 
 .Divider {
-    width: 1px;
-}
-
-.ReplyMessage {
-    margin-right: 20px;
-}
-
-.ReplyMessageContainer {
-    display: flex;
-    flex: 3;
-    align-items: center;
-}
-
-.TaskInfoPanel {
-    flex: 1.25;
-    border-bottom: 1px solid var(--accent-color);
-    text-align: left;
-}
-
-.TaskName,
-.RepliesHeader {
-    font-style: italic;
-    font-weight: bolder;
-}
-
-.TaskName {
-    font-size: x-large;
-    padding-top: 40px;
-    padding-left: 60px;
-}
-
-.RepliesHeader {
-    font-size: xx-large;
-    padding-left: 40px;
-}
-
-.TaskDescription {
-    font-style: italic;
-    font-weight: bold;
-    font-size: larger;
-    padding-left: 20px;
-    padding-right: 40px;
-    text-overflow: ellipsis;
-}
-
-.TaskLocationPanel {
-    flex: 1;
-    background-color: cadetblue;
-    border-bottom: 1px solid var(--accent-color);
+    height: 100%;
+    border-left: 1px solid var(--accent-color);
+    margin-left: 10px;
 }

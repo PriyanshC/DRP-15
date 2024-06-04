@@ -1,7 +1,7 @@
 import "./Task.css";
 
 import CreateTask from "./create/CreateTask";
-import TaskDisplay from "./display/TaskDisplay"
+import TaskDisplay from "./display/TaskDisplay.tsx"
 import { useEffect, useState } from "react";
 import { api } from "../App.tsx";
 

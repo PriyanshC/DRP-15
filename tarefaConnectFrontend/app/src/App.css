@@ -3,4 +3,5 @@
   color: var(--font-color-primary);
   background-color: var(--background-primary);
   font-family: var(--font-famiy);
+  height: 100vh;
 }
