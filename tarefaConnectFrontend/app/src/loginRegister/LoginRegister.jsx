@@ -38,7 +38,7 @@ function Login({ toggleFunc }) {
                 </label>
                 <label className='ForgotPassword' onClick={() => toggleFunc(2)}> Forgot password? </label>
             </div>
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            <Link to="/home" style={{ textDecoration: 'none' }}>
                 <button type='submit'> Login </button>
             </Link>
             <div className="ToRegisterLogin">
@@ -67,7 +67,7 @@ function Register({ toggleFunc }) {
                 <input type="password" placeholder='Confirm password...' />
                 <i className='bi-lock-fill'></i>
             </div>
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            <Link to="/home" style={{ textDecoration: 'none' }}>
                 <button type='submit'> Register </button>
             </Link>
             <div className="ToRegisterLogin">
@@ -92,7 +92,7 @@ function ForgotPassword({ toggleFunc }) {
                 <input type="password" placeholder='Confirm password...' />
                 <i className='bi-lock-fill'></i>
             </div>
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            <Link to="/home" style={{ textDecoration: 'none' }}>
                 <button type='submit'> Submit </button>
             </Link>
             <div className="ToRegisterLogin">

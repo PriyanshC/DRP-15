@@ -62,7 +62,7 @@ export default function Header(props: Props) {
       key: "home",
       class: "bi-house-door-fill",
       iconClass: 'HomeIcon',
-      redirectTo: "/",
+      redirectTo: "/home",
       link: false,
       onClick: () => { }
     }
@@ -95,7 +95,7 @@ export default function Header(props: Props) {
 
         <MenuSection data={leftHeader} />
 
-        <Link className='HeaderTitle' to="/" style={{ textDecoration: 'inherit', color: 'inherit' }}>
+        <Link className='HeaderTitle' to="/home" style={{ textDecoration: 'inherit', color: 'inherit' }}>
           <h1 className='HeaderTitleText' style={{ fontSize: 'inherit' }}>
             TarefaConnect
           </h1>

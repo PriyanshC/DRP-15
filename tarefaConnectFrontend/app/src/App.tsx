@@ -8,7 +8,8 @@ import axios from 'axios';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useLocalStorage from 'use-local-storage';
@@ -41,10 +42,11 @@ function App() {
         </CheckHeader>
         <Routes>
           <Route path='/'>
-            <Route index element={<LoginLanding />} />
+            <Route index element={<Navigate to={'/loginRegister'} />} />
+            <Route path='home' element={<LoginLanding />} />
             <Route path='task' element={<Task />} />
             <Route path='loginRegister' element={<LoginRegister />} />
-            <Route path='*' element={<LoginLanding />} />
+            <Route path='*' element={<Navigate to={'/loginRegister'} />} />
           </Route>
         </Routes>
       </Router>
