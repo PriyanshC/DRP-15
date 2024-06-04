@@ -1,6 +1,7 @@
 from typing import Generator
 
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -11,6 +12,17 @@ from .database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+# origins = [
+#     "http://localhost:8000"
+# ]
+#
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 class SPAStaticFiles(StaticFiles):
@@ -19,12 +31,11 @@ class SPAStaticFiles(StaticFiles):
             return await super().get_response(path, scope)
         except (HTTPException, StarletteHTTPException) as ex:
             if ex.status_code == 404:
-                return await super().get_response("index.html", scope)
+                return await super().get_response(".", scope)
             else:
                 raise ex
 
 
-app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")
 
 
 # Dependency
@@ -38,6 +49,7 @@ def get_db() -> Generator:
 
 @app.post("/api/create-user", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    print("hiii")
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already in use.")
@@ -76,8 +88,4 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     return db_task
 
 
-# @app.api_route("/{catchall:path}")
-# async def serve_react_app(catchall: str):
-#     print("hi")
-#     return FileResponse("/index.html")
-
+app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")

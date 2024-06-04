@@ -23,15 +23,15 @@ export default function Task({ startingIndex = -1 }) {
   const [index, setIndex] = useState(startingIndex);
   const [taskData, setTaskData] = useState(exampleTasks);
 
-  useEffect(() => {
-    api.get("create-task")
-      .then(data => {
-        setTaskData(data.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }, [])
+  // useEffect(() => {
+  //   api.get("create-task")
+  //     .then(data => {
+  //       setTaskData(data.data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     })
+  // }, [])
 
   const addTask = (task) => {
     setTaskData(prev => [...prev, task])
