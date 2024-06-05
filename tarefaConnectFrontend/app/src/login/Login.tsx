@@ -12,20 +12,20 @@ const exampleUser = {
   email: "user@example.com",
   forename: "Test",
   surname: "Account",
-  id: -1,
+  id: 0,
   hashed_password: "string",
   tasks: [
     {
       title: "Mow my lawn once a fortnight",
       description: "I'd like my lawn mowed once every 14 days. I do not have a lawnmower so you would need to bring one. I live on the eastern side of Sao Miguel in a small house on the hill. Anyone can apply and free lunch is included! Thanks.",
       id: 0,
-      owner_id: -1
+      owner_id: 0
     },
     {
       title: "Take my trash down to the curb",
       description: "I am now unable to take the trash cans all the way to the road from my house, so would need someone to do this for me once a week. And ofcourse free lunch is included! Thanks.",
       id: 1,
-      owner_id: -1
+      owner_id: 0
     }
   ]
 }
