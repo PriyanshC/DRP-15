@@ -28,12 +28,13 @@ export default function Login(props: Props) {
     if (event.target[0].value === '' && event.target[1].value === '') {
       api.post('login', testLogin)
         .then(response => {
+          console.log(response);
           props.setUserData(response.data);
           console.log('LOGGING IN AS TEST!');
           navigate('/home');
           return;
         })
-        .catch(err => { console.log(err); return })
+        .catch(err => { console.log('TEST LOGIN ERROR', err); return })
     }
 
     api.post('login', {
