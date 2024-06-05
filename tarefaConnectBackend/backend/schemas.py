@@ -14,6 +14,8 @@ class Task(TaskBase):
     id: int
     owner_id: int
 
+    # replies: list["Tasker"]
+
     class Config:
         orm_mode = True
 
@@ -38,6 +40,50 @@ class User(UserBase):
     hashed_password: str
 
     tasks: list[Task]
+
+    class Config:
+        orm_mode = True
+
+
+class ListingBase(BaseModel):
+    category: str  # TODO: use enum
+    description: str
+
+    tasker_id: int
+
+
+class ListingCreate(ListingBase):
+    pass
+
+
+class Listing(ListingBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
+class TaskerBase(UserBase):
+    headline: str
+
+
+class TaskerCreate(TaskerBase):
+    location: str
+
+
+class Tasker(TaskerBase):
+    id: int
+
+    country: str
+    post_code: str
+
+    listings: list[Listing]
+
+    rating: int
+    # endorsements: list[User]
+    verified: bool
+
+    # task_bids: list[Task]
 
     class Config:
         orm_mode = True

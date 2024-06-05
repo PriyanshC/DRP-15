@@ -53,6 +53,11 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db, user)
 
 
+@app.post("/api/create-tasker", response_model=schemas.Tasker)
+def create_user(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
+    return crud.create_tasker(db, tasker)  # TODO
+
+
 @app.post("/api/login", response_model=schemas.User)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
     db_user = crud.check_user_details(db, user_details)
@@ -69,11 +74,11 @@ def is_test_user(user_details: schemas.UserLogin) -> bool:
 
 
 @app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
-def get_user_tasks(user_id: int, limit: int | None = None, db: Session = Depends(get_db)):
+def get_user_tasks(user_id: int, skip: int | None = None, limit: int | None = None, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return crud.get_user_tasks(db, user_id, limit)
+    return crud.get_user_tasks(db, user_id, skip, limit)
 
 
 @app.post("/api/{user_id}/create-task", response_model=schemas.Task)
@@ -90,6 +95,17 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     if db_task is None:
         raise HTTPException(status_code=404, detail="Task not found")
     return db_task
+
+
+@app.post("/api/taskers/create-listing", response_model=schemas.Listing)
+def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
+    return crud.create_listing(db, listing)  # TODO
+
+
+@app.get("/api/listings", response_model=list[schemas.Listing])
+def get_listings(category: str | None = None, skip: int | None = None,
+                 limit: int | None = None, db: Session = Depends(get_db)):
+    return crud.get_listings(db, category, skip, limit)  # TODO
 
 
 app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")
