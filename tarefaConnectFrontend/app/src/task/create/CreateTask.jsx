@@ -24,13 +24,18 @@ export default function CreateTask({ userId, addTask }) {
   }
 
   const handleSubmit = () => {
+    console.log(userId);
     setState(state.loading);
     api.post(userId + "/create-task", formData)
       .then(data => {
         addTask(data.data);
-        setState(state.normal)
+        setState(state.normal);
       })
-      .catch(err => { console.log(err); setState(state.error) });
+      .catch(err => {
+        console.log(err);
+        console.log('err');
+        setState(state.error);
+      });
   }
 
   switch (currState) {
