@@ -191,7 +191,7 @@ function AvailableTradesmen({ filters, search, distanceFilter, ratingFilter }) {
         return (
             (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&
             (ratingFilter == null ? item : item.rating >= ratingFilter) &&
-            (distanceFilter == null ? item.distance >= 5 : item.distance >= distanceFilter)
+            (distanceFilter == null ? item.distance <= 5 : item.distance <= distanceFilter)
         )
     }).map((item, index) => {
             return (
