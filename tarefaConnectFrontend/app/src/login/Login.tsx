@@ -34,28 +34,28 @@ export default function Login(props: Props) {
           navigate('/home');
           return;
         })
-        .catch(err => { console.log('TEST LOGIN ERROR', err); return })
+        .catch(err => { console.log('TEST LOGIN ERROR', err); props.setUserData({ id: 1, tasks: [{ title: '', description: '', id: 1 }] }); navigate('/home') })
+    } else {
+      api.post('login', {
+        email: event.target[0].value,
+        password: event.target[1].value
+      })
+        .then(response => {
+          if (response.status === 200) {
+            props.setUserData(response.data)
+            console.log('LOGIN SUCCESS!');
+            navigate('loginLanding')
+          } else {
+            setLoginErr(error.validation);
+            console.log('LOGIN FAILURE!');
+            return;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          setLoginErr(error.network);
+        })
     }
-    console.log('BAD!!!!')
-    api.post('login', {
-      email: event.target[0].value,
-      password: event.target[1].value
-    })
-      .then(response => {
-        if (response.status === 200) {
-          props.setUserData(response.data)
-          console.log('LOGIN SUCCESS!');
-          navigate('loginLanding')
-        } else {
-          setLoginErr(error.validation);
-          console.log('LOGIN FAILURE!');
-          return;
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        setLoginErr(error.network);
-      })
   }
 
   const getErrMsg = () => {

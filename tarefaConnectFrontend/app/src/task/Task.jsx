@@ -16,7 +16,7 @@ export default function Task({ userData_, startingIndex = -1 }) {
   }
 
   return (
-    <div className="Container">
+    <div className="Container" >
       <CurrentTaskPanel changeIndex={setIndex} data={userData.tasks.map((item) => [item.title, item.id])} />
       {index === -1 ? <CreateTask addTask={addTask} userId={userData.id} /> : <TaskDisplay taskData={userData.tasks[index]} />}
     </div>
