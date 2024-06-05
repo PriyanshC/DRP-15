@@ -32,8 +32,7 @@ function Login({toggleFunc}) {
             </div>
             <div className="RememberForgot">
                 <label>
-                    <input type="checkbox" />
-                    Remember me
+                    <input type="checkbox" /> Remember me
                 </label>
                 <label className='ForgotPassword' onClick={() => toggleFunc(2)}> Forgot password? </label>
             </div>

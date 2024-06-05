@@ -4,6 +4,8 @@ import Header from './header/Header';
 import LoginLanding from './loginLanding/LoginLanding';
 import Task from './task/Task';
 import LoginRegister from './loginRegister/LoginRegister'
+import TradesmanList from './tradesmanList/TradesmanList';
+import TradesmanProfile from './tradesmanProfile/TradesmanProfile';
 import axios from 'axios';
 
 import {
@@ -33,7 +35,9 @@ function App() {
           <Route path='/'>
             <Route index element={<LoginLanding />} />
             <Route path='task' element={<Task />} />
-            <Route path='loginRegister' element={<LoginRegister />} />            
+            <Route path='loginRegister' element={<LoginRegister />} />
+            <Route path='tradesmanList' element={<TradesmanList/>} />  
+            <Route path='tradesmanProfile' element ={<TradesmanProfile/> } />          
             <Route path='*' element={<LoginLanding />} />
           </Route>
         </Routes>
