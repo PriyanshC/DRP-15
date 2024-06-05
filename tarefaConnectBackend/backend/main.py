@@ -36,8 +36,6 @@ class SPAStaticFiles(StaticFiles):
                 raise ex
 
 
-
-
 # Dependency
 def get_db() -> Generator:
     db = SessionLocal()
@@ -49,7 +47,6 @@ def get_db() -> Generator:
 
 @app.post("/api/create-user", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    print("hiii")
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already in use.")
@@ -59,9 +56,16 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 @app.post("/api/login", response_model=schemas.User)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
     db_user = crud.check_user_details(db, user_details)
-    if db_user is None:
+
+    if is_test_user(user_details) and db_user is None:
+        db_user = crud.create_test_user(db)
+    elif db_user is None:
         raise HTTPException(status_code=401, detail="Incorrect email or password.")
     return db_user
+
+
+def is_test_user(user_details: schemas.UserLogin) -> bool:
+    return user_details.email == crud.TEST_USER.email and user_details.password == crud.TEST_USER.password
 
 
 @app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])

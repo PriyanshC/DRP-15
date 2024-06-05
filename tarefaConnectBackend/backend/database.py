@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./tarefaConnectBackend/backend/tarefaConnect.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///home/gc1122/drp_db/tarefaConnect.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
