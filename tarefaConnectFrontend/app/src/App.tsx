@@ -52,7 +52,7 @@ function App() {
             <Route path='forgot' element={<Forgot />} />
             <Route path='home' element={<LoginLanding />} />
             <Route path='task' element={userData === null ? <Navigate to='/login' /> : <Task userData_={userData} />} />
-            <Route path='*' element={<Navigate to={'/login'} />} />
+            <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
       </Router>
