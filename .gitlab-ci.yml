@@ -21,7 +21,7 @@ deploy-vm:
     - source env/bin/activate
     - cd tarefaConnectFrontend/app
     - npm ci
-    - npm install react-scripts@3.4.1 -g
+    - npm install
     - npm run build
     - cd ../..
     - pip install --no-cache-dir --upgrade -r tarefaConnectBackend/requirements.txt

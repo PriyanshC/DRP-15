@@ -14,6 +14,7 @@ import {
   Navigate
 } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import PageNotFound from "./404Page";
 import useLocalStorage from 'use-local-storage';
 import React, { useState } from 'react';
 
