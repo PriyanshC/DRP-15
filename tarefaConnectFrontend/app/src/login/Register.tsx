@@ -20,7 +20,7 @@ export default function Register(props: Props) {
   const submitRegister: FormEventHandler = (event) => {
     event.preventDefault();
 
-    if (event.target[3] !== event.target[4]) {
+    if (event.target[3].value !== event.target[4].value) {
       setRegisterError(error.password)
       return;
     }

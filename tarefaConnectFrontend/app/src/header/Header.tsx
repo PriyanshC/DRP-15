@@ -43,7 +43,7 @@ export default function Header(props: Props) {
       key: 'profile',
       class: 'bi-person-circle',
       iconClass: 'ProfileIcon',
-      redirectTo: "/loginRegister",
+      redirectTo: "/login",
       link: false,
       onClick: () => { }
     }
@@ -68,24 +68,8 @@ export default function Header(props: Props) {
     }
   ];
 
-  // const lightIconDiv = <LightIcon />
-  // const darkIconDiv = <DarkIcon />
-
-  // const lightIcon = document.getElementById('light-icon')
-  // const darkIcon = document.getElementById('dark-icon')
-
 
   const toggleTheme = () => {
-    // if (!(lightIcon && darkIcon)) {
-    //   return;
-    // }
-    // if (props.currentTheme === 'light') {
-    //   lightIcon.style.display = 'none'
-    //   darkIcon.style.display = 'block'
-    // } else {
-    //   lightIcon.style.display = 'block'
-    //   darkIcon.style.display = 'none'
-    // }
     props.changeTheme();
   }
 
