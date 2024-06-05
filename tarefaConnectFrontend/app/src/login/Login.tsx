@@ -36,7 +36,7 @@ export default function Login(props: Props) {
         })
         .catch(err => { console.log('TEST LOGIN ERROR', err); return })
     }
-
+    console.log('BAD!!!!')
     api.post('login', {
       email: event.target[0].value,
       password: event.target[1].value
