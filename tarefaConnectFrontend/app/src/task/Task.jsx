@@ -11,7 +11,7 @@ export default function Task({ userData_, startingIndex = -1 }) {
   const addTask = (task) => {
     updateUserData(prev => ({
       ...prev,
-      tasks: [...prev.taks, task]
+      tasks: [...prev.tasks, task]
     }))
   }
 
