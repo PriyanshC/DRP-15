@@ -8,27 +8,10 @@ interface Props {
   setUserData: (data) => void
 }
 
-const exampleUser = {
-  email: "user@example.com",
-  forename: "Test",
-  surname: "Account",
-  id: 0,
-  hashed_password: "string",
-  tasks: [
-    {
-      title: "Mow my lawn once a fortnight",
-      description: "I'd like my lawn mowed once every 14 days. I do not have a lawnmower so you would need to bring one. I live on the eastern side of Sao Miguel in a small house on the hill. Anyone can apply and free lunch is included! Thanks.",
-      id: 0,
-      owner_id: 0
-    },
-    {
-      title: "Take my trash down to the curb",
-      description: "I am now unable to take the trash cans all the way to the road from my house, so would need someone to do this for me once a week. And ofcourse free lunch is included! Thanks.",
-      id: 1,
-      owner_id: 0
-    }
-  ]
-}
+const testLogin = {
+  email: 'test@mail.com',
+  password: 'test'
+};
 
 export default function Login(props: Props) {
   const error = {
@@ -43,10 +26,14 @@ export default function Login(props: Props) {
     event.preventDefault();
 
     if (event.target[0].value === '' && event.target[1].value === '') {
-      props.setUserData(exampleUser);
-      console.log('LOGGING IN AS TEST!');
-      navigate('/home');
-      return;
+      api.post('login', testLogin)
+        .then(response => {
+          props.setUserData(response.data);
+          console.log('LOGGING IN AS TEST!');
+          navigate('/home');
+          return;
+        })
+        .catch(err => { console.log(err); return })
     }
 
     api.post('login', {
