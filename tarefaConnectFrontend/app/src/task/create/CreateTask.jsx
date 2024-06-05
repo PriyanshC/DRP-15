@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { api } from '../../App.tsx';
 import Loading from '../../loading/Loading.tsx'
 
-export default function CreateTask({ addTask }) {
+export default function CreateTask({ userId, addTask }) {
   const state = {
     error: 0,
     loading: 1,
@@ -25,7 +25,7 @@ export default function CreateTask({ addTask }) {
 
   const handleSubmit = () => {
     setState(state.loading);
-    api.post("create-task", formData)
+    api.post(userId + "/create-task", formData)
       .then(data => {
         addTask(data.data);
         setState(state.normal)
