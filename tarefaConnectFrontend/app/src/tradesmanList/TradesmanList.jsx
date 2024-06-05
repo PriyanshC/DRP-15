@@ -59,8 +59,8 @@ function FilterPanel({ addFilter, setRating, distance, setDistance }) {
                 <label className='FilterHeader'> Maximum distance: </label>
                 <div className="DistanceSlider">
                     <input className='DistanceFilter' id='DistanceFilter' type='range'
-                     min="0" max="100" steps="5" onChange={(e) => setDistance(e.target.value)}/>
-                     <label> {distance} km </label>
+                     min="0" max="10" steps="1" defaultValue="5" onChange={(e) => setDistance(e.target.value)}/>
+                     <label> {distance == null ? 5 : distance} km </label>
                 </div>
             </div>
             <div className="FilterSection">
@@ -191,7 +191,7 @@ function AvailableTradesmen({ filters, search, distanceFilter, ratingFilter }) {
         return (
             (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&
             (ratingFilter == null ? item : item.rating >= ratingFilter) &&
-            (distanceFilter == null ? item : item.distance >= distanceFilter)
+            (distanceFilter == null ? item.distance >= 5 : item.distance >= distanceFilter)
         )
     }).map((item, index) => {
             return (
