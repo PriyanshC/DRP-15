@@ -1,0 +1,160 @@
+.TradesmanContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+.MiniProfileInfo {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 10px;
+    font-size: 20px;
+    border-bottom: 1px solid black;
+}
+
+.BackButton {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    color: blue;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.VerticalLine {
+    border-right: 1px solid rgb(61, 61, 61);
+    height: 90%;
+}
+
+.bi-patch-check-fill {
+    font-size: 30px;
+    color: blue;
+}
+
+.star-rating {
+    display: inline-block;
+
+}
+
+.stars-container {
+    direction: rtl;
+    flex-direction: row;
+}
+
+.star,
+.golden-star {
+    font-size: 2em;
+    display: inline-block;
+}
+
+.star {
+    color: #ddd;
+}
+
+.golden-star {
+    color: #FBD930;
+}
+
+.VerifyRating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    vertical-align: middle;
+}
+
+.StarDisplay {
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+
+.ExpandedProfile {
+    display: flex;
+    flex-direction: row;
+    flex: 5;
+}
+
+.ExpandedProfileInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    border-right: 1px solid black;
+}
+
+.ProfileBio {
+    text-align: left;
+    padding: 20px 30px 20px;
+}
+
+.TradesmanDescription {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: x-large;
+    font-weight: 500;
+}
+
+.Reviews {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 20px;
+    padding: 30px 20px 30px;
+}
+
+.Divider {
+    width: 1px;
+    background-color: black;
+}
+
+.ReplyElement {
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 20px;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.ReplyName {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: x-large;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: rgb(73, 73, 73)
+}
+
+.ReplyNameContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.ReplyMessage {
+    padding-inline: 20px;
+}
+
+.ReplyMessageContainer {
+    display: flex;
+    flex: 3;
+    align-items: center;
+}
+
+.PictureAndMessage {
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+    padding-inline: 20px;
+}
+
+.ProfilePicture {
+    width: 400px;
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
