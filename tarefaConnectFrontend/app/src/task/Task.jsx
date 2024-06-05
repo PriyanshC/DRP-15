@@ -2,8 +2,7 @@ import "./Task.css";
 
 import CreateTask from "./create/CreateTask";
 import TaskDisplay from "./display/TaskDisplay.tsx"
-import { useEffect, useState } from "react";
-import { api } from "../App.tsx";
+import { useState } from "react";
 
 export default function Task({ userData_, startingIndex = -1 }) {
   const [userData, updateUserData] = useState(userData_);
