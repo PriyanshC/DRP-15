@@ -41,8 +41,8 @@
 .DistanceFilter {
     width: 100%;
     max-width: 500px;
-    height: fit-content;
-    padding-bottom: 20px;
+    /* height: fit-content; */
+    /* padding-bottom: 20px; */
 }
 
 .RatingSelect {

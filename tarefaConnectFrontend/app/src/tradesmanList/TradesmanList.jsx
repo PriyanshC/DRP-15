@@ -12,24 +12,24 @@ function TradesmanList() {
         0: Type
         1: Distance
         2: Relation
-        3: Rating
     */
    
     const addFilter = (index, filter) => {
         updateFilters(filters[index].push(filter))
     }
 
-    const [ratingFilter, setRating] = useState(0)
+    const [distanceFilter, setDistance] = useState(null)
+    const [ratingFilter, setRating] = useState(null)
 
     return (
         <div className="PageContainer">
-            <FilterPanel addFilter = {addFilter} setRating = {setRating} />
-            <TradesmanPanel filters = {filters} setSearch={setSearch} search={search} ratingFilter = {ratingFilter} />
+            <FilterPanel addFilter = {addFilter} setRating = {setRating} distance={distanceFilter} setDistance = {setDistance} />
+            <TradesmanPanel filters = {filters} setSearch={setSearch} search={search} distanceFilter= {distanceFilter} ratingFilter = {ratingFilter} />
         </div>
     )
 }
 
-function FilterPanel({ addFilter, setRating }) {
+function FilterPanel({ addFilter, setRating, distance, setDistance }) {
 
     return (
         <div className='FilterPanel'>
@@ -56,10 +56,11 @@ function FilterPanel({ addFilter, setRating }) {
                 </div> 
             </div>
             <div className='FilterSection'>
-                <label className='FilterHeader'> Distance: </label>
+                <label className='FilterHeader'> Maximum distance: </label>
                 <div className="DistanceSlider">
                     <input className='DistanceFilter' id='DistanceFilter' type='range'
-                     min="0" max="100" step="5"/>
+                     min="0" max="100" steps="5" onChange={(e) => setDistance(e.target.value)}/>
+                     <label> {distance} km </label>
                 </div>
             </div>
             <div className="FilterSection">
@@ -98,11 +99,11 @@ function FilterPanel({ addFilter, setRating }) {
     )
 }
 
-function TradesmanPanel({ filters, setSearch, search, ratingFilter }) {
+function TradesmanPanel({ filters, setSearch, search, distanceFilter, ratingFilter }) {
     return (
         <div className="TradesmanPanel">
             <SearchPanel setSearch={setSearch} />
-            <AvailableTradesmen filters = {filters} search = {search} ratingFilter ={ratingFilter} />
+            <AvailableTradesmen filters = {filters} search = {search} distanceFilter = {distanceFilter} ratingFilter = {ratingFilter} />
         </div>
     )
 }
@@ -174,7 +175,7 @@ const availableTradesmen =[
     }
 ]
 
-function AvailableTradesmen({ filters, search, ratingFilter }) {
+function AvailableTradesmen({ filters, search, distanceFilter, ratingFilter }) {
     const [selected, setSelected] = useState(null)
     const toggle = (index) => {
         if (selected == index) {
@@ -189,7 +190,8 @@ function AvailableTradesmen({ filters, search, ratingFilter }) {
     const tradesmen = availableTradesmen.filter((item) => {
         return (
             (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&
-            (ratingFilter == 0 ? item : item.rating >= ratingFilter)
+            (ratingFilter == null ? item : item.rating >= ratingFilter) &&
+            (distanceFilter == null ? item : item.distance >= distanceFilter)
         )
     }).map((item, index) => {
             return (
