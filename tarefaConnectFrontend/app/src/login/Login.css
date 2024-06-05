@@ -70,9 +70,18 @@
     font-size: 16px;
 }
 
+.InputIcon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
 .Wrapper .RememberForgot {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 14.5px;
     margin: 15px 0 15px;
 }
@@ -85,6 +94,7 @@
 
 .ForgotPassword:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .Wrapper button {
@@ -116,4 +126,21 @@
 .ToRegisterLogin:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.RememberCheck {
+    margin-right: 5px;
+}
+
+.RememberContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ErrorMessage {
+    color: red;
+    font-size: 15px;
+    margin-top: 10px;
+    font-weight: bold;
 }
