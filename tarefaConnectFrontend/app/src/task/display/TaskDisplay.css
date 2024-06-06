@@ -63,6 +63,7 @@
     border: 1px solid var(--accent-color);
     border-radius: 20px;
     padding: 10px;
+    background-color: var(--background-secondary);
 }
 
 .ReplyNameContainer {

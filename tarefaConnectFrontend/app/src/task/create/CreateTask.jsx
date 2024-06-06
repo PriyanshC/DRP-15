@@ -58,20 +58,24 @@ export default function CreateTask({ userId, addTask }) {
               <label className="FieldLabel">Title:</label>
               <input
                 type="text"
-                className="TitleInput"
+                className="TitleInput Input"
                 name='title'
                 placeholder="What do you need?"
                 onChange={handleChange}
+                maxLength={100}
+                required
               />
             </div>
             <div className="RightPanelElement">
               <label className="FieldLabel">
                 Description:
               </label>
-              <textarea className="DescriptionInput"
+              <textarea className="DescriptionInput Input"
                 placeholder="Tell us a little more..."
                 name='description'
                 onChange={handleChange}
+                maxLength={1000}
+                required
               />
             </div>
           </form>

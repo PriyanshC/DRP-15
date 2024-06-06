@@ -44,7 +44,7 @@ export default function Login(props: Props) {
           if (response.status === 200) {
             props.setUserData(response.data)
             console.log('LOGIN SUCCESS!');
-            navigate('loginLanding')
+            navigate('/loginLanding')
           } else {
             setLoginErr(error.validation);
             console.log('LOGIN FAILURE!');
