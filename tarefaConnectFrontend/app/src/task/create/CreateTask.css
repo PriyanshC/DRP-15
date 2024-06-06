@@ -73,6 +73,7 @@
   transition: all 0.3s;
   border: 1px solid var(--accent-color);
   z-index: 1;
+  color: inherit;
 }
 
 .PostButton:hover {

@@ -101,9 +101,9 @@ const repliesData = [
 ];
 
 function RepliesSection() {
-  const replies = repliesData.map((item) => {
+  const replies = repliesData.map((item, index) => {
     return (
-      <div className="ReplyElement" key={item.name}>
+      <div className="ReplyElement" key={index + item.name}>
         <div className="ReplyNameContainer">
           <div className="ReplyName">
             {item.name}
