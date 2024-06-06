@@ -58,3 +58,10 @@ class Tasker(Base):
 
     rating = Column(Integer)
     verified = Column(Boolean)
+
+
+class Reply(Base):
+    __tablename__ = "replies"
+
+    tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"), primary_key=True)
+    task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True)

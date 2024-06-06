@@ -112,3 +112,8 @@ class Tasker(TaskerBase):
 
     class Config:
         orm_mode = True
+
+
+class Reply(BaseModel):
+    tasker_id: int
+    task_id: int

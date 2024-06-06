@@ -132,4 +132,18 @@ def get_listings(filter_category: schemas.Category | None = None,
                              sort, skip, limit)
 
 
+@app.post("/api/tasks/reply", response_model=schemas.Reply)
+def create_reply(reply: schemas.Reply, db: Session = Depends(get_db)):
+    if crud.has_replied(db, reply):
+        raise HTTPException(status_code=400, detail="You have already replied to this task.")
+    return crud.create_reply(db, reply)
+
+
+@app.get("/api/tasks/{task_id}/replies", response_model=list[schemas.Reply])
+def get_task_replies(task_id: int, skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
+    if crud.get_task(db, task_id) is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return crud.get_task_replies(db, task_id, skip, limit)
+
+
 app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")

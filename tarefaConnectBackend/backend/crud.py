@@ -58,6 +58,20 @@ def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> 
     return db_tasker
 
 
+def create_reply(db: Session, reply: schemas.Reply) -> models.Reply:
+    db_reply = models.Reply(**reply.dict())
+    db.add(db_reply)
+    db.commit()
+    db.refresh(db_reply)
+    return db_reply
+
+
+def has_replied(db: Session, reply: schemas.Reply) -> bool:
+    return (db.query(models.Reply)
+            .filter(models.Reply.tasker_id == reply.tasker_id and models.Reply.task_id == reply.task_id)
+            .first() is not None)
+
+
 def get_listings(db: Session, filters: schemas.Filters | None,
                  sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
     query = db.query(models.Listing).join(models.Tasker)
@@ -91,8 +105,12 @@ def get_user_tasks(db: Session, user_id: int, skip: int | None, limit: int | Non
     return db.query(models.User).filter(models.User.id == user_id).first().tasks[skip:limit]
 
 
-def get_task(db: Session, task_id: int) -> schemas.Task:
+def get_task(db: Session, task_id: int) -> schemas.Task | None:
     return db.query(models.Task).filter(models.Task.id == task_id).first()
+
+
+def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.Reply]:
+    return db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
 
 
 def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | None:
