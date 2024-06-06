@@ -26,8 +26,8 @@ class Sort(str, Enum):
 class TaskBase(BaseModel):
     title: str
     description: str
-    category: Category
-    user_heading: str
+    category: Category | None
+    user_heading: str | None
 
 
 class TaskCreate(TaskBase):
