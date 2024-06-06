@@ -31,7 +31,7 @@ class Listing(Base):
     __tablename__ = "listings"
 
     id = Column(Integer, primary_key=True)
-    category = Column(String)  # TODO: use enum
+    category = Column(String)
     description = Column(String)
 
     tasker_id = Column(Integer, ForeignKey("taskers.id"))
