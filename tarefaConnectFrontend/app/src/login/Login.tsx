@@ -25,6 +25,7 @@ export default function Login(props: Props) {
   const submitLogin: FormEventHandler = (event) => {
     event.preventDefault();
 
+    // TODO : remove this for production
     if (event.target[0].value === '' && event.target[1].value === '') {
       api.post('login', testLogin)
         .then(response => {
@@ -44,7 +45,7 @@ export default function Login(props: Props) {
           if (response.status === 200) {
             props.setUserData(response.data)
             console.log('LOGIN SUCCESS!');
-            navigate('/loginLanding')
+            navigate('/home')
           } else {
             setLoginErr(error.validation);
             console.log('LOGIN FAILURE!');
