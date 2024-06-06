@@ -74,7 +74,7 @@ def get_listings(db: Session, filters: schemas.Filters | None,
         if sort is schemas.Sort.rating:
             query = query.order_by(models.Tasker.rating.desc())
         else:
-            pass  # query = query.order_by(models.Listing.distance.asc())
+            pass  # query = query.order_by(models.Listing.distance.asc()) TODO
 
     return query.offset(skip).limit(limit).all()
 

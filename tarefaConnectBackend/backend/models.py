@@ -22,6 +22,8 @@ class Task(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     description = Column(String)
+    category = Column(String)
+    user_heading = Column(String)
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
 
     owner = relationship("User", back_populates="tasks")

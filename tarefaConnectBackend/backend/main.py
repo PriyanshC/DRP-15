@@ -56,7 +56,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @app.post("/api/create-tasker", response_model=schemas.Tasker)
-def create_user(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
+def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=tasker.email)
     if db_user is not None:
         raise HTTPException(status_code=400, detail="Email already in use.")
