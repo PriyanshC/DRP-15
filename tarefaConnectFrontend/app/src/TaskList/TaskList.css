@@ -1,0 +1,22 @@
+ .TaskListContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
+ } 
+
+ .FilterPanelContainer {
+    flex: 1;
+    background-color: aqua;
+ }
+
+ .ContentPanelContainer {
+    flex: 4;
+    justify-content: center;
+    text-align: left;
+    background-color: brown;
+ }
+
+ .TradesmanPanelTitle {
+    padding: 20px 0 20px;
+ }

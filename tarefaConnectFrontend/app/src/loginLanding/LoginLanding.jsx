@@ -35,7 +35,7 @@ const panelDataExample = [
     id: 2,
     buttonText: "View Task",
     body: "See what people need doing, negotiate a contract and work!",
-    redirectTo: ""
+    redirectTo: "/taskList"
   }
 ]
 

@@ -8,6 +8,7 @@ import Register from './login/Register.tsx'
 import Forgot from './login/Forgot.tsx'
 import TradesmanList from './tradesmanList/TradesmanList.jsx';
 import TradesmanProfile from './tradesmanProfile/TradesmanProfile.jsx';
+import TaskList from './TaskList/TaskList.jsx';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -56,6 +57,7 @@ function App() {
             <Route path='task' element={userData === null ? <Navigate to='/login' /> : <Task userData_={userData} />} />
             <Route path='tradesmanList' element={<TradesmanList/>} />  
             <Route path='tradesmanProfile' element ={<TradesmanProfile/> } />
+            <Route path='taskList' element ={<TaskList/> } />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
