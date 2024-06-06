@@ -135,7 +135,8 @@ function TopReviews() {
 function PictureAndMessage({ image }) {
     return (
         <div className='PictureAndMessage'>
-            <img className='ProfilePicture' src={require("../Assets/electrician.jpg")} />
+            <img className='ProfilePicture' src={require("../Assets/electrician.jpg")} 
+            alt={require("../Assets/profilePicturePlaceholder.jpg")}/>
             <div className="QAndA">
                 <h2> Q/A </h2>
             </div>

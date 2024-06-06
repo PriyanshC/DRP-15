@@ -56,7 +56,7 @@ function FilterPanel({ addFilter, setRating, distance, setDistance }) {
                 </div> 
             </div>
             <div className='FilterSection'>
-                <label className='FilterHeader'> Maximum distance: </label>
+                <label className='FilterHeader'> Maximum Distance: </label>
                 <div className="DistanceSlider">
                     <input className='DistanceFilter' id='DistanceFilter' type='range'
                      min="0" max="10" steps="1" defaultValue="5" onChange={(e) => setDistance(e.target.value)}/>
@@ -178,7 +178,7 @@ const availableTradesmen =[
 function AvailableTradesmen({ filters, search, distanceFilter, ratingFilter }) {
     const [selected, setSelected] = useState(null)
     const toggle = (index) => {
-        if (selected == index) {
+        if (selected === index) {
             return setSelected(null)
         }
 
@@ -243,7 +243,8 @@ function ProfileDescription({ index, name, jobTitle, description, distance, veri
         : "ProfileDescriptionContainer"}>
             <div className='ProfileTopInfo'>
                 <div className= "ProfileDescription"> {description} </div>
-                <img className='ProfileDescriptionImage' src={require("../Assets/electrician.jpg")}/>
+                <img className='ProfileDescriptionImage' src={require("../Assets/electrician.jpg")}
+                 alt={require("../Assets/profilePicturePlaceholder.jpg")}/>
             </div>
             <Link to='/tradesmanProfile' 
                 state={{
