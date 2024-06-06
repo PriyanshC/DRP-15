@@ -1,10 +1,11 @@
+import './TaskList.css'
+import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import './TradesmanList.css'
+import './TaskList.css'
 import { FilterPanel } from './FilterPanel'
 import { SearchPanel } from './SearchPanel'
 
-function TradesmanList() {
+function TaskList() {
     const [search, setSearch] = useState('')
     
     /* 
@@ -29,7 +30,10 @@ function TradesmanList() {
 function TradesmanPanel({ setSearch, search, distanceFilter, ratingFilter }) {
     return (
         <div className="TradesmanPanel">
-            <SearchPanel setSearch={setSearch} toSearchFor={"your task"} />
+            <div className="TradesmanPanelTitle">
+                <h1> Find people in need of help </h1>
+            </div>
+            <SearchPanel setSearch={setSearch} toSearchFor={"a job"} />
             <AvailableTradesmen search = {search} distanceFilter = {distanceFilter} ratingFilter = {ratingFilter} />
         </div>
     )
@@ -37,54 +41,32 @@ function TradesmanPanel({ setSearch, search, distanceFilter, ratingFilter }) {
 
 const availableTradesmen =[
     {
-        name: "Audrey Prenton",
-        jobTitle: "Dog Walker",
-        description: "DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER",
-        distance: 3.9,
-        verified: false,
-        rating: 3,
-        jobType: "Garden",
-        relation: "Endorsed"
-    },
-    {
-        name: "Pedro Pronto",
-        jobTitle: "Home Help",
-        description: "HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP",
-        distance: 2.3,
-        verified: false,
-        rating: 1,
-        jobType: "Home",
-        relation: "Friend"
-    },
-    {
-        name: "Maria Plum",
-        jobTitle: "Cleaner",
-        description: "CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER",
-        distance: 1.9,
-        verified: true,
-        rating: 4,
-        jobType: "Home",
-        relation: null
-    },
-    {
-        name: "Genova Hardy",
-        jobTitle: "Labourer",
-        description: "LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER",
-        distance: 0.2,
-        verified: true,
-        rating: 5,
-        jobType: "Garden",
-        relation: "EndorsedByAFriend"
-    },
-    {
-        name: "Andre Glassover",
-        jobTitle: "Electrician",
-        description: "ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN",
+        taskTitle: "Lawn Mowing",
+        description: "10x10m square lawn, very overgrown and lots of weeds",
         distance: 5.1,
-        verified: false,
-        rating: 1,
-        jobType: "Electrical",
-        relation: "Endorsed"
+        timePosted: "2 days ago",
+        rating: 4,
+    },
+    {
+        taskTitle: "Light Bulb",
+        description: "I can't see anything in my room! Please help ASAP.",
+        distance: 0.3,
+        timePosted: "today",
+        rating: 3,
+    },
+    {
+        taskTitle: "Broken Pipe",
+        description: "Sink pipe has burst - my husband's fault :(",
+        distance: 2.3,
+        timePosted: "5 days ago",
+        rating: 5,
+    },
+    {
+        taskTitle: "Toilet Disaster",
+        description: "My mate came over and the toilet doesn't flush anymore",
+        distance: 1.6,
+        timePosted: "yesterday",
+        rating: 4,
     }
 ]
 
@@ -102,15 +84,15 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
 
     const tradesmen = availableTradesmen.filter((item) => {
         return (
-            (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&
+            (search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(search)) &&
             (ratingFilter == null ? item : item.rating >= ratingFilter) &&
             (distanceFilter == null ? item.distance <= 5 : item.distance <= distanceFilter)
         )
     }).map((item, index) => {
             return (
-                <TradesmanMiniProfile index = {index} name = {item.name} 
-                jobTitle = {item.jobTitle} description = {item.description}
-                 distance = {item.distance} verified = {item.verified} 
+                <TradesmanMiniProfile index = {index} 
+                taskTitle = {item.taskTitle} description = {item.description}
+                 distance = {item.distance} timePosted = {item.timePosted} 
                  rating = {item.rating} toggle = {toggle} selected= {selected} />
             )
         })
@@ -119,29 +101,28 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     )
 }
 
-function TradesmanMiniProfile({ index, name, jobTitle, description, distance, verified, rating, toggle, selected }) {
+function TradesmanMiniProfile({ index, taskTitle, description, distance, timePosted, rating, toggle, selected }) {
     return (
         <div className="MiniProfile" onClick={ () => toggle(index)}>
-            <ProfileInfo name={name} jobTitle={jobTitle} distance={distance}
-             verified={verified} rating={rating}/>
-             <ProfileDescription index = {index} name = {name} 
-                jobTitle = {jobTitle} description = {description}
-                 distance = {distance} verified = {verified} 
+            <ProfileInfo taskTitle={taskTitle} distance={distance}
+             timePosted={timePosted} rating={rating}/>
+             <ProfileDescription index = {index} 
+                taskTitle = {taskTitle} description = {description}
+                 distance = {distance} timePosted = {timePosted} 
                  rating = {rating} selected= {selected}/>
         </div>
     )
 }
 
-function ProfileInfo({ name, jobTitle, distance, verified, rating }) {
+function ProfileInfo({ taskTitle, distance, timePosted, rating }) {
     return (
         <div className="ProfileInfo">
-            <label> { name } </label>
+            <label> { taskTitle } </label>
             <div className="VerticalLine"></div>
-            <label> { jobTitle } </label>
+            <label> { timePosted } </label>
             <div className="VerticalLine"></div>
             <label> { distance } km </label>
             <div className='VerifyRating'>
-                <VerifiedCheck verified={verified} />
                 <StarDisplay number={rating} />
             </div>
         </div>
@@ -150,7 +131,7 @@ function ProfileInfo({ name, jobTitle, distance, verified, rating }) {
 
 
 
-function ProfileDescription({ index, name, jobTitle, description, distance, verified, rating, selected }) {
+function ProfileDescription({ index, name, jobTitle, description, distance, timePosted, rating, selected }) {
     return(
         <div className={selected === index ? "ProfileDescriptionContainershow" 
         : "ProfileDescriptionContainer"}>
@@ -159,29 +140,29 @@ function ProfileDescription({ index, name, jobTitle, description, distance, veri
                 <img className='ProfileDescriptionImage' src={require("../assets/electrician.jpg")}
                  alt={require("../assets/profilePicturePlaceholder.jpg")}/>
             </div>
-            <Link to='/tradesmanProfile' 
+            {/* <Link to='/tradesmanProfile' 
                 state={{
                     name: name, 
                     jobTitle: jobTitle,
                     description: description,
                     distance: distance,
-                    verified: verified,
+                    timePosted: verified,
                     rating: rating
                 }}>
                 <button> 
                     See more... 
                 </button>
-            </Link>
+            </Link> */}
         </div>
     )
 }
 
-function VerifiedCheck({ verified }) {
-    return (
-        verified ? <i className='bi-patch-check-fill'></i> 
-        : <i className='bi-patch-check-fill' style={{opacity:'0.1'}}></i> 
-    )
-}
+// function VerifiedCheck({ verified }) {
+//     return (
+//         verified ? <i className='bi-patch-check-fill'></i> 
+//         : <i className='bi-patch-check-fill' style={{opacity:'0.1'}}></i> 
+//     )
+// }
 
 function StarDisplay({ number }) {
     var stars = [];
@@ -198,4 +179,5 @@ function StarDisplay({ number }) {
     return <div className='StarDisplay'> {stars} </div>
 }
 
-export default TradesmanList;
+
+export default TaskList;

@@ -13,7 +13,7 @@ const panelData = [
     id: 1,
     buttonText: "I am looking for work",
     body: "See what people need doing and negotiate a contract",
-    redirectTo: "/TODO"
+    redirectTo: "/taskList"
   }
 ]
 
