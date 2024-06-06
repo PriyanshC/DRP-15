@@ -1,5 +1,16 @@
 from pydantic import BaseModel, EmailStr
 
+from enum import Enum
+
+
+class Category(str, Enum):
+    plumbing = 'plumbing'
+    electric = 'electric'
+    gardening = 'gardening'
+    domestic_cleaning = 'domestic cleaning'
+    dog_walking = 'dog walking'
+    other = 'other'
+
 
 class TaskBase(BaseModel):
     title: str
@@ -46,7 +57,7 @@ class User(UserBase):
 
 
 class ListingBase(BaseModel):
-    category: str  # TODO: use enum
+    category: "Category"
     description: str
 
     tasker_id: int
@@ -63,17 +74,18 @@ class Listing(ListingBase):
         orm_mode = True
 
 
-class TaskerBase(UserBase):
+class TaskerBase(BaseModel):
     headline: str
 
 
-class TaskerCreate(TaskerBase):
+class TaskerCreate(TaskerBase, UserCreate):
     location: str
 
 
 class Tasker(TaskerBase):
     id: int
 
+    user_id: int
     country: str
     post_code: str
 

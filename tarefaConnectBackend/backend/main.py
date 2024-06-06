@@ -12,6 +12,8 @@ from .database import SessionLocal, engine
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+
 # origins = [
 #     "http://localhost:8000"
 # ]
@@ -48,14 +50,28 @@ def get_db() -> Generator:
 @app.post("/api/create-user", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
-    if db_user:
+    if db_user is not None:
         raise HTTPException(status_code=400, detail="Email already in use.")
     return crud.create_user(db, user)
 
 
 @app.post("/api/create-tasker", response_model=schemas.Tasker)
 def create_user(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
-    return crud.create_tasker(db, tasker)  # TODO
+    db_user = crud.get_user_by_email(db, email=tasker.email)
+    if db_user is not None:
+        raise HTTPException(status_code=400, detail="Email already in use.")
+
+    keys = ["email", "password", "forename", "surname"]
+
+    tasker_dict = tasker.dict()
+    user_dict = dict()
+
+    for key in keys:
+        user_dict.update({key: tasker_dict.pop(key)})
+
+    db_user = crud.create_user(db, schemas.UserCreate(**user_dict))
+
+    return crud.create_tasker(db, tasker_dict, db_user.id)
 
 
 @app.post("/api/login", response_model=schemas.User)
@@ -103,9 +119,9 @@ def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)
 
 
 @app.get("/api/listings", response_model=list[schemas.Listing])
-def get_listings(category: str | None = None, skip: int | None = None,
-                 limit: int | None = None, db: Session = Depends(get_db)):
-    return crud.get_listings(db, category, skip, limit)  # TODO
+def get_listings(category: schemas.Category | None = None, skip: int = 0,
+                 limit: int = 20, db: Session = Depends(get_db)):
+    return crud.get_listings(db, category, skip, limit)
 
 
 app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")

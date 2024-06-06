@@ -44,10 +44,13 @@ class Tasker(Base):
 
     id = Column(Integer, primary_key=True)
 
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    user = relationship("User")
+
     headline = Column(String)
 
     country = Column(String)
-    postal_code = Column(String)
+    post_code = Column(String)
 
     listings = relationship("Listing", back_populates="tasker")
 

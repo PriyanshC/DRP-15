@@ -4,9 +4,8 @@ from . import models, schemas, testInfo
 
 
 def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
-    hashed_password = hash_password(new_user.password)
     user_args = new_user.dict()
-    user_args.pop('password')
+    hashed_password = hash_password(user_args.pop('password'))
     db_user = models.User(**user_args, hashed_password=hashed_password)
 
     db.add(db_user)
@@ -34,22 +33,45 @@ def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> sch
 
 
 def create_listing(db: Session, new_listing: schemas.ListingCreate) -> schemas.Listing:
-    pass
+    db_listing = models.Listing(**new_listing.dict())
+
+    db.add(db_listing)
+    db.commit()
+    db.refresh(db_listing)
+    return db_listing
 
 
-def create_tasker(db: Session, new_tasker: schemas.TaskerCreate) -> schemas.Tasker:
-    pass
+def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> schemas.Tasker:
+    location = tasker_details.pop('location')
+    post_code, country = location.split(", ")
+
+    db_tasker = models.Tasker(user_id=user_id,
+                              headline=tasker_details['headline'],
+                              country=country,
+                              post_code=post_code,
+                              rating=0,
+                              verified=False)
+
+    db.add(db_tasker)
+    db.commit()
+    db.refresh(db_tasker)
+    return db_tasker
 
 
-def get_listings(db: Session, category: str | None, skip: int | None, limit: int | None) -> list[schemas.Listing]:
-    pass
+def get_listings(db: Session, category: str | None, skip: int, limit: int) -> list[schemas.Listing]:
+    query = db.query(models.Listing)
+
+    if category is not None:
+        query = query.filter(models.Listing.category == category)
+
+    return query.offset(skip).limit(limit).all()
 
 
 def get_user(db: Session, user_id: int) -> schemas.User:
     return db.query(models.User).filter(models.User.id == user_id).first()
 
 
-def get_user_by_email(db: Session, email: schemas.EmailStr) -> schemas.User:
+def get_user_by_email(db: Session, email: schemas.EmailStr) -> schemas.User | None:
     return db.query(models.User).filter(models.User.email == email).first()
 
 
