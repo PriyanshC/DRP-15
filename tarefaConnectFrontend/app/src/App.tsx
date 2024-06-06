@@ -2,6 +2,7 @@ import './App.css';
 import CheckHeader from './header/CheckHeader'
 import Header from './header/Header.tsx';
 import LoginLanding from './loginLanding/LoginLanding';
+import LoginLandingForHelp from './loginLanding/LoginLandingForHelp.jsx';
 import Task from './task/Task';
 import Login from './login/Login.tsx'
 import Register from './login/Register.tsx'
@@ -53,6 +54,7 @@ function App() {
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />
             <Route path='home' element={<LoginLanding />} />
+            <Route path='findHelp' element={<LoginLandingForHelp />} />
             <Route path='task' element={userData === null ? <Navigate to='/login' /> : <Task userData_={userData} />} />
             <Route path='tradesmanList' element={<TradesmanList/>} />  
             <Route path='tradesmanProfile' element ={<TradesmanProfile/> } />
