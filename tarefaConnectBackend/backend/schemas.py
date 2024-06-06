@@ -12,6 +12,17 @@ class Category(str, Enum):
     other = 'other'
 
 
+class Filters(BaseModel):
+    category: Category | None
+    min_rating: int | None
+    max_distance: int | None
+
+
+class Sort(str, Enum):
+    rating = 'rating'
+    distance = 'distance'
+
+
 class TaskBase(BaseModel):
     title: str
     description: str
