@@ -1,5 +1,6 @@
 .LeftPanel {
     width: 250px;
+    min-width: 250px;
     padding: 0px 10px 0px 10px;
     border-right: 1px solid var(--accent-color);
     background-color: var(--background-secondary);
@@ -16,6 +17,8 @@
 .Container {
     display: flex;
     flex-direction: row;
+    min-height: 100vh;
+    background-color: var(--background-primary);
 }
 
 .TaskList {
@@ -25,7 +28,7 @@
 .CurrentTaskButton {
     background-color: var(--button-color);
     width: 90%;
-    height: 35px;
+    padding-block: 3px;
     border: 1px solid var(--button-press);
     border-radius: 10px;
     margin-bottom: 15px;

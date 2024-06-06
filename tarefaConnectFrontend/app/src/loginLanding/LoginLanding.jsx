@@ -23,7 +23,7 @@ const panelDataExample = [
     id: 0,
     buttonText: "Find Someone",
     body: "Find a tasker to complete a job; filter by rating, distance and more!",
-    redirectTo: ""
+    redirectTo: "/tradesmanList"
   },
   {
     id: 1,
