@@ -1,12 +1,18 @@
 import "./Task.css";
 
-import CreateTask from "./create/CreateTask";
+import CreateTask from "./create/CreateTask.tsx";
 import TaskDisplay from "./display/TaskDisplay.tsx"
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function Task({ userData_, startingIndex = -1 }) {
   const [userData, updateUserData] = useState(userData_);
   const [index, setIndex] = useState(startingIndex);
+
+  const categories = [
+    'Gloucester House',
+    'Glendale Manor',
+    'Personal'
+  ]
 
   const addTask = (task) => {
     updateUserData(prev => ({
@@ -18,7 +24,7 @@ export default function Task({ userData_, startingIndex = -1 }) {
   return (
     <div className="Container" >
       <CurrentTaskPanel changeIndex={setIndex} data={userData.tasks.map((item) => [item.title, item.id])} />
-      {index === -1 ? <CreateTask addTask={addTask} userId={userData.id} /> : <TaskDisplay taskData={userData.tasks[index]} />}
+      {index === -1 ? <CreateTask addTask={addTask} userId={userData.id} categoryInfo={categories} /> : <TaskDisplay taskData={userData.tasks[index]} />}
     </div>
   );
 }

@@ -2,17 +2,19 @@ import './App.css';
 import CheckHeader from './header/CheckHeader'
 import Header from './header/Header.tsx';
 import LoginLanding from './loginLanding/LoginLanding';
-import Task from './task/Task';
+import Task from './task/Task.tsx';
 import Login from './login/Login.tsx'
 import Register from './login/Register.tsx'
 import Forgot from './login/Forgot.tsx'
 import axios from 'axios';
+
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate
 } from "react-router-dom";
+
 import "bootstrap-icons/font/bootstrap-icons.css";
 import PageNotFound from "./404Page";
 import useLocalStorage from 'use-local-storage';
