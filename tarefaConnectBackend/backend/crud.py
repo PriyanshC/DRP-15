@@ -1,6 +1,36 @@
 from sqlalchemy.orm import Session
+from pydantic import EmailStr
 
 from . import models, schemas
+
+
+TEST_USER: schemas.UserCreate = schemas.UserCreate(
+    email=EmailStr("test@mail.com"),
+    password="test",
+    forename="test",
+    surname="test"
+)
+
+TEST_USER_TASKS = [
+    {
+      "title": 'Gardening Every Week',
+      "description": 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus dolores minus, quo fuga '
+                     'possimus iure iusto commodi voluptatibus, aut architecto nesciunt est amet reiciendis quas odit '
+                     'suscipit laudantium quis hic.'
+    },
+    {
+      "title": "Broken Toilet Seat",
+      "description": 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus dolores minus, quo fuga '
+                     'possimus iure iusto commodi voluptatibus, aut architecto nesciunt est amet reiciendis quas odit '
+                     'suscipit laudantium quis hic.'
+    },
+    {
+      "title": "Faulty Light Bulb",
+      "description": 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus dolores minus, quo fuga '
+                     'possimus iure iusto commodi voluptatibus, aut architecto nesciunt est amet reiciendis quas '
+                     'odit suscipit laudantium quis hic.'
+    }
+]
 
 
 def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
@@ -13,6 +43,15 @@ def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def create_test_user(db: Session) -> schemas.User:
+    test_user_db = create_user(db, new_user=TEST_USER)
+
+    for task in TEST_USER_TASKS:
+        create_task(db, schemas.TaskCreate(**task), test_user_db.id)
+
+    return test_user_db
 
 
 def get_user(db: Session, user_id: int) -> schemas.User:

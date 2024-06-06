@@ -1,63 +1,88 @@
+import './CreateTask.css'
+
 import { useState } from 'react';
-import './createTask.css'
+import { api } from '../../App.tsx';
+import Loading from '../../loading/Loading.tsx'
 
-import { api } from '../../App';
+export default function CreateTask({ userId, addTask }) {
+  const state = {
+    error: 0,
+    loading: 1,
+    normal: 2
+  }
 
-function CreateTask({ update }) {
-  const [title, changeTitle] = useState("");
-  const [desc, changeDesc] = useState("");
-  return (
-    <div className="RightPanel" id="TaskRightPanel">
-      <h1 className="CreateTaskTitle">
-        Create a New Task
-      </h1>
+  const emptyForm = { title: '', description: '' };
 
-      <form>
-        <div className="RightPanelElement">
-          <label className="FieldLabel">
-            Title:
-          </label>
-          <input
-            style={{ padding: '5px' }}
-            type="text"
-            className="form-control"
-            id="TaskTitleField"
-            placeholder="what do you need?"
-            onChange={() => { changeTitle(document.getElementById('TaskTitleField').value) }}
-          />
+  const [formData, updateForm] = useState(emptyForm)
+  const [currState, setState] = useState(state.normal);
+
+  const handleChange = (e) => {
+    updateForm(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const handleSubmit = () => {
+    console.log(userId);
+    setState(state.loading);
+    api.post(userId + "/create-task", formData)
+      .then(data => {
+        addTask(data.data);
+        setState(state.normal);
+      })
+      .catch(err => {
+        console.log(err);
+        console.log('err');
+        setState(state.error);
+      });
+  }
+
+  switch (currState) {
+    case (state.error):
+      return (<div style={{ margin: 'auto', marginTop: '40px' }}>Error Occurred!</div>);
+    case (state.loading):
+      return (
+        <div style={{ width: '200px', height: '200px', margin: 'auto', marginTop: '40px' }}>
+          <Loading />
+        </div>);
+    default:
+      return (
+        <div className="RightPanel">
+          <h1 className="CreateTaskTitle">
+            Create a New Task
+          </h1>
+
+          <form className='CreateTaskForm'>
+            <div className="RightPanelElement">
+              <label className="FieldLabel">Title:</label>
+              <input
+                type="text"
+                className="TitleInput Input"
+                name='title'
+                placeholder="What do you need?"
+                onChange={handleChange}
+                maxLength={100}
+                required
+              />
+            </div>
+            <div className="RightPanelElement">
+              <label className="FieldLabel">
+                Description:
+              </label>
+              <textarea className="DescriptionInput Input"
+                placeholder="Tell us a little more..."
+                name='description'
+                onChange={handleChange}
+                maxLength={1000}
+                required
+              />
+            </div>
+          </form>
+          <button className="PostButton" onClick={handleSubmit} >
+            Post
+          </button>
         </div>
-        <div className="RightPanelElement">
-          <label className="FieldLabel">
-            Description:
-          </label>
-          <textarea className="DescriptionTextArea"
-            placeholder="tell us a little more..."
-            id='taskTextArea'
-            onChange={() => { changeDesc(document.getElementById('taskTextArea').value) }}
-          />
-        </div>
-        {/* <div className="RightPanelElement">
-          <label className="FieldLabel">
-            Task Location:
-          </label>
-        </div> */}
-        <button
-          type='button'
-          className="PostButton"
-          onClick={() => {
-            api.post("create-task", {
-              title: title,
-              description: desc
-            }).catch(err => console.log(err));
-            update();
-            return false;
-          }}
-        >
-          Post
-        </button>
-      </form>
-    </div>
-  );
+      );
+  }
 }
-
-export default CreateTask;

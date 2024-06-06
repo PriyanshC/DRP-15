@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import './style.css'
+import './TradesmanList.css'
 
 function TradesmanList() {
     const [filters, updateFilters] = useState([[]])
@@ -243,8 +243,8 @@ function ProfileDescription({ index, name, jobTitle, description, distance, veri
         : "ProfileDescriptionContainer"}>
             <div className='ProfileTopInfo'>
                 <div className= "ProfileDescription"> {description} </div>
-                <img className='ProfileDescriptionImage' src={require("../Assets/electrician.jpg")}
-                 alt={require("../Assets/profilePicturePlaceholder.jpg")}/>
+                <img className='ProfileDescriptionImage' src={require("../assets/electrician.jpg")}
+                 alt={require("../assets/profilePicturePlaceholder.jpg")}/>
             </div>
             <Link to='/tradesmanProfile' 
                 state={{

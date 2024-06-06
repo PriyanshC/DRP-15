@@ -14,11 +14,10 @@
 
 .FilterPanelTitle {
     display: flex;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size:xx-large;
     font-style: italic;
     font-weight: bolder;
-    color: rgb(73, 73, 73);
+    color: var(--font-color-primary);
     padding-bottom: 20px;
 }
 
@@ -29,11 +28,10 @@
 }
 
 .FilterHeader {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: medium;
     font-style: italic;
     font-weight: 600;
-    color: rgb(73, 73, 73);
+    color: var(--font-color-primary);
     text-align: left;
     padding-bottom: 10px;
 }
@@ -41,8 +39,6 @@
 .DistanceFilter {
     width: 100%;
     max-width: 500px;
-    /* height: fit-content; */
-    /* padding-bottom: 20px; */
 }
 
 .RatingSelect {
@@ -64,7 +60,7 @@
     white-space:nowrap;
     cursor:pointer;
     font-size:30px;
-    color:#ccc;
+    color: var(--accent-color);
 }
 .rate:not(:checked) > label:before {
     content: '★ ';
@@ -109,7 +105,7 @@
 
 .SearchBar input {
     display: inline-block;
-    background-color: lightgrey;
+    background-color: var(--background-secondary);
     width: 100%;
     font-size: 1rem;
 
@@ -124,11 +120,11 @@
 }
 
 .SearchBar input::placeholder {
-    color: black;
+    color: var(--accent-color)
 }
 
 .SearchBar i {
-    color: black;
+    color: var(--accent-color);
     position: absolute;
     left: 10px;
     top: 50%;
@@ -163,7 +159,7 @@
 
 .ProfileInfo .bi-patch-check-fill {
     font-size: 30px;
-    color: blue;
+    color: var(--font-color-secondary);
 }
 
 .ProfileDescriptionContainer {

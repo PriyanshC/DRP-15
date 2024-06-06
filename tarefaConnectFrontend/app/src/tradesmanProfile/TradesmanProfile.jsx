@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import './style.css'
+import './TradesmanProfile.css'
 
 function TradesmanProfile() {
 
     const location = useLocation()
     const { name, jobTitle, description, distance, verified, rating} = location.state
 
-    const image = "../Assets/electrician.jpg"
+    const image = "../assets/electrician.jpg"
 
     return (
         <div className="TradesmanContainer">
@@ -135,8 +135,8 @@ function TopReviews() {
 function PictureAndMessage({ image }) {
     return (
         <div className='PictureAndMessage'>
-            <img className='ProfilePicture' src={require("../Assets/electrician.jpg")} 
-            alt={require("../Assets/profilePicturePlaceholder.jpg")}/>
+            <img className='ProfilePicture' src={require("../assets/electrician.jpg")} 
+            alt={require("../assets/profilePicturePlaceholder.jpg")}/>
             <div className="QAndA">
                 <h2> Q/A </h2>
             </div>

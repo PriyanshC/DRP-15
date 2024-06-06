@@ -12,14 +12,14 @@
     align-items: center;
     padding: 10px 20px 10px;
     font-size: 20px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--font-color-primary);
 }
 
 .BackButton {
     display: flex;
     background-color: transparent;
     border: none;
-    color: blue;
+    color: var(--font-color-secondary);
     font-size: 20px;
     cursor: pointer;
 }
@@ -30,8 +30,10 @@
 }
 
 .bi-patch-check-fill {
+    display: flex;
     font-size: 30px;
-    color: blue;
+    color: var(--font-color-secondary);
+    align-items: center;
 }
 
 .star-rating {
@@ -51,7 +53,7 @@
 }
 
 .star {
-    color: #ddd;
+    color: var(--accent-color);
 }
 
 .golden-star {
@@ -81,7 +83,7 @@
     display: flex;
     flex-direction: column;
     flex: 3;
-    border-right: 1px solid black;
+    border-right: 1px solid var(--background-color-secondary);
 }
 
 .ProfileBio {
@@ -90,7 +92,6 @@
 }
 
 .TradesmanDescription {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: x-large;
     font-weight: 500;
 }
@@ -113,18 +114,17 @@
     margin-right: 60px;
     margin-bottom: 20px;
     display: flex;
-    border: 1px solid black;
+    border: 1px solid var(--font-color-primary);
     border-radius: 10px;
 }
 
 .ReplyName {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-style: italic;
     font-weight: bolder;
     font-size: x-large;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: rgb(73, 73, 73)
+    color: var(--font-color-primary)
 }
 
 .ReplyNameContainer {

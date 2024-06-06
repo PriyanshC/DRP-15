@@ -1,3 +1,9 @@
 .App {
   text-align: center;
+  color: var(--font-color-primary);
+  background-color: var(--background-primary);
+  font-family: var(--font-famiy);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }

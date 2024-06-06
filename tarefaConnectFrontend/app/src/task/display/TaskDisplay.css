@@ -1,0 +1,121 @@
+.TaskDisplayPanel {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.TaskDisplay {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.TaskInfoPanel {
+    text-align: left;
+    padding: 20px;
+}
+
+.TaskTitle {
+    font-size: 35px;
+    text-decoration-line: underline;
+    text-wrap: wrap;
+    min-width: none;
+}
+
+.TaskDescription {
+    margin-top: 20px;
+    font-size: 20px;
+    text-wrap: wrap;
+    min-width: none;
+}
+
+.MapContainer {
+    width: 500px;
+    min-width: 500px;
+    height: 500px;
+}
+
+.TaskRepliesPanel {
+    padding: 20px;
+    border-top: 1px solid var(--accent-color);
+}
+
+.RepliesHeader {
+    margin-bottom: 10px;
+}
+
+.RepliesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.ReplyElement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    padding: 10px;
+    background-color: var(--background-secondary);
+}
+
+.ReplyNameContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.ReplyName {
+    font-size: 25px;
+}
+
+.MessageButton {
+    height: 100%;
+    width: 100px;
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    margin-left: 15px;
+    color: inherit;
+    background-color: var(--button-color);
+    transition: all 0.3s;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.MessageButton:hover {
+    background-color: var(--button-press);
+}
+
+.StarContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.Star {
+    font-size: 20px;
+    display: inline-block;
+}
+
+.BlankStar {
+    color: gray;
+}
+
+.GoldenStar {
+    color: gold;
+}
+
+.Divider {
+    height: 100%;
+    border-left: 1px solid var(--accent-color);
+    margin-left: 10px;
+}

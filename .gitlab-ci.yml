@@ -21,11 +21,11 @@ deploy-vm:
     - source env/bin/activate
     - cd tarefaConnectFrontend/app
     - npm ci
-    - npm install react-scripts@3.4.1 -g
+    - npm install
     - npm run build
     - cd ../..
     - pip install --no-cache-dir --upgrade -r tarefaConnectBackend/requirements.txt
-    - sudo /home/pc1822/drp_15/env/bin/fastapi run tarefaConnectBackend/backend/main.py --port 80 &> runner.log &
+    - ./env/bin/fastapi run tarefaConnectBackend/backend/main.py --port 80 &> ~/runner.log &
 
 #deploy-heroku:
 #  image: ruby:latest
