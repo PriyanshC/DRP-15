@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { api } from '../../App.tsx';
 import Loading from '../../loading/Loading.tsx'
 
-export default function CreateTask({ addTask }) {
+export default function CreateTask({ userId, addTask }) {
   const state = {
     error: 0,
     loading: 1,
@@ -24,13 +24,18 @@ export default function CreateTask({ addTask }) {
   }
 
   const handleSubmit = () => {
+    console.log(userId);
     setState(state.loading);
-    api.post("create-task", formData)
+    api.post(userId + "/create-task", formData)
       .then(data => {
         addTask(data.data);
-        setState(state.normal)
+        setState(state.normal);
       })
-      .catch(err => { console.log(err); setState(state.error) });
+      .catch(err => {
+        console.log(err);
+        console.log('err');
+        setState(state.error);
+      });
   }
 
   switch (currState) {
@@ -53,20 +58,24 @@ export default function CreateTask({ addTask }) {
               <label className="FieldLabel">Title:</label>
               <input
                 type="text"
-                className="TitleInput"
+                className="TitleInput Input"
                 name='title'
                 placeholder="What do you need?"
                 onChange={handleChange}
+                maxLength={100}
+                required
               />
             </div>
             <div className="RightPanelElement">
               <label className="FieldLabel">
                 Description:
               </label>
-              <textarea className="DescriptionInput"
+              <textarea className="DescriptionInput Input"
                 placeholder="Tell us a little more..."
                 name='description'
                 onChange={handleChange}
+                maxLength={1000}
+                required
               />
             </div>
           </form>

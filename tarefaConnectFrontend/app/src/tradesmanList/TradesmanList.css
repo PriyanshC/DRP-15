@@ -1,0 +1,253 @@
+.PageContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.FilterPanel {
+    display:inline-block;
+    flex-direction: column;
+    flex: 1;
+    text-align: left;
+    justify-content:space-between;
+    margin: 20px;
+}
+
+.FilterPanelTitle {
+    display: flex;
+    font-size:xx-large;
+    font-style: italic;
+    font-weight: bolder;
+    color: var(--font-color-primary);
+    padding-bottom: 20px;
+}
+
+.FilterSection {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.FilterHeader {
+    font-size: medium;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--font-color-primary);
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+.DistanceFilter {
+    width: 100%;
+    max-width: 500px;
+}
+
+.RatingSelect {
+    display: flex;  
+}
+
+.rate {
+    height: 46px;
+    width:fit-content;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color: var(--accent-color);
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #FBD930;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #FBD930;
+}
+
+
+
+
+.TradesmanPanel {
+    display: flex;
+    padding-inline: 20px;
+    flex-direction: column;
+    flex: 4
+}
+
+.SearchPanel {
+    flex: 1;
+    justify-content: left;
+    margin-bottom: 80px;
+}
+
+.SearchBar {
+    position: relative;
+    top: 50px;
+    width: 70%;
+    margin-right: auto;
+}
+
+.SearchBar input {
+    display: inline-block;
+    background-color: var(--background-secondary);
+    width: 100%;
+    font-size: 1rem;
+
+    padding-left: 2.5rem;
+    padding-right: 1rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+
+    outline: none;
+    border: none;
+    border-radius: 20px;
+}
+
+.SearchBar input::placeholder {
+    color: var(--accent-color)
+}
+
+.SearchBar i {
+    color: var(--accent-color);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.AvailableTradesmen {
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+    gap: 20px;
+}
+
+.ProfileInfo {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    min-width: 100%;
+    padding-inline: 10px;
+    align-items: center;
+}
+
+.MiniProfile {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    justify-content: space-between;
+    border: 1px solid rgb(61, 61, 61);
+    border-radius: 15px;
+}
+
+.ProfileInfo .bi-patch-check-fill {
+    font-size: 30px;
+    color: var(--font-color-secondary);
+}
+
+.ProfileDescriptionContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    text-align: left;
+    transition: all 0.1s cubic-bezier(0,1,0,1);
+    padding-inline: 20px;
+    justify-content: space-between;
+}
+
+.ProfileDescriptionContainershow {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 9999px;
+    text-align: left;
+    transition: all 0.1s cubic-bezier(1,0,1,0);
+    padding: 10px 20px 10px;
+    justify-content: space-between;
+}
+
+.ProfileTopInfo {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.ProfileDescription {
+    text-align: left;
+    padding-inline: 20px;
+    flex: 3;
+}
+
+.ProfileDescriptionImage {
+    flex: 1;
+    width: 50px;
+    height: auto;
+}
+
+.VerticalLine {
+    border-right: 1px solid rgb(61, 61, 61);
+    height: 90%;
+}
+
+.star-rating {
+    display: inline-block;
+
+}
+
+.stars-container {
+    direction: rtl;
+    flex-direction: row;
+}
+
+.star,
+.golden-star {
+    font-size: 2em;
+    display: inline-block;
+}
+
+.star {
+    color: #ddd;
+}
+
+.golden-star {
+    color: #FBD930;
+}
+
+.ReplyNameContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.VerifyRating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    vertical-align: middle;
+}
+
+.StarDisplay {
+    height: 40px;
+    vertical-align: middle;
+}

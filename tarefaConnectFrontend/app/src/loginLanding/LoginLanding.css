@@ -16,7 +16,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    width: 40vw;
+    height: 10vh;
     padding: 20px;
     margin: 0px 1vw 0px 1vw;
     margin-top: 40px;
@@ -27,10 +28,10 @@
     --height: 70px;
     height: var(--height);
     line-height: var(--height);
-    width: 240px;
+    width: 500px;
     font-family: var(--font-family-title);
     text-align: center;
-    font-size: 25px;
+    font-size: 38px;
     white-space: nowrap;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
