@@ -49,6 +49,9 @@ def get_db() -> Generator:
 
 @app.post("/api/create-user", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    if not crud.has_test_user(db):
+        crud.create_test_user(db)
+
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user is not None:
         raise HTTPException(status_code=400, detail="Email already in use.")
@@ -76,17 +79,13 @@ def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
 
 @app.post("/api/login", response_model=schemas.User)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
+    if not crud.has_test_user(db):
+        crud.create_test_user(db)
     db_user = crud.check_user_details(db, user_details)
 
-    if is_test_user(user_details) and db_user is None:
-        db_user = crud.create_test_user(db)
-    elif db_user is None:
+    if db_user is None:
         raise HTTPException(status_code=401, detail="Incorrect email or password.")
     return db_user
-
-
-def is_test_user(user_details: schemas.UserLogin) -> bool:
-    return user_details.email == crud.TEST_USER.email and user_details.password == crud.TEST_USER.password
 
 
 @app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
@@ -118,7 +117,7 @@ def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)
     return crud.create_listing(db, listing)  # TODO
 
 
-@app.get("/api/listings", response_model=list[schemas.Listing])
+@app.get("/api/listings", response_model=list[schemas.TaskerListing])
 def get_listings(filter_category: schemas.Category | None = None,
                  filter_min_rating: int | None = None,
                  filter_max_distance: int | None = None,
@@ -126,11 +125,13 @@ def get_listings(filter_category: schemas.Category | None = None,
                  skip: int = 0,
                  limit: int = 20,
                  db: Session = Depends(get_db)):
-    return crud.get_listings(db, schemas.Filters(category=filter_category,
-                                                 min_rating=filter_min_rating,
-                                                 max_distance=filter_max_distance),
-                             sort, skip, limit)
+    listings = crud.get_listings(db, schemas.Filters(category=filter_category,
+                                                     min_rating=filter_min_rating,
+                                                     max_distance=filter_max_distance),
+                                 sort, skip, limit)
 
+    print(list(map(lambda x: print(str(x)), listings)))
+    return listings
 
 @app.post("/api/tasks/reply", response_model=schemas.Reply)
 def create_reply(reply: schemas.Reply, db: Session = Depends(get_db)):

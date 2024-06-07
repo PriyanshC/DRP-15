@@ -120,5 +120,9 @@ def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.
     return db_user
 
 
+def has_test_user(db: Session) -> bool:
+    return get_user_by_email(db, testInfo.TEST_USER.get("email")) is not None
+
+
 def hash_password(password: str) -> str:
     return password
