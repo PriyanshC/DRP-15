@@ -26,8 +26,9 @@ export default function Task(props: Props) {
   }
 
   const addTask = (task: ITask) => {
-    updateTaskData(prev => [...prev, task])
+    updateTaskData(prev => ([...prev, task]))
     console.log(taskData);
+    console.log(task);
   }
 
   return (
