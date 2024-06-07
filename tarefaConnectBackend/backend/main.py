@@ -112,13 +112,14 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     return db_task
 
 
-@app.post("/api/taskers/{tasker_id}", response_model=schemas.Tasker)
+@app.get("/api/taskers/{tasker_id}", response_model=schemas.Tasker)
 def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
     return crud.get_tasker(db, tasker_id)  # TODO
 
 
 @app.post("/api/taskers/create-listing", response_model=schemas.Listing)
 def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
+    print("here")
     return crud.create_listing(db, listing)  # TODO
 
 
