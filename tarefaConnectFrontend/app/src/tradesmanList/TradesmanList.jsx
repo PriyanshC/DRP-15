@@ -101,8 +101,22 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
 
     // FILTER HERE
 
-    const availableTradesmennnn = api.get('listings')
-    console.log(availableTradesmennnn)
+    const[listings, setListings] = useState(null)
+
+    api.get('listings').then((resp) => {
+        setListings(resp.data)
+    })
+
+    if (!listings) return null
+
+    var taskersData = []
+    listings.map((listing) => {
+        const api_path = "taskers/" + listing.tasker_id
+        api.get(api_path).then((resp) => {
+            taskersData.push(resp.data)
+        }) 
+    })
+
     const tradesmen = availableTradesmen.filter((item) => {
         return (
             (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&
