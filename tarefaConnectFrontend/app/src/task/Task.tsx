@@ -7,8 +7,9 @@ import React, { FormEvent, FormEventHandler, ReactNode, useState } from "react";
 export interface ITask {
   title: string,
   description: string,
-  id: number,
-  category: string
+  category: string,
+  user_heading: string,
+  id: number
 }
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
 export default function Task(props: Props) {
   const [taskData, updateTaskData] = useState(props.taskData);
   const [index, setIndex] = useState(props.startingIndex);
-  const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.category).filter((item) => item))));
+  const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.user_heading).filter((item) => item))));
   const addCategory = (category: string) => {
     setCategories(prev => [...prev, category]);
   }
