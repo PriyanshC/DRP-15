@@ -58,11 +58,41 @@ def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> 
     return db_tasker
 
 
-def get_listings(db: Session, category: str | None, skip: int, limit: int) -> list[schemas.Listing]:
-    query = db.query(models.Listing)
+def create_reply(db: Session, reply: schemas.Reply) -> models.Reply:
+    db_reply = models.Reply(**reply.dict())
+    db.add(db_reply)
+    db.commit()
+    db.refresh(db_reply)
+    return db_reply
 
-    if category is not None:
-        query = query.filter(models.Listing.category == category)
+
+def has_replied(db: Session, reply: schemas.Reply) -> bool:
+    return (db.query(models.Reply)
+            .filter(models.Reply.tasker_id == reply.tasker_id and models.Reply.task_id == reply.task_id)
+            .first() is not None)
+
+
+def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
+    return db.query(models.Tasker).filter(models.Tasker.task_id == task_id).first()
+
+
+def get_listings(db: Session, filters: schemas.Filters | None,
+                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
+    query = db.query(models.Listing).join(models.Tasker)
+
+    if filters is not None:
+        if filters.category is not None:
+            query = query.filter(models.Listing.category == filters.category)
+        if filters.min_rating is not None:
+            query = query.filter(models.Tasker.rating >= filters.min_rating)
+        if filters.max_distance is not None:
+            pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
+
+    if sort is not None:
+        if sort is schemas.Sort.rating:
+            query = query.order_by(models.Tasker.rating.desc())
+        else:
+            pass  # query = query.order_by(models.Listing.distance.asc()) TODO
 
     return query.offset(skip).limit(limit).all()
 
@@ -79,8 +109,12 @@ def get_user_tasks(db: Session, user_id: int, skip: int | None, limit: int | Non
     return db.query(models.User).filter(models.User.id == user_id).first().tasks[skip:limit]
 
 
-def get_task(db: Session, task_id: int) -> schemas.Task:
+def get_task(db: Session, task_id: int) -> schemas.Task | None:
     return db.query(models.Task).filter(models.Task.id == task_id).first()
+
+
+def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.Reply]:
+    return db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
 
 
 def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | None:
@@ -88,6 +122,10 @@ def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.
     if db_user is None or db_user.hashed_password != hash_password(user_details.password):
         return None
     return db_user
+
+
+def has_test_user(db: Session) -> bool:
+    return get_user_by_email(db, testInfo.TEST_USER.get("email")) is not None
 
 
 def hash_password(password: str) -> str:

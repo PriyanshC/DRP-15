@@ -12,9 +12,22 @@ class Category(str, Enum):
     other = 'other'
 
 
+class Filters(BaseModel):
+    category: Category | None
+    min_rating: int | None
+    max_distance: int | None
+
+
+class Sort(str, Enum):
+    rating = 'rating'
+    distance = 'distance'
+
+
 class TaskBase(BaseModel):
     title: str
     description: str
+    category: Category | None
+    user_heading: str | None
 
 
 class TaskCreate(TaskBase):
@@ -99,3 +112,12 @@ class Tasker(TaskerBase):
 
     class Config:
         orm_mode = True
+
+
+class TaskerListing(Tasker, Listing):
+    pass
+
+
+class Reply(BaseModel):
+    tasker_id: int
+    task_id: int

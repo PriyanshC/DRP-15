@@ -49,6 +49,9 @@ def get_db() -> Generator:
 
 @app.post("/api/create-user", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    if not crud.has_test_user(db):
+        crud.create_test_user(db)
+
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user is not None:
         raise HTTPException(status_code=400, detail="Email already in use.")
@@ -56,7 +59,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @app.post("/api/create-tasker", response_model=schemas.Tasker)
-def create_user(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
+def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=tasker.email)
     if db_user is not None:
         raise HTTPException(status_code=400, detail="Email already in use.")
@@ -76,17 +79,13 @@ def create_user(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
 
 @app.post("/api/login", response_model=schemas.User)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
+    if not crud.has_test_user(db):
+        crud.create_test_user(db)
     db_user = crud.check_user_details(db, user_details)
 
-    if is_test_user(user_details) and db_user is None:
-        db_user = crud.create_test_user(db)
-    elif db_user is None:
+    if db_user is None:
         raise HTTPException(status_code=401, detail="Incorrect email or password.")
     return db_user
-
-
-def is_test_user(user_details: schemas.UserLogin) -> bool:
-    return user_details.email == crud.TEST_USER.email and user_details.password == crud.TEST_USER.password
 
 
 @app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
@@ -113,15 +112,43 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     return db_task
 
 
+@app.get("/api/taskers/{tasker_id}", response_model=schemas.Tasker)
+def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
+    return crud.get_tasker(db, tasker_id)  # TODO
+
+
 @app.post("/api/taskers/create-listing", response_model=schemas.Listing)
 def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
+    print("here")
     return crud.create_listing(db, listing)  # TODO
 
 
 @app.get("/api/listings", response_model=list[schemas.Listing])
-def get_listings(category: schemas.Category | None = None, skip: int = 0,
-                 limit: int = 20, db: Session = Depends(get_db)):
-    return crud.get_listings(db, category, skip, limit)
+def get_listings(filter_category: schemas.Category | None = None,
+                 filter_min_rating: int | None = None,
+                 filter_max_distance: int | None = None,
+                 sort: schemas.Sort | None = None,
+                 skip: int = 0,
+                 limit: int = 20,
+                 db: Session = Depends(get_db)):
+    return crud.get_listings(db, schemas.Filters(category=filter_category,
+                                                 min_rating=filter_min_rating,
+                                                 max_distance=filter_max_distance),
+                             sort, skip, limit)
+
+
+@app.post("/api/tasks/reply", response_model=schemas.Reply)
+def create_reply(reply: schemas.Reply, db: Session = Depends(get_db)):
+    if crud.has_replied(db, reply):
+        raise HTTPException(status_code=400, detail="You have already replied to this task.")
+    return crud.create_reply(db, reply)
+
+
+@app.get("/api/tasks/{task_id}/replies", response_model=list[schemas.Reply])
+def get_task_replies(task_id: int, skip: int = 0, limit: int = 20, db: Session = Depends(get_db)):
+    if crud.get_task(db, task_id) is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return crud.get_task_replies(db, task_id, skip, limit)
 
 
 app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")

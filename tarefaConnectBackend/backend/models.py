@@ -22,6 +22,8 @@ class Task(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     description = Column(String)
+    category = Column(String)
+    user_heading = Column(String)
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
 
     owner = relationship("User", back_populates="tasks")
@@ -31,7 +33,7 @@ class Listing(Base):
     __tablename__ = "listings"
 
     id = Column(Integer, primary_key=True)
-    category = Column(String)  # TODO: use enum
+    category = Column(String)
     description = Column(String)
 
     tasker_id = Column(Integer, ForeignKey("taskers.id"))
@@ -56,3 +58,10 @@ class Tasker(Base):
 
     rating = Column(Integer)
     verified = Column(Boolean)
+
+
+class Reply(Base):
+    __tablename__ = "replies"
+
+    tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"), primary_key=True)
+    task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True)
