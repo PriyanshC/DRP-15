@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import './TradesmanList.css'
 import { FilterPanel } from './FilterPanel'
 import { SearchPanel } from './SearchPanel'
+import { api } from '../App.tsx'
 
 function TradesmanList() {
     const [search, setSearch] = useState('')
@@ -100,6 +101,8 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
 
     // FILTER HERE
 
+    const availableTradesmennnn = api.get('listings')
+    console.log(availableTradesmennnn)
     const tradesmen = availableTradesmen.filter((item) => {
         return (
             (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&

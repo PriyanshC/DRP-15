@@ -57,7 +57,7 @@ function App() {
             <Route path='home' element={<LoginLanding />} />
             <Route path='findHelp' element={<LoginLandingForHelp />} />
             <Route path='task' element={userData === null ? <Navigate to='/login' /> : <Task userData_={userData} />} />
-            <Route path='tradesmanList' element={<TradesmanList/>} />  
+            <Route path='tradesmanList' element={userData === null ? <Navigate to='/login' /> : <TradesmanList />} />  
             <Route path='tradesmanProfile' element ={<TradesmanProfile/> } />
             <Route path='taskList' element ={<TaskList/> } />
             <Route path='*' element={<PageNotFound />} />

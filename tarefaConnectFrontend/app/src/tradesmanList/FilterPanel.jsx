@@ -32,7 +32,7 @@ export function FilterPanel({ setRating, distance, setDistance }) {
                     <label> {distance == null ? 5 : distance} km </label>
                 </div>
             </div>
-            <div className="FilterSection">
+            {/* <div className="FilterSection">
                 <label className='FilterHeader'> Relation: </label>
                 <div className="Relations">
                     <div className="FilterBox">
@@ -48,7 +48,7 @@ export function FilterPanel({ setRating, distance, setDistance }) {
                         <label> Endorsed by a Friend </label>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="FilterSection">
                 <label className="FilterHeader"> Minimum Rating: </label>
                 <div class="rate" id='rate'>

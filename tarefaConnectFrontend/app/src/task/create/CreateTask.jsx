@@ -11,7 +11,7 @@ export default function CreateTask({ userId, addTask }) {
     normal: 2
   }
 
-  const emptyForm = { title: '', description: '' };
+  const emptyForm = { title: '', description: '', category: "plumbing" };
 
   const [formData, updateForm] = useState(emptyForm)
   const [currState, setState] = useState(state.normal);
