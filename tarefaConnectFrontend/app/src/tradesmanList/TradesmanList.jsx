@@ -107,24 +107,30 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
         setListings(resp.data)
     })
 
-    if (!listings) return null
     console.log("listings:")
     console.log(listings)
 
     var taskersData = []
-    listings.array.forEach((listing) => {
-        const api_path = "taskers/" + listing.tasker_id
-        api.get(api_path).then((resp) => {
-            taskersData.push(resp.data)
-        }) 
+    listings.map((listing) => {
+        const api_path = 'taskers/' + listing.tasker_id
+        return(
+            api.get(api_path).then((resp) => {
+                taskersData.push({
+                    ...resp.data,
+                    "description": listing.description,
+                    "category": listing.category
+                })
+            }) 
+        )
     })
+    console.log("taskers")
     console.log(taskersData)
 
-    const tradesmen = availableTradesmen.filter((item) => {
+    const tradesmen = taskersData.filter((item) => {
         return (
-            (search.toLowerCase() === '' ? item : item.jobTitle.toLowerCase().includes(search)) &&
-            (ratingFilter == null ? item : item.rating >= ratingFilter) &&
-            (distanceFilter == null ? item.distance <= 5 : item.distance <= distanceFilter)
+            (search.toLowerCase() === '' ? item : item.category.toLowerCase().includes(search)) &&
+            (ratingFilter == null ? item : item.rating >= ratingFilter)
+            // (distanceFilter == null ? item.distance <= 5 : item.distance <= distanceFilter)
         )
     }).map((item, index) => {
             return (
