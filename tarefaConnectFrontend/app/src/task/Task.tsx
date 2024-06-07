@@ -80,7 +80,7 @@ function CurrentTaskPanel(props: PanelProps) {
   const [newCategoryExpanded, setExpanded] = useState(false);
   const buttonStyle = (newCategoryExpanded ? { backgroundColor: 'var(--button-color)' } : {})
 
-  console.log(buttons.filter(([_, itemCategory]) => { return itemCategory === 'London Estate' }).map(([fst, _]) => fst))
+  // console.log(buttons.filter(([_, itemCategory]) => { return itemCategory === 'London Estate' }).map(([fst, _]) => fst))
 
   return (
     <div className="LeftPanel">
