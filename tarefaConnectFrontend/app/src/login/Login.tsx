@@ -14,10 +14,14 @@ const testLogin = {
 };
 
 const exampleTasks = [
-  { title: 'This is a personal', description: 'Description', id: 1, category: 'Personal' },
-  { title: 'This is a personal', description: 'Description', id: 2, category: 'Personal' },
-  { title: 'This is a personal', description: 'Description', id: 3, category: 'Personal' },
-  { title: 'This is a title', description: 'Description', id: 4, category: 'Fulham' },
+  { title: 'Lawn Mowing', description: 'Description', id: 1, category: 'Property A' },
+  { title: 'Flower Watering', description: 'Description', id: 2, category: 'Property A' },
+  { title: 'Raking Leaves', description: 'Description', id: 3, category: 'Property C' },
+  { title: 'Home Cleaner', description: 'Description', id: 4, category: 'Property B' },
+  { title: 'Large Furniture Removal', description: 'Description', id: 4, category: 'Property B' },
+  { title: 'Broken Lightbulb', description: 'Description', id: 4, category: 'Property A' },
+  { title: 'Misc Help', description: 'Description', id: 4, category: 'Misc' },
+  { title: 'Shopping Help', description: 'Description', id: 4, category: 'Misc' },
 ]
 
 export default function Login(props: Props) {

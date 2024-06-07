@@ -23,10 +23,6 @@ export default function CreateTask(props: Props) {
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    if (categoryChoice === -1) {
-      return false;
-    }
-
     setState(state.loading);
 
     api.post(props.userId + "/create-task", {
@@ -92,6 +88,7 @@ export default function CreateTask(props: Props) {
                 <div className='CategoryDropdown Input' style={{ color: (categoryChoice === -1 ? 'var(--accent-color)' : 'inherit') }}>
                   {categoryChoice === -1 ? 'Choose One By Hovering...' : props.categoryInfo[categoryChoice]}
                   <div className='DropDownContainer'>
+                    <div className='DropDownItem' style={(categoryChoice === -1 ? { backgroundColor: 'var(--button-press)' } : {})}>No category</div>
                     {props.categoryInfo.map((item, index) => {
                       const styles = (index === categoryChoice ? { backgroundColor: 'var(--button-press)' } : {});
                       return (<div key={item} className='DropDownItem' style={styles} onClick={() => { setCategory(index) }}>{item}</div>)

@@ -20,7 +20,7 @@ interface Props {
 export default function Task(props: Props) {
   const [taskData, updateTaskData] = useState(props.taskData);
   const [index, setIndex] = useState(props.startingIndex);
-  const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.category))));
+  const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.category).filter((item) => item))));
 
   const addCategory = (category: string) => {
     setCategories(prev => [...prev, category]);
@@ -53,10 +53,8 @@ function CurrentTaskPanel(props: PanelProps) {
     }
     if (content.style.maxHeight) {
       content.style.maxHeight = '';
-      // content.style.marginTop = '0px';
     } else {
       content.style.maxHeight = content.scrollHeight + "px";
-      // content.style.marginTop = '10px';
     }
   }
 
@@ -87,6 +85,9 @@ function CurrentTaskPanel(props: PanelProps) {
       </h1>
       <hr style={{ borderColor: 'var(--accent-color)' }}></hr>
       <div className="TaskList">
+        {
+          buttons.filter(([_, itemCategory]) => { return !itemCategory }).map(([fst, _]) => fst)
+        }
         {
           props.categories.map((category) => (
             <div className="Category" key={category}>

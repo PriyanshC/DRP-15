@@ -27,10 +27,9 @@
 
 .CurrentTaskButton {
     background-color: var(--button-color);
-    /* background-color: var(--background-secondary); */
     border: none;
     width: 100%;
-    padding-block: 3px;
+    padding-block: 5px;
     border: 1px solid var(--accent-color);
     border-radius: 5px;
     margin-bottom: 5px;
