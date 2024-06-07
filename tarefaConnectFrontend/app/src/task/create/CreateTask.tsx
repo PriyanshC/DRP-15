@@ -59,12 +59,16 @@ export default function CreateTask(props: Props) {
 
     setState(state.loading);
 
-    api.post(props.userId + "/create-task", {
+    const data = {
       title: event.target[0].value,
       description: event.target[1].value,
-      category: categoryEnum[category],
+      category: categoryEnum[category].value,
       user_heading: props.categoryInfo[userCategory]
-    })
+    }
+
+    console.log(data);
+
+    api.post(props.userId + "/create-task", data)
       .then(data => {
         props.addTask(data.data);
         setState(state.normal);
