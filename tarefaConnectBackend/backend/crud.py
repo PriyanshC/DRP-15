@@ -72,10 +72,13 @@ def has_replied(db: Session, reply: schemas.Reply) -> bool:
             .first() is not None)
 
 
+def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
+    return db.query(models.Tasker).filter(models.Tasker.task_id == task_id).first()
+
+
 def get_listings(db: Session, filters: schemas.Filters | None,
-                 sort: schemas.Sort | None, skip: int, limit: int):# -> list[schemas.TaskerListing]:
-    query = (db.query(models.Tasker, models.Listing)
-             .join(models.Tasker).join(models.Listing))
+                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
+    query = db.query(models.Listing).join(models.Tasker)
 
     if filters is not None:
         if filters.category is not None:

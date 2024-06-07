@@ -112,6 +112,11 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     return db_task
 
 
+@app.post("/api/taskers/{tasker_id}", response_model=schemas.Tasker)
+def create_listing(tasker_id: int, db: Session = Depends(get_db)):
+    return crud.get_tasker(db, tasker_id)  # TODO
+
+
 @app.post("/api/taskers/create-listing", response_model=schemas.Listing)
 def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
     return crud.create_listing(db, listing)  # TODO
@@ -125,13 +130,10 @@ def get_listings(filter_category: schemas.Category | None = None,
                  skip: int = 0,
                  limit: int = 20,
                  db: Session = Depends(get_db)):
-    listings = crud.get_listings(db, schemas.Filters(category=filter_category,
-                                                     min_rating=filter_min_rating,
-                                                     max_distance=filter_max_distance),
-                                 sort, skip, limit)
-
-    print(list(map(lambda x: print(str(x)), listings)))
-    return listings
+    return crud.get_listings(db, schemas.Filters(category=filter_category,
+                                                 min_rating=filter_min_rating,
+                                                 max_distance=filter_max_distance),
+                             sort, skip, limit)
 
 
 @app.post("/api/tasks/reply", response_model=schemas.Reply)
