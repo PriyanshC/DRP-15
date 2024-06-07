@@ -108,6 +108,7 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     })
 
     if (!listings) return null
+    console.log(listings)
 
     var taskersData = []
     listings.array.forEach((listing) => {
@@ -116,6 +117,7 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
             taskersData.push(resp.data)
         }) 
     })
+    console.log(taskersData)
 
     const tradesmen = availableTradesmen.filter((item) => {
         return (
