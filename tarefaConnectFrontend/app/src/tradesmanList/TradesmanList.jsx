@@ -108,6 +108,7 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     })
 
     if (!listings) return null
+    console.log("listings:")
     console.log(listings)
 
     var taskersData = []
