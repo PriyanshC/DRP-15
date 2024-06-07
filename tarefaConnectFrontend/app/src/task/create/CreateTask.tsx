@@ -17,18 +17,53 @@ export default function CreateTask(props: Props) {
     normal: 2
   }
 
+  const categoryEnum = [
+    {
+      name: 'Plumbing',
+      value: 'plumbing'
+    },
+    {
+      name: 'Electric',
+      value: 'electric'
+    },
+    {
+      name: 'Gardening',
+      value: 'gardening'
+    },
+    {
+      name: 'Domestic Cleaning',
+      value: 'domestic cleaning'
+    },
+    {
+      name: 'Dog Walking',
+      value: 'dog walking'
+    },
+    {
+      name: 'Other',
+      value: 'other'
+    }
+  ];
+
   const [currState, setState] = useState(state.normal);
-  const [categoryChoice, setCategory] = useState(-1);
+  const [userCategory, setUserCategory] = useState(-1);
+  const [category, setCategory] = useState(-1);
+  const [needsCategory, setNeedsCategory] = useState(false);
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
+
+    if (category === -1) {
+      setNeedsCategory(true);
+      return false;
+    }
 
     setState(state.loading);
 
     api.post(props.userId + "/create-task", {
       title: event.target[0].value,
       description: event.target[1].value,
-      // category: props.categoryInfo[categoryChoice]
+      category: categoryEnum[category],
+      user_heading: props.categoryInfo[userCategory]
     })
       .then(data => {
         props.addTask(data.data);
@@ -81,17 +116,35 @@ export default function CreateTask(props: Props) {
                   required
                 />
               </div>
+              <div className='RightPanelElement'>
+                <label className='FieldLabel'>
+                  Category of Task:
+                </label>
+                <div className='ProfessionalCategoryDropdown Input' style={{ color: (category === -1 ? 'var(--accent-color)' : 'inherit'), border: (needsCategory ? '1px solid red' : '') }}>
+                  {category === -1 ? 'Choose A Category By Hovering...' : categoryEnum[category].name}
+                  <div className='DropDownContainer'>
+                    {categoryEnum.map((item, index) => {
+                      return (
+                        <div key={index} className='DropDownItem' style={(category === index ? { backgroundColor: 'var(--button-press)' } : {})}
+                          onClick={() => {
+                            setCategory(index);
+                          }}>{item.name}</div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
               <div className="RightPanelElement">
                 <label className="FieldLabel">
-                  Category:
+                  Your task subheading:
                 </label>
-                <div className='CategoryDropdown Input' style={{ color: (categoryChoice === -1 ? 'var(--accent-color)' : 'inherit') }}>
-                  {categoryChoice === -1 ? 'Choose One By Hovering...' : props.categoryInfo[categoryChoice]}
+                <div className='CategoryDropdown Input' style={{ color: (userCategory === -1 ? 'var(--accent-color)' : 'inherit') }}>
+                  {userCategory === -1 ? 'Set A Subheading...' : props.categoryInfo[userCategory]}
                   <div className='DropDownContainer'>
-                    <div className='DropDownItem' style={(categoryChoice === -1 ? { backgroundColor: 'var(--button-press)' } : {})}>No category</div>
+                    <div className='DropDownItem' style={(userCategory === -1 ? { backgroundColor: 'var(--button-press)' } : {})} onClick={() => { setUserCategory(-1) }}>No category</div>
                     {props.categoryInfo.map((item, index) => {
-                      const styles = (index === categoryChoice ? { backgroundColor: 'var(--button-press)' } : {});
-                      return (<div key={item} className='DropDownItem' style={styles} onClick={() => { setCategory(index) }}>{item}</div>)
+                      const styles = (index === userCategory ? { backgroundColor: 'var(--button-press)' } : {});
+                      return (<div key={item} className='DropDownItem' style={styles} onClick={() => { setUserCategory(index) }}>{item}</div>)
                     })}
                   </div>
                 </div>

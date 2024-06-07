@@ -99,9 +99,9 @@ function CurrentTaskPanel(props: PanelProps) {
           ))
         }
         <div onClick={() => { categoryExpand(); setExpanded(prev => !prev) }} style={buttonStyle} className="NewButton NewCategoryButton">
-          New Category
+          New Sub-heading
           <form className="NewCategoryDropdown" id='category-expand' onSubmit={handleNewCategory}>
-            <input className='NewCategoryInput' type="text" placeholder="Category name..." onClick={(event: FormEvent) => { event.stopPropagation() }} />
+            <input className='NewCategoryInput' type="text" placeholder="Sub-heading name..." onClick={(event: FormEvent) => { event.stopPropagation() }} />
             <button className="NewCategorySubmit">Submit</button>
           </form>
         </div>
