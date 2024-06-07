@@ -35,7 +35,7 @@ class TaskCreate(TaskBase):
 
 
 class Task(TaskBase):
-    id: int
+    task_id: int
     owner_id: int
 
     # replies: list["Tasker"]
@@ -60,7 +60,7 @@ class UserCreate(UserBase):
 
 
 class User(UserBase):
-    id: int
+    user_id: int
     hashed_password: str
 
     tasks: list[Task]
@@ -81,7 +81,7 @@ class ListingCreate(ListingBase):
 
 
 class Listing(ListingBase):
-    id: int
+    listing_id: int
 
     class Config:
         orm_mode = True
@@ -96,7 +96,7 @@ class TaskerCreate(TaskerBase, UserCreate):
 
 
 class Tasker(TaskerBase):
-    id: int
+    tasker_id: int
 
     user_id: int
     country: str

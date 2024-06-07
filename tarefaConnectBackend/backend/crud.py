@@ -73,8 +73,9 @@ def has_replied(db: Session, reply: schemas.Reply) -> bool:
 
 
 def get_listings(db: Session, filters: schemas.Filters | None,
-                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
-    query = db.query(models.Listing).join(models.Tasker)
+                 sort: schemas.Sort | None, skip: int, limit: int):# -> list[schemas.TaskerListing]:
+    query = (db.query(models.Tasker, models.Listing)
+             .join(models.Tasker).join(models.Listing))
 
     if filters is not None:
         if filters.category is not None:
