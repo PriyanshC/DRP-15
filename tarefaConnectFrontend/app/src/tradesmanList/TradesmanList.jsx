@@ -110,7 +110,7 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     if (!listings) return null
 
     var taskersData = []
-    listings.map((listing) => {
+    listings.array.forEach((listing) => {
         const api_path = "taskers/" + listing.tasker_id
         api.get(api_path).then((resp) => {
             taskersData.push(resp.data)
