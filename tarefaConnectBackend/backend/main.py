@@ -117,7 +117,7 @@ def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)
     return crud.create_listing(db, listing)  # TODO
 
 
-@app.get("/api/listings", response_model=list[schemas.TaskerListing])
+@app.get("/api/listings", response_model=list[schemas.Listing])
 def get_listings(filter_category: schemas.Category | None = None,
                  filter_min_rating: int | None = None,
                  filter_max_distance: int | None = None,
@@ -132,6 +132,7 @@ def get_listings(filter_category: schemas.Category | None = None,
 
     print(list(map(lambda x: print(str(x)), listings)))
     return listings
+
 
 @app.post("/api/tasks/reply", response_model=schemas.Reply)
 def create_reply(reply: schemas.Reply, db: Session = Depends(get_db)):

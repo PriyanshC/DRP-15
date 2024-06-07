@@ -114,6 +114,10 @@ class Tasker(TaskerBase):
         orm_mode = True
 
 
+class TaskerListing(Tasker, Listing):
+    pass
+
+
 class Reply(BaseModel):
     tasker_id: int
     task_id: int
