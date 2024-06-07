@@ -36,58 +36,58 @@ function TradesmanPanel({ setSearch, search, distanceFilter, ratingFilter }) {
     )
 }
 
-const availableTradesmen =[
-    {
-        name: "Audrey Prenton",
-        jobTitle: "Dog Walker",
-        description: "DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER",
-        distance: 3.9,
-        verified: false,
-        rating: 3,
-        jobType: "Garden",
-        relation: "Endorsed"
-    },
-    {
-        name: "Pedro Pronto",
-        jobTitle: "Home Help",
-        description: "HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP",
-        distance: 2.3,
-        verified: false,
-        rating: 1,
-        jobType: "Home",
-        relation: "Friend"
-    },
-    {
-        name: "Maria Plum",
-        jobTitle: "Cleaner",
-        description: "CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER",
-        distance: 1.9,
-        verified: true,
-        rating: 4,
-        jobType: "Home",
-        relation: null
-    },
-    {
-        name: "Genova Hardy",
-        jobTitle: "Labourer",
-        description: "LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER",
-        distance: 0.2,
-        verified: true,
-        rating: 5,
-        jobType: "Garden",
-        relation: "EndorsedByAFriend"
-    },
-    {
-        name: "Andre Glassover",
-        jobTitle: "Electrician",
-        description: "ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN",
-        distance: 5.1,
-        verified: false,
-        rating: 1,
-        jobType: "Electrical",
-        relation: "Endorsed"
-    }
-]
+// const availableTradesmen =[
+//     {
+//         name: "Audrey Prenton",
+//         jobTitle: "Dog Walker",
+//         description: "DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER",
+//         distance: 3.9,
+//         verified: false,
+//         rating: 3,
+//         jobType: "Garden",
+//         relation: "Endorsed"
+//     },
+//     {
+//         name: "Pedro Pronto",
+//         jobTitle: "Home Help",
+//         description: "HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP",
+//         distance: 2.3,
+//         verified: false,
+//         rating: 1,
+//         jobType: "Home",
+//         relation: "Friend"
+//     },
+//     {
+//         name: "Maria Plum",
+//         jobTitle: "Cleaner",
+//         description: "CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER",
+//         distance: 1.9,
+//         verified: true,
+//         rating: 4,
+//         jobType: "Home",
+//         relation: null
+//     },
+//     {
+//         name: "Genova Hardy",
+//         jobTitle: "Labourer",
+//         description: "LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER",
+//         distance: 0.2,
+//         verified: true,
+//         rating: 5,
+//         jobType: "Garden",
+//         relation: "EndorsedByAFriend"
+//     },
+//     {
+//         name: "Andre Glassover",
+//         jobTitle: "Electrician",
+//         description: "ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN",
+//         distance: 5.1,
+//         verified: false,
+//         rating: 1,
+//         jobType: "Electrical",
+//         relation: "Endorsed"
+//     }
+// ]
 
 function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     const [selected, setSelected] = useState(null)
