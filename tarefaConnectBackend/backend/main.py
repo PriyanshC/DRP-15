@@ -119,9 +119,17 @@ def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)
 
 
 @app.get("/api/listings", response_model=list[schemas.Listing])
-def get_listings(category: schemas.Category | None = None, skip: int = 0,
-                 limit: int = 20, db: Session = Depends(get_db)):
-    return crud.get_listings(db, category, skip, limit)
+def get_listings(filter_category: schemas.Category | None = None,
+                 filter_min_rating: int | None = None,
+                 filter_max_distance: int | None = None,
+                 sort: schemas.Sort | None = None,
+                 skip: int = 0,
+                 limit: int = 20,
+                 db: Session = Depends(get_db)):
+    return crud.get_listings(db, schemas.Filters(category=filter_category,
+                                                 min_rating=filter_min_rating,
+                                                 max_distance=filter_max_distance),
+                             sort, skip, limit)
 
 
 app.mount("/", SPAStaticFiles(directory="./tarefaConnectFrontend/app/build", html=True), name="frontend")

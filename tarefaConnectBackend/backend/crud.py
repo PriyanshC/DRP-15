@@ -58,11 +58,23 @@ def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> 
     return db_tasker
 
 
-def get_listings(db: Session, category: str | None, skip: int, limit: int) -> list[schemas.Listing]:
-    query = db.query(models.Listing)
+def get_listings(db: Session, filters: schemas.Filters | None,
+                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
+    query = db.query(models.Listing).join(models.Tasker)
 
-    if category is not None:
-        query = query.filter(models.Listing.category == category)
+    if filters is not None:
+        if filters.category is not None:
+            query = query.filter(models.Listing.category == filters.category)
+        if filters.min_rating is not None:
+            query = query.filter(models.Tasker.rating >= filters.min_rating)
+        if filters.max_distance is not None:
+            pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
+
+    if sort is not None:
+        if sort is schemas.Sort.rating:
+            query = query.order_by(models.Tasker.rating.desc())
+        else:
+            pass  # query = query.order_by(models.Listing.distance.asc())
 
     return query.offset(skip).limit(limit).all()
 
