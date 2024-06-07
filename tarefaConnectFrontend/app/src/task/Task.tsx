@@ -117,27 +117,3 @@ function CurrentTaskPanel(props: PanelProps) {
     </div>
   );
 }
-
-// function CurrentTaskPanel({ changeIndex, data }) {
-//   const [selected, changeSelected] = useState(-1);
-//   return (
-//     <div className="LeftPanel">
-//       <h1 className="CurrentTaskTitle">
-//         Current Tasks
-//       </h1>
-//       <hr style={{ borderColor: 'var(--accent-color)' }}></hr>
-//       <div className="TaskList">
-//         {data.map(([title, id], index: number) => {
-//           var styles = (index === selected ? { backgroundColor: 'var(--button-press-highlight)' } : {});
-//           return (
-//             <div key={id}>
-//               <button className="CurrentTaskButton" style={styles} onClick={() => { changeIndex(index); changeSelected(index) }}>
-//                 {title}
-//               </button>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
