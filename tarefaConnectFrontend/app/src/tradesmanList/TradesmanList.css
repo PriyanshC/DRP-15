@@ -91,6 +91,7 @@
     padding-inline: 20px;
     flex-direction: column;
     flex: 4;
+    /* margin-top: 20px; */
 }
 
 .SearchPanel {
@@ -253,6 +254,8 @@
     justify-content: space-between;
     gap: 20px;
     vertical-align: middle;
+    align-content: center;
+    align-items: center;
 }
 
 .StarDisplay {

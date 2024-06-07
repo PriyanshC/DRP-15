@@ -36,58 +36,58 @@ function TradesmanPanel({ setSearch, search, distanceFilter, ratingFilter }) {
     )
 }
 
-// const availableTradesmen =[
-//     {
-//         name: "Audrey Prenton",
-//         jobTitle: "Dog Walker",
-//         description: "DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER",
-//         distance: 3.9,
-//         verified: false,
-//         rating: 3,
-//         jobType: "Garden",
-//         relation: "Endorsed"
-//     },
-//     {
-//         name: "Pedro Pronto",
-//         jobTitle: "Home Help",
-//         description: "HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP",
-//         distance: 2.3,
-//         verified: false,
-//         rating: 1,
-//         jobType: "Home",
-//         relation: "Friend"
-//     },
-//     {
-//         name: "Maria Plum",
-//         jobTitle: "Cleaner",
-//         description: "CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER",
-//         distance: 1.9,
-//         verified: true,
-//         rating: 4,
-//         jobType: "Home",
-//         relation: null
-//     },
-//     {
-//         name: "Genova Hardy",
-//         jobTitle: "Labourer",
-//         description: "LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER",
-//         distance: 0.2,
-//         verified: true,
-//         rating: 5,
-//         jobType: "Garden",
-//         relation: "EndorsedByAFriend"
-//     },
-//     {
-//         name: "Andre Glassover",
-//         jobTitle: "Electrician",
-//         description: "ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN",
-//         distance: 5.1,
-//         verified: false,
-//         rating: 1,
-//         jobType: "Electrical",
-//         relation: "Endorsed"
-//     }
-// ]
+const availableTradesmen =[
+    {
+        name: "Audrey Prenton",
+        jobTitle: "Dog Walker",
+        description: "DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER DOG WALKER",
+        distance: 3.9,
+        verified: false,
+        rating: 3,
+        jobType: "Garden",
+        relation: "Endorsed"
+    },
+    {
+        name: "Pedro Pronto",
+        jobTitle: "Home Help",
+        description: "HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP HOME HELP",
+        distance: 2.3,
+        verified: false,
+        rating: 1,
+        jobType: "Home",
+        relation: "Friend"
+    },
+    {
+        name: "Maria Plum",
+        jobTitle: "Cleaner",
+        description: "CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER CLEANER",
+        distance: 1.9,
+        verified: true,
+        rating: 4,
+        jobType: "Home",
+        relation: null
+    },
+    {
+        name: "Genova Hardy",
+        jobTitle: "Labourer",
+        description: "LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER LABOURER",
+        distance: 0.2,
+        verified: true,
+        rating: 5,
+        jobType: "Garden",
+        relation: "EndorsedByAFriend"
+    },
+    {
+        name: "Andre Glassover",
+        jobTitle: "Electrician",
+        description: "ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN ELECTRICIAN",
+        distance: 5.1,
+        verified: false,
+        rating: 1,
+        jobType: "Electrical",
+        relation: "Endorsed"
+    }
+]
 
 function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     const [selected, setSelected] = useState(null)
@@ -110,6 +110,8 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     console.log("listings:")
     console.log(listings)
 
+    if (!listings) return null
+
     var taskersData = []
     listings.map((listing) => {
         const api_path = 'taskers/' + listing.tasker_id
@@ -126,7 +128,7 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     console.log("taskers")
     console.log(taskersData)
 
-    const tradesmen = taskersData.filter((item) => {
+    const tradesmen = availableTradesmen.filter((item) => {
         return (
             (search.toLowerCase() === '' ? item : item.category.toLowerCase().includes(search)) &&
             (ratingFilter == null ? item : item.rating >= ratingFilter)
@@ -134,8 +136,8 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
         )
     }).map((item, index) => {
             return (
-                <TradesmanMiniProfile index = {index} name = {item.name} 
-                jobTitle = {item.jobTitle} description = {item.description}
+                <TradesmanMiniProfile index = {index}
+                jobTitle = {item.category} description = {item.description}
                  distance = {item.distance} verified = {item.verified} 
                  rating = {item.rating} toggle = {toggle} selected= {selected} />
             )
@@ -145,12 +147,12 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
     )
 }
 
-function TradesmanMiniProfile({ index, name, jobTitle, description, distance, verified, rating, toggle, selected }) {
+function TradesmanMiniProfile({ index, jobTitle, description, distance, verified, rating, toggle, selected }) {
     return (
         <div className="MiniProfile" onClick={ () => toggle(index)}>
-            <ProfileInfo name={name} jobTitle={jobTitle} distance={distance}
+            <ProfileInfo jobTitle={jobTitle} distance={distance}
              verified={verified} rating={rating}/>
-             <ProfileDescription index = {index} name = {name} 
+             <ProfileDescription index = {index} 
                 jobTitle = {jobTitle} description = {description}
                  distance = {distance} verified = {verified} 
                  rating = {rating} selected= {selected}/>
