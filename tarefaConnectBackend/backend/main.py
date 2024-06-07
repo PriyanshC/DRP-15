@@ -113,7 +113,7 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
 
 
 @app.post("/api/taskers/{tasker_id}", response_model=schemas.Tasker)
-def create_listing(tasker_id: int, db: Session = Depends(get_db)):
+def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
     return crud.get_tasker(db, tasker_id)  # TODO
 
 
