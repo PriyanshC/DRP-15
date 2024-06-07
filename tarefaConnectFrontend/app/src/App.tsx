@@ -1,4 +1,16 @@
 import './App.css';
+import CheckHeader from './header/CheckHeader'
+import Header from './header/Header.tsx';
+import LoginLanding from './loginLanding/LoginLanding';
+import LoginLandingForHelp from './loginLanding/LoginLandingForHelp.jsx';
+import Task from './task/Task.tsx';
+import Login from './login/Login.tsx'
+import Register from './login/Register.tsx'
+import Forgot from './login/Forgot.tsx'
+import TradesmanList from './tradesmanList/TradesmanList.jsx';
+import TradesmanProfile from './tradesmanProfile/TradesmanProfile.jsx';
+import TaskList from './TaskList/TaskList.jsx';
+import PageNotFound from "./404Page";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useLocalStorage from 'use-local-storage';
@@ -11,14 +23,6 @@ import {
   Navigate
 } from "react-router-dom";
 
-import CheckHeader from './header/CheckHeader'
-import Header from './header/Header.tsx';
-import LoginLanding from './loginLanding/LoginLanding';
-import Task from './task/Task.tsx';
-import Login from './login/Login.tsx'
-import Register from './login/Register.tsx'
-import Forgot from './login/Forgot.tsx'
-import PageNotFound from "./404Page";
 
 import { ITask } from './task/Task.tsx'
 
@@ -72,6 +76,10 @@ function App() {
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />
             <Route path='home' element={<LoginLanding />} />
+            <Route path='findHelp' element={<LoginLandingForHelp />} />
+            <Route path='tradesmanList' element={<TradesmanList />} />
+            <Route path='tradesmanProfile' element={<TradesmanProfile />} />
+            <Route path='taskList' element={<TaskList />} />
             <Route path='task' element={userData === null ? <Navigate to='/login' /> : <Task userId={userData.id} startingIndex={-1} taskData={userData.tasks} />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>

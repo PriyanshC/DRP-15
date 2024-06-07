@@ -1,66 +1,26 @@
-import { Link } from 'react-router-dom';
+import { LandingPage } from './LandingUtils';
 import './LoginLanding.css';
+import handHoldingService from '../assets/handHoldingService.svg'
+import personRaisingHand from '../assets/personRaisingHand.svg' 
 
 // eslint-disable-next-line
 const panelData = [
   {
     id: 0,
-    buttonText: "Find Someone",
-    body: "Find a tasker to complete a job; filter by rating, distance and more!",
-    redirectTo: ""
+    buttonText: "I need help with something",
+    body: "Get help from a worker to complete your job",
+    icon: personRaisingHand,
+    redirectTo: "/findHelp"
   },
   {
     id: 1,
-    buttonText: "Create A Task",
-    body: "Tell taskers what exactly you need doing by creating a task!",
-    redirectTo: "/task"
-  }
-]
-
-// eslint-disable-next-line
-const panelDataExample = [
-  {
-    id: 0,
-    buttonText: "Find Someone",
-    body: "Find a tasker to complete a job; filter by rating, distance and more!",
-    redirectTo: ""
-  },
-  {
-    id: 1,
-    buttonText: "Create A Task",
-    body: "Tell taskers what exactly you need doing by creating a task!",
-    redirectTo: "/task"
-  },
-  {
-    id: 2,
-    buttonText: "View Task",
-    body: "See what people need doing, negotiate a contract and work!",
-    redirectTo: ""
+    buttonText: "I provide a service",
+    body: "See what people need doing and negotiate a contract",
+    icon: handHoldingService,
+    redirectTo: "/taskList"
   }
 ]
 
 export default function LoginLanding() {
-  return (
-    <div className="LoginLanding">
-      {panelDataExample.map((item) => {
-        return (
-          <div key={item.id} className="LoginLandingItem">
-            <Link to={item.redirectTo} style={{ textDecoration: 'inherit', color: 'inherit' }}>
-              <LoginLandingButton text={item.buttonText} />
-            </Link>
-            <p className="LoginLandingText">{item.body}</p>
-          </div>
-        )
-      })}
-    </div>
-  );
-}
-
-function LoginLandingButton({ text }) {
-  return (
-    <div className='LoginLandingButton'>
-      {text}
-    </div>
-  );
-
+  return LandingPage(panelData)
 }

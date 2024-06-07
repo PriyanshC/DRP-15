@@ -16,25 +16,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    width: 40vw;
+    height: 47vh;
     padding: 20px;
     margin: 0px 1vw 0px 1vw;
     margin-top: 40px;
     background-color: var(--background-secondary);
 }
 
+.LoginLandingIcon {
+    height: 20vh;
+    width: auto;
+}
+
 .LoginLandingButton {
-    --height: 70px;
+    --height: 10vh;
     height: var(--height);
     line-height: var(--height);
-    width: 240px;
+    width: 500px;
     font-family: var(--font-family-title);
     text-align: center;
-    font-size: 25px;
+    font-size: 38px;
     white-space: nowrap;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
     transition: all 0.3s;
+    margin-bottom: 20px;
     background-color: var(--button-color);
 }
 

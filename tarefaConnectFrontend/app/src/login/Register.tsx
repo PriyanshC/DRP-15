@@ -61,11 +61,11 @@ export default function Register(props: Props) {
       <form onSubmit={submitRegister} className='Wrapper'>
         <h1> Register </h1>
         <div className='InputBox'>
-          <input type="text" placeholder='Firstname...' maxLength={15} pattern={'[A-Za-z]*'} title='letters A-Z' required autoFocus />
+          <input type="text" placeholder='First Name...' maxLength={15} pattern={'[A-Za-z]*'} title='letters A-Z' required autoFocus />
           <i className='bi-person-fill'></i>
         </div>
         <div className='InputBox'>
-          <input type="text" placeholder='Lastname...' maxLength={15} pattern={'[A-Za-z]*'} title='letters A-Z' required />
+          <input type="text" placeholder='Last Name...' maxLength={15} pattern={'[A-Za-z]*'} title='letters A-Z' required />
           <i className='bi-person-fill'></i>
         </div>
         <div className='InputBox'>
