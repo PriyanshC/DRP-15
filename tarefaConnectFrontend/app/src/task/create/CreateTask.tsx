@@ -95,7 +95,7 @@ export default function CreateTask(props: Props) {
       );
     case (state.error):
       return (
-        <div style={{ margin: 'auto', marginTop: '40px', color: 'red', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '50px', fontWeight: 'bold' }}>
+        <div style={{ margin: 'auto', marginTop: '40px', color: 'var(--red)', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '50px', fontWeight: 'bold' }}>
           <Error size={200} />
           A network error has occurred!
         </div>);
