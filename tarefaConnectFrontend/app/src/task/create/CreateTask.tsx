@@ -2,7 +2,9 @@ import './CreateTask.css'
 
 import React, { FormEventHandler, useState } from 'react';
 import { api } from '../../App.tsx';
-import Loading from '../../loading/Loading.tsx'
+import Loading from '../../components/loading/Loading.tsx'
+import Complete from '../../components/complete/Complete.tsx';
+import Error from '../../components/error/Error.tsx';
 
 interface Props {
   userId: number,
@@ -10,11 +12,13 @@ interface Props {
   categoryInfo: string[]
 }
 
+
 export default function CreateTask(props: Props) {
   const state = {
     error: 0,
     loading: 1,
-    normal: 2
+    normal: 2,
+    complete: 3
   }
 
   const categoryEnum = [
@@ -48,6 +52,7 @@ export default function CreateTask(props: Props) {
   const [userCategory, setUserCategory] = useState(-1);
   const [category, setCategory] = useState(-1);
   const [needsCategory, setNeedsCategory] = useState(false);
+  const [savedFormData, setSavedForm] = useState({ title: '', description: '' });
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -66,24 +71,34 @@ export default function CreateTask(props: Props) {
       user_heading: props.categoryInfo[userCategory]
     }
 
-    console.log(data);
-
     api.post(props.userId + "/create-task", data)
       .then(data => {
         props.addTask(data.data);
-        setState(state.normal);
+        setState(state.complete);
+        setTimeout(() => { setState(state.normal) }, 2000);
       })
       .catch(err => {
         console.log(err);
-        console.log('err');
         setState(state.error);
+        setSavedForm({ title: data.title, description: data.description })
+        setTimeout(() => { setState(state.normal) }, 4000);
       });
     return true;
   }
 
   switch (currState) {
+    case (state.complete):
+      return (
+        <div style={{ width: '200px', height: '200px', margin: 'auto', marginTop: '40px' }}>
+          <Complete size={200} />
+        </div>
+      );
     case (state.error):
-      return (<div style={{ margin: 'auto', marginTop: '40px' }}>Error Occurred!</div>);
+      return (
+        <div style={{ margin: 'auto', marginTop: '40px', color: 'red', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '50px', fontWeight: 'bold' }}>
+          <Error size={200} />
+          A network error has occurred!
+        </div>);
     case (state.loading):
       return (
         <div style={{ width: '200px', height: '200px', margin: 'auto', marginTop: '40px' }}>
@@ -106,6 +121,7 @@ export default function CreateTask(props: Props) {
                   name='title'
                   placeholder="What do you need?"
                   maxLength={100}
+                  defaultValue={savedFormData.title}
                   required
                 />
               </div>
@@ -118,6 +134,7 @@ export default function CreateTask(props: Props) {
                   name='description'
                   maxLength={1000}
                   required
+                  defaultValue={savedFormData.description}
                 />
               </div>
               <div className='RightPanelElement'>
