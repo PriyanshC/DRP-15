@@ -14,11 +14,11 @@ interface Props {
 
 
 export default function CreateTask(props: Props) {
-  const state = {
-    error: 0,
-    loading: 1,
-    normal: 2,
-    complete: 3
+  enum state {
+    error = 0,
+    loading = 1,
+    normal = 2,
+    complete = 3
   }
 
   const categoryEnum = [
@@ -48,11 +48,13 @@ export default function CreateTask(props: Props) {
     }
   ];
 
+  const emptyForm = { title: '', description: '' }
+
   const [currState, setState] = useState(state.normal);
   const [userCategory, setUserCategory] = useState(-1);
   const [category, setCategory] = useState(-1);
   const [needsCategory, setNeedsCategory] = useState(false);
-  const [savedFormData, setSavedForm] = useState({ title: '', description: '' });
+  const [savedFormData, setSavedForm] = useState(emptyForm);
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -75,6 +77,12 @@ export default function CreateTask(props: Props) {
       .then(data => {
         props.addTask(data.data);
         setState(state.complete);
+
+        // Reset form to be blank
+        setSavedForm(emptyForm);
+        setCategory(-1);
+        setUserCategory(-1);
+
         setTimeout(() => { setState(state.normal) }, 2000);
       })
       .catch(err => {

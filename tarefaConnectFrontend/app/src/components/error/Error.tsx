@@ -7,6 +7,6 @@ interface Props {
 
 export default function Error({ size }: Props) {
   return (
-    <i className="Icon bi-x-circle" style={{ fontSize: size + 'px' }}></i>
+    <i className="ErrIcon bi-x-circle" style={{ fontSize: size + 'px' }}></i>
   );
 }

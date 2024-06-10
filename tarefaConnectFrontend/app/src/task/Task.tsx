@@ -99,7 +99,7 @@ function CurrentTaskPanel(props: PanelProps) {
         {
           props.categories.map((category) => (
             <div className="Category" key={category}>
-              <p className="CategoryName"><div>{category}</div><i className="bi-caret-down-fill"></i></p>
+              <div className="CategoryName"><div>{category}</div><i className="bi-caret-down-fill"></i></div>
               <div className="CategoryContainer">
                 {buttons.filter(([_, itemCategory]) => { return itemCategory === category }).map(([fst, _]) => fst)}
               </div>

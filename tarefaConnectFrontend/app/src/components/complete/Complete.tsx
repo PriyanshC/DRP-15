@@ -7,6 +7,6 @@ interface Props {
 
 export default function Complete({ size }: Props) {
     return (
-        <i className='Icon bi-check-circle' style={{ fontSize: size + 'px' }}></i>
+        <i className='CheckIcon bi-check-circle' style={{ fontSize: size + 'px' }}></i>
     );
 }
