@@ -2,7 +2,7 @@ import "./Task.css";
 
 import CreateTask from "./create/CreateTask.tsx";
 import TaskDisplay from "./display/TaskDisplay.tsx"
-import React, { FormEvent, FormEventHandler, ReactNode, useState } from "react";
+import React, { FormEvent, ReactNode, useState } from "react";
 
 export interface ITask {
   title: string,
@@ -23,8 +23,12 @@ export default function Task(props: Props) {
   const [index, setIndex] = useState(props.startingIndex);
   const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.user_heading).filter((item) => { return item }))));
 
-  const addCategory = (category: string) => {
-    setCategories(prev => [...prev, category]);
+  const addCategory: (arg0: string) => boolean = (category: string) => {
+    if (categories.filter((str) => str === category).length === 0) {
+      setCategories(prev => [...prev, category]);
+      return true;
+    }
+    return false;
   }
 
   const addTask = (task: ITask) => {
@@ -44,7 +48,7 @@ interface PanelProps {
   changeIndex: (number: number) => void,
   data: [string, string, number][],
   categories: string[]
-  addCategory: (category: string) => void
+  addCategory: (category: string) => boolean
 }
 
 function CurrentTaskPanel(props: PanelProps) {
@@ -60,9 +64,9 @@ function CurrentTaskPanel(props: PanelProps) {
     }
   }
 
-  const handleNewCategory: FormEventHandler = (event) => {
+  const handleNewCategory: ((arg0: FormEvent) => boolean) = (event) => {
     event.preventDefault();
-    props.addCategory(event.target[0].value);
+    return props.addCategory(event.target[0].value);
   }
 
   const [selected, changeSelected] = useState(-1);
@@ -78,9 +82,9 @@ function CurrentTaskPanel(props: PanelProps) {
   });
 
   const [newCategoryExpanded, setExpanded] = useState(false);
-  const buttonStyle = (newCategoryExpanded ? { backgroundColor: 'var(--button-color)' } : {})
+  const [newSubheadingValid, setSubheadingValid] = useState(true);
 
-  // console.log(buttons.filter(([_, itemCategory]) => { return itemCategory === 'London Estate' }).map(([fst, _]) => fst))
+  const buttonStyle = (newCategoryExpanded ? { backgroundColor: 'var(--button-color)' } : {})
 
   return (
     <div className="LeftPanel">
@@ -104,9 +108,18 @@ function CurrentTaskPanel(props: PanelProps) {
         }
         <div onClick={() => { categoryExpand(); setExpanded(prev => !prev) }} style={buttonStyle} className="NewButton NewCategoryButton">
           New Sub-heading
-          <form className="NewCategoryDropdown" id='category-expand' onSubmit={handleNewCategory}>
-            <input className='NewCategoryInput' type="text" placeholder="Sub-heading name..." onClick={(event: FormEvent) => { event.stopPropagation() }} />
-            <button className="NewCategorySubmit">Submit</button>
+          <form className="NewCategoryDropdown" id='category-expand' onSubmit={(e) => { setSubheadingValid(handleNewCategory(e)) }}>
+            <input
+              className='NewCategoryInput'
+              type="text"
+              placeholder="Sub-heading name..."
+              onDragLeave={(event) => { event.stopPropagation() }}
+              onClick={(event: FormEvent) => { event.stopPropagation() }}
+              minLength={2}
+              maxLength={20}
+              style={{ borderColor: (newSubheadingValid ? '' : 'red') }}
+            />
+            <button className="NewCategorySubmit" type="submit" onClick={(e) => { e.stopPropagation(); }}>Submit</button>
           </form>
         </div>
         <div onClick={() => { props.changeIndex(-1) }} className="NewButton NewTaskButton">
