@@ -1,6 +1,6 @@
 import { LandingPage } from './LandingUtils';
 import './LoginLanding.css';
-import handHoldingService from '../assets/handHoldingService.svg'
+import earnMoney from '../assets/earnMoney.svg'
 import personRaisingHand from '../assets/personRaisingHand.svg' 
 
 // eslint-disable-next-line
@@ -16,7 +16,7 @@ const panelData = [
     id: 1,
     buttonText: "Want to start earning?",
     body: "Reach out to people and get paid to help",
-    icon: handHoldingService,
+    icon: earnMoney,
     redirectTo: "/taskList"
   }
 ]
