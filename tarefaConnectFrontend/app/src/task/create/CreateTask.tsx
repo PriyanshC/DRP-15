@@ -21,6 +21,32 @@ export default function CreateTask(props: Props) {
     complete = 3
   }
 
+  const frequencySelect = [
+    'Once',
+    'Twice'
+  ];
+
+  const numberSelect = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ];
+
+  const periodSelect = [
+    { name: 'day', days: 1 },
+    { name: 'week', days: 7 },
+    { name: 'month', days: 30 }
+  ];
+
   const categoryEnum = [
     {
       name: 'Plumbing',
@@ -50,16 +76,65 @@ export default function CreateTask(props: Props) {
 
   const emptyForm = { title: '', description: '' }
 
+  const [formData, setFormData] = useState({ category: -1, userCategory: -1, timePeriod: { freq: 0, number: 1, period: 0 } });
+
+  const setUserCategory = (category) => {
+    setFormData(prev => ({
+      ...prev,
+      userCategory: category
+    }))
+  }
+
+  const setCategory = (category) => {
+    setFormData(prev => ({
+      ...prev,
+      category: category
+    }))
+  }
+
+  const setFreq = (freq) => {
+    setFormData(prev => ({
+      ...prev,
+      timePeriod: {
+        ...prev.timePeriod,
+        freq: freq
+      }
+    }))
+  }
+
+  const setNumber = (number) => {
+    setFormData(prev => ({
+      ...prev,
+      timePeriod: {
+        ...prev.timePeriod,
+        number: number
+      }
+    }))
+  }
+
+  const setPeriod = (period) => {
+    setFormData(prev => ({
+      ...prev,
+      timePeriod: {
+        ...prev.timePeriod,
+        period: period
+      }
+    }))
+  }
+
   const [currState, setState] = useState(state.normal);
-  const [userCategory, setUserCategory] = useState(-1);
-  const [category, setCategory] = useState(-1);
   const [needsCategory, setNeedsCategory] = useState(false);
+
   const [savedFormData, setSavedForm] = useState(emptyForm);
+
+  const calculateDays = ({ freq, number, period }) => {
+    return Math.round((number * periodSelect[period].days) / freq);
+  }
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    if (category === -1) {
+    if (formData.category === -1) {
       setNeedsCategory(true);
       return false;
     }
@@ -69,8 +144,9 @@ export default function CreateTask(props: Props) {
     const data = {
       title: event.target[0].value,
       description: event.target[1].value,
-      category: categoryEnum[category].value,
-      user_heading: props.categoryInfo[userCategory]
+      category: categoryEnum[formData.category].value,
+      user_heading: props.categoryInfo[formData.userCategory],
+      frequency: calculateDays(formData.timePeriod)
     }
 
     api.post(props.userId + "/create-task", data)
@@ -122,7 +198,7 @@ export default function CreateTask(props: Props) {
           <form onSubmit={handleSubmit}>
             <div className='CreateTaskForm'>
               <div className="RightPanelElement">
-                <label className="FieldLabel">Title:</label>
+                <label className="FieldLabel">Title :</label>
                 <input
                   type="text"
                   className="TitleInput Input"
@@ -135,7 +211,7 @@ export default function CreateTask(props: Props) {
               </div>
               <div className="RightPanelElement">
                 <label className="FieldLabel">
-                  Description:
+                  Description :
                 </label>
                 <textarea className="DescriptionInput Input"
                   placeholder="Tell us a little more..."
@@ -147,14 +223,14 @@ export default function CreateTask(props: Props) {
               </div>
               <div className='RightPanelElement'>
                 <label className='FieldLabel'>
-                  Category of Task:
+                  Category of Task :
                 </label>
-                <div className='ProfessionalCategoryDropdown Input' style={{ color: (category === -1 ? 'var(--accent-color)' : 'inherit'), border: (needsCategory ? '1px solid red' : '') }}>
-                  {category === -1 ? 'Choose A Category By Hovering...' : categoryEnum[category].name}
+                <div className='ProfessionalCategoryDropdown Input' style={{ color: (formData.category === -1 ? 'var(--accent-color)' : 'inherit'), border: (needsCategory ? '1px solid red' : '') }}>
+                  {formData.category === -1 ? 'Choose A Category By Hovering...' : categoryEnum[formData.category].name}
                   <div className='DropDownContainer'>
                     {categoryEnum.map((item, index) => {
                       return (
-                        <div key={index} className='DropDownItem' style={(category === index ? { backgroundColor: 'var(--button-press)' } : {})}
+                        <div key={index} className='DropDownItem' style={(formData.category === index ? { backgroundColor: 'var(--button-press)' } : {})}
                           onClick={() => {
                             setCategory(index);
                           }}>{item.name}</div>
@@ -165,22 +241,54 @@ export default function CreateTask(props: Props) {
               </div>
               <div className="RightPanelElement">
                 <label className="FieldLabel">
-                  Your task subheading:
+                  Your task subheading :
                 </label>
-                <div className='CategoryDropdown Input' style={{ color: (userCategory === -1 ? 'var(--accent-color)' : 'inherit') }}>
-                  {userCategory === -1 ? 'Set A Subheading...' : props.categoryInfo[userCategory]}
+                <div className='CategoryDropdown Input' style={{ color: (formData.userCategory === -1 ? 'var(--accent-color)' : 'inherit') }}>
+                  {formData.userCategory === -1 ? 'Set A Subheading...' : props.categoryInfo[formData.userCategory]}
                   <div className='DropDownContainer'>
-                    <div className='DropDownItem' style={(userCategory === -1 ? { backgroundColor: 'var(--button-press)' } : {})} onClick={() => { setUserCategory(-1) }}>No category</div>
+                    <div className='DropDownItem' style={(formData.userCategory === -1 ? { backgroundColor: 'var(--button-press)' } : {})} onClick={() => { setUserCategory(-1) }}>No category</div>
                     {props.categoryInfo.map((item, index) => {
-                      const styles = (index === userCategory ? { backgroundColor: 'var(--button-press)' } : {});
+                      const styles = (index === formData.userCategory ? { backgroundColor: 'var(--button-press)' } : {});
                       return (<div key={item} className='DropDownItem' style={styles} onClick={() => { setUserCategory(index) }}>{item}</div>)
                     })}
                   </div>
                 </div>
               </div>
+              <div className="RightPanelElement">
+                <label className="FieldLabel">
+                  How often :
+                </label>
+                <div className='Input TimeContainer'>
+                  <div className='TimeDropdown TimeSelector FreqSelect'>
+                    {frequencySelect[formData.timePeriod.freq]}
+                    <div className='DropDownContainer'>
+                      {frequencySelect.map((item, index) => (
+                        <div className='DropDownItem' key={index} onClick={() => { setFreq(index) }}>{item}</div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className='TimeSpacer'>every</p>
+                  <div className='TimeDropdown TimeSelector NumbSelect'>
+                    {numberSelect[formData.timePeriod.number - 1]}
+                    <div className='DropDownContainer'>
+                      {numberSelect.map((item, index) => (
+                        <div className='DropDownItem' key={index} onClick={() => { setNumber(index + 1) }}>{item}</div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className='TimeDropdown TimeSelector PeriodSelect'>
+                    {periodSelect[formData.timePeriod.period].name + (formData.timePeriod.number > 1 ? 's' : '')}
+                    <div className='DropDownContainer'>
+                      {periodSelect.map((item, index) => (
+                        <div className='DropDownItem' key={index} onClick={() => { setPeriod(index) }}>{item.name}</div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <button className="PostButton" type='submit' >
-              Post
+              Post Task
             </button>
           </form >
         </div >

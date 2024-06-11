@@ -115,8 +115,6 @@ function CurrentTaskPanel(props: PanelProps) {
               placeholder="Sub-heading name..."
               onDragLeave={(event) => { event.stopPropagation() }}
               onClick={(event: FormEvent) => { event.stopPropagation() }}
-              minLength={2}
-              maxLength={20}
               style={{ borderColor: (newSubheadingValid ? '' : 'red') }}
             />
             <button className="NewCategorySubmit" type="submit" onClick={(e) => { e.stopPropagation(); }}>Submit</button>

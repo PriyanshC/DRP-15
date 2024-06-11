@@ -82,8 +82,8 @@
 }
 
 .CategoryDropdown {
-  width: 250px;
-  height: 30px;
+  /* width: 250px;
+  height: 30px; */
   z-index: 2;
   text-align: left;
 }
@@ -123,4 +123,42 @@
 
 .DropDownItem:hover {
   background-color: var(--background-primary);
+}
+
+.TimeContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.TimeSpacer {
+  margin-right: 10px;
+}
+
+.TimeSelector {
+  border: 1px solid var(--accent-color);
+  padding-inline: 10px;
+  margin-right: 10px;
+}
+
+.TimeDropdown {
+  z-index: 3;
+  text-align: left;
+}
+
+.TimeDropdown:hover .DropDownContainer {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.FreqSelect {}
+
+.NumbSelect {}
+
+.PeriodSelect {}
+
+.TimeContainer {
+  display: flex;
+  flex-direction: row;
 }
