@@ -25,7 +25,7 @@ class Task(Base):
     category = Column(String)
     user_heading = Column(String)
 
-    frequency = Column()
+    frequency = Column(Float)
 
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
 
