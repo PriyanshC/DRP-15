@@ -7,15 +7,15 @@ import personRaisingHand from '../assets/personRaisingHand.svg'
 const panelData = [
   {
     id: 0,
-    buttonText: "I need help with something",
-    body: "Get help from a worker to complete your job",
+    buttonText: "Need help with something?",
+    body: "Get help from a worker for repeating tasks",
     icon: personRaisingHand,
     redirectTo: "/findHelp"
   },
   {
     id: 1,
-    buttonText: "I provide a service",
-    body: "See what people need doing and negotiate a contract",
+    buttonText: "Want to start earning?",
+    body: "Reach out to people and get paid to help",
     icon: handHoldingService,
     redirectTo: "/taskList"
   }
