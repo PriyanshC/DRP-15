@@ -1,18 +1,22 @@
 import { LandingPage } from './LandingUtils';
 import './LoginLanding.css';
+import earnMoney from '../assets/earnMoney.svg'
+import personRaisingHand from '../assets/personRaisingHand.svg' 
 
 // eslint-disable-next-line
 const panelData = [
   {
     id: 0,
-    buttonText: "I need help with a job",
-    body: "Get help from a worker to complete your job",
+    buttonText: "Need help with something?",
+    body: "Get help from a worker for repeating tasks",
+    icon: personRaisingHand,
     redirectTo: "/findHelp"
   },
   {
     id: 1,
-    buttonText: "I am looking for work",
-    body: "See what people need doing and negotiate a contract",
+    buttonText: "Want to start earning?",
+    body: "Reach out to people and get paid to help",
+    icon: earnMoney,
     redirectTo: "/taskList"
   }
 ]

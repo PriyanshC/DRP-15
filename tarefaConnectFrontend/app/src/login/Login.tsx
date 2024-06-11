@@ -13,6 +13,17 @@ const testLogin = {
   password: 'test'
 };
 
+const exampleTasks = [
+  { title: 'Lawn Mowing', description: 'Description', id: 1, category: 'Property A' },
+  { title: 'Flower Watering', description: 'Description', id: 2, category: 'Property A' },
+  { title: 'Raking Leaves', description: 'Description', id: 3, category: 'Property C' },
+  { title: 'Home Cleaner', description: 'Description', id: 4, category: 'Property B' },
+  { title: 'Large Furniture Removal', description: 'Description', id: 5, category: 'Property B' },
+  { title: 'Broken Lightbulb', description: 'Description', id: 6, category: 'Property A' },
+  { title: 'Misc Help', description: 'Description', id: 7, category: 'Misc' },
+  { title: 'Shopping Help', description: 'Description', id: 8, category: 'Misc' },
+]
+
 export default function Login(props: Props) {
   const error = {
     none: 0,
@@ -35,7 +46,7 @@ export default function Login(props: Props) {
           navigate('/home');
           return;
         })
-        .catch(err => { console.log('TEST LOGIN ERROR', err); props.setUserData({ id: 1, tasks: [{ title: '', description: '', id: 1 }] }); navigate('/home') })
+        .catch(err => { console.log('TEST LOGIN ERROR', err); props.setUserData({ id: 1, tasks: exampleTasks }); navigate('/home') })
     } else {
       api.post('login', {
         email: event.target[0].value,
