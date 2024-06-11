@@ -147,16 +147,10 @@
 }
 
 .TimeDropdown:hover .DropDownContainer {
-  display: flex;
+  display: block;
   flex-direction: column;
   z-index: 2;
 }
-
-.FreqSelect {}
-
-.NumbSelect {}
-
-.PeriodSelect {}
 
 .TimeContainer {
   display: flex;
