@@ -122,3 +122,5 @@ class TaskerListing(Tasker, Listing):
 class Reply(BaseModel):
     tasker_id: int
     task_id: int
+
+    message: str | None

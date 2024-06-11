@@ -68,3 +68,6 @@ class Reply(Base):
 
     tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"), primary_key=True)
     task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True)
+
+    message = Column(String)
+
