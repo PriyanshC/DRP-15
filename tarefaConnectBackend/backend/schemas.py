@@ -28,6 +28,7 @@ class TaskBase(BaseModel):
     description: str
     category: Category | None
     user_heading: str | None
+    frequency: float
 
 
 class TaskCreate(TaskBase):
