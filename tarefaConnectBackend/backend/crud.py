@@ -76,25 +76,34 @@ def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
     return db.query(models.Tasker).filter(models.Tasker.task_id == task_id).first()
 
 
-def get_listings(db: Session, filters: schemas.Filters | None,
-                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
-    query = db.query(models.Listing).join(models.Tasker)
-
-    if filters is not None:
-        if filters.category is not None:
-            query = query.filter(models.Listing.category == filters.category)
-        if filters.min_rating is not None:
-            query = query.filter(models.Tasker.rating >= filters.min_rating)
-        if filters.max_distance is not None:
-            pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
-
-    if sort is not None:
-        if sort is schemas.Sort.rating:
-            query = query.order_by(models.Tasker.rating.desc())
-        else:
-            pass  # query = query.order_by(models.Listing.distance.asc()) TODO
-
-    return query.offset(skip).limit(limit).all()
+# def get_listings(db: Session, filters: schemas.Filters | None,
+#                  sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.ReplyResponse]:
+#     query = db.query(models.Listing, models.Tasker). \
+#         join(models.Tasker.listings)
+#
+#     if filters is not None:
+#         if filters.category is not None:
+#             query = query.filter(models.Listing.category == filters.category)
+#         if filters.min_rating is not None:
+#             query = query.filter(models.Tasker.rating >= filters.min_rating)
+#         if filters.max_distance is not None:
+#             pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
+#
+#     if sort is not None:
+#         if sort is schemas.Sort.rating:
+#             query = query.order_by(models.Tasker.rating.desc())
+#         else:
+#             pass  # query = query.order_by(models.Listing.distance.asc()) TODO
+#
+#     query = query.offset(skip).limit(limit).all()
+#
+#     return query
+#     return map(lambda reply:
+#                schemas.ReplyResponse(tasker_id=reply.Tasker.id,
+#                                      tasker_forename=reply.Tasker.user.forename,
+#                                      tasker_surname=reply.Tasker.user.surname,
+#                                      message=reply.)
+#                , query)
 
 
 def get_user(db: Session, user_id: int) -> schemas.User:
@@ -113,8 +122,15 @@ def get_task(db: Session, task_id: int) -> schemas.Task | None:
     return db.query(models.Task).filter(models.Task.id == task_id).first()
 
 
-def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.Reply]:
-    return db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
+def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.ReplyResponse]:
+    query = db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
+
+    return list(map(lambda reply: schemas.ReplyResponse(tasker_id=reply.tasker_id,
+                                                        tasker_forename=reply.tasker.user.forename,
+                                                        tasker_surname=reply.Tasker.user.surname,
+                                                        message=reply.message,
+                                                        rating=reply.tasker.rating),
+                    query))
 
 
 def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | None:

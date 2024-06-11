@@ -133,10 +133,11 @@ def get_listings(filter_category: schemas.Category | None = None,
                  skip: int = 0,
                  limit: int = 20,
                  db: Session = Depends(get_db)):
-    return crud.get_listings(db, schemas.Filters(category=filter_category,
-                                                 min_rating=filter_min_rating,
-                                                 max_distance=filter_max_distance),
-                             sort, skip, limit)
+    raise HTTPException(status_code=404, detail="Listings not found")
+    # return crud.get_listings(db, schemas.Filters(category=filter_category,
+    #                                              min_rating=filter_min_rating,
+    #                                              max_distance=filter_max_distance),
+    #                          sort, skip, limit)
 
 
 @app.post("/api/tasks/reply", response_model=schemas.Reply)

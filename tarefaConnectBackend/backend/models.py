@@ -28,7 +28,6 @@ class Task(Base):
     frequency = Column(Float)
 
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-
     owner = relationship("User", back_populates="tasks")
 
 
@@ -40,7 +39,6 @@ class Listing(Base):
     description = Column(String)
 
     tasker_id = Column(Integer, ForeignKey("taskers.id"))
-
     tasker = relationship("Tasker", back_populates="listings")
 
 
@@ -67,6 +65,8 @@ class Reply(Base):
     __tablename__ = "replies"
 
     tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"), primary_key=True)
+    tasker = relationship("Tasker")
+
     task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True)
 
     message = Column(String)

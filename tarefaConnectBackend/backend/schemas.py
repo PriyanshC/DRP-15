@@ -124,3 +124,13 @@ class Reply(BaseModel):
     task_id: int
 
     message: str | None
+
+
+class ReplyResponse(BaseModel):
+    tasker_id: int
+
+    tasker_forename: str
+    tasker_surname: str
+    message: str | None
+    rating: int
+
