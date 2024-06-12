@@ -13,9 +13,9 @@ class Category(str, Enum):
 
 
 class Filters(BaseModel):
-    category: Category | None
-    min_rating: int | None
-    max_distance: int | None
+    category: Category | None = None
+    min_rating: int | None = None
+    max_distance: int | None = None
 
 
 class Sort(str, Enum):
@@ -26,19 +26,19 @@ class Sort(str, Enum):
 class TaskBase(BaseModel):
     title: str
     description: str
-    category: Category | None
+    category: Category | None = None
     frequency: float
 
 
 class TaskCreate(TaskBase):
-    user_heading: str | None
+    user_heading: str | None = None
 
 
 class Task(TaskBase):
     id: int
     owner_id: int
 
-    user_heading: str | None
+    user_heading: str | None = None
     post_date_time: str
 
     class Config:
@@ -125,7 +125,7 @@ class Reply(BaseModel):
     tasker_id: int
     task_id: int
 
-    message: str | None
+    message: str | None = None
 
 
 class ReplyResponse(BaseModel):
@@ -133,6 +133,6 @@ class ReplyResponse(BaseModel):
 
     tasker_forename: str
     tasker_surname: str
-    message: str | None
+    message: str | None = None
     rating: int
 
