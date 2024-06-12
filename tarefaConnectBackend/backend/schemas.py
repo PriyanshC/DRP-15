@@ -47,7 +47,7 @@ class Task(TaskBase):
 
 class TaskElemResponse(TaskBase):
     distance: float
-    user_id: int
+    owner_id: int
     rating: float
     post_date_time: str
 

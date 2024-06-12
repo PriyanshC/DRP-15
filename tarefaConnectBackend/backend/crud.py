@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from sqlalchemy.orm import Session
 
@@ -103,7 +103,7 @@ def get_task_list(db: Session, filters: schemas.Filters | None,
                                              description=reply.description,
                                              frequency=reply.frequency,
                                              distance=1,  # TODO
-                                             user_id=reply.user_id,
+                                             owner_id=reply.owner_id,
                                              rating=reply.owner.rating,
                                              post_date_time=reply.post_date_time)
                     , query))

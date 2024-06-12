@@ -1,3 +1,4 @@
+import inspect
 from typing import Generator
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -66,7 +67,7 @@ def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
     if db_user is not None:
         raise HTTPException(status_code=400, detail="Email already in use.")
 
-    keys = ["email", "password", "forename", "surname"]
+    keys = [key for key in schemas.UserCreate.__fields__.keys()]
 
     tasker_dict = tasker.dict()
     user_dict = dict()
@@ -119,7 +120,7 @@ def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
     return crud.get_tasker(db, tasker_id)  # TODO
 
 
-@app.get("api/tasks", response_model=list[schemas.TaskElemResponse])
+@app.get("/api/tasks", response_model=list[schemas.TaskElemResponse])
 def get_task_list(filter_category: schemas.Category | None = None,
                   filter_min_rating: int | None = None,
                   filter_max_distance: int | None = None,
