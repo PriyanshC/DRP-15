@@ -119,25 +119,39 @@ def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
     return crud.get_tasker(db, tasker_id)  # TODO
 
 
-@app.post("/api/taskers/create-listing", response_model=schemas.Listing)
-def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
-    print("here")
-    return crud.create_listing(db, listing)  # TODO
+@app.get("api/tasks", response_model=list[schemas.Task])
+def get_task_list(filter_category: schemas.Category | None = None,
+                  filter_min_rating: int | None = None,
+                  filter_max_distance: int | None = None,
+                  sort: schemas.Sort | None = None,
+                  skip: int = 0,
+                  limit: int = 20,
+                  db: Session = Depends(get_db)):
+    return crud.get_task_list(db, schemas.Filters(category=filter_category,
+                                                  min_rating=filter_min_rating,
+                                                  max_distance=filter_max_distance),
+                              sort, skip, limit)
 
 
-@app.get("/api/listings", response_model=list[schemas.Listing])
-def get_listings(filter_category: schemas.Category | None = None,
-                 filter_min_rating: int | None = None,
-                 filter_max_distance: int | None = None,
-                 sort: schemas.Sort | None = None,
-                 skip: int = 0,
-                 limit: int = 20,
-                 db: Session = Depends(get_db)):
-    raise HTTPException(status_code=404, detail="Listings not found")
-    # return crud.get_listings(db, schemas.Filters(category=filter_category,
-    #                                              min_rating=filter_min_rating,
-    #                                              max_distance=filter_max_distance),
-    #                          sort, skip, limit)
+# @app.post("/api/taskers/create-listing", response_model=schemas.Listing)
+# def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
+#     print("here")
+#     return crud.create_listing(db, listing)  # TODO
+
+
+# @app.get("/api/listings", response_model=list[schemas.Listing])
+# def get_listings(filter_category: schemas.Category | None = None,
+#                  filter_min_rating: int | None = None,
+#                  filter_max_distance: int | None = None,
+#                  sort: schemas.Sort | None = None,
+#                  skip: int = 0,
+#                  limit: int = 20,
+#                  db: Session = Depends(get_db)):
+#     raise HTTPException(status_code=404, detail="Listings not found")
+# return crud.get_listings(db, schemas.Filters(category=filter_category,
+#                                              min_rating=filter_min_rating,
+#                                              max_distance=filter_max_distance),
+#                          sort, skip, limit)
 
 
 @app.post("/api/tasks/reply", response_model=schemas.Reply)

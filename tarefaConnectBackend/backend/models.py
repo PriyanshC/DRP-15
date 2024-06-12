@@ -31,15 +31,15 @@ class Task(Base):
     owner = relationship("User", back_populates="tasks")
 
 
-class Listing(Base):
-    __tablename__ = "listings"
-
-    id = Column(Integer, primary_key=True)
-    category = Column(String)
-    description = Column(String)
-
-    tasker_id = Column(Integer, ForeignKey("taskers.id"))
-    tasker = relationship("Tasker", back_populates="listings")
+# class Listing(Base):
+#     __tablename__ = "listings"
+#
+#     id = Column(Integer, primary_key=True)
+#     category = Column(String)
+#     description = Column(String)
+#
+#     tasker_id = Column(Integer, ForeignKey("taskers.id"))
+#     tasker = relationship("Tasker", back_populates="listings")
 
 
 class Tasker(Base):
@@ -55,7 +55,7 @@ class Tasker(Base):
     country = Column(String)
     post_code = Column(String)
 
-    listings = relationship("Listing", back_populates="tasker")
+    # listings = relationship("Listing", back_populates="tasker")
 
     rating = Column(Integer)
     verified = Column(Boolean)
