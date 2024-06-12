@@ -39,7 +39,7 @@ export default function Task(props: Props) {
   return (
     <div className="Container" >
       <CurrentTaskPanel addCategory={addCategory} changeIndex={setIndex} data={taskData.map((item) => [item.title, item.user_heading, item.id])} categories={categories} />
-      {index === -1 ? <CreateTask addTask={addTask} userId={props.userId} categoryInfo={categories} /> : <TaskDisplay taskData={taskData[index]} />}
+      {index === -1 ? <CreateTask addTask={addTask} userId={props.userId} categoryInfo={categories} /> : <TaskDisplay {...taskData[index]} />}
     </div>
   );
 }

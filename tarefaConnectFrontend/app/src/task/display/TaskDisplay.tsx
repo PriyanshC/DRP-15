@@ -1,120 +1,104 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
+
+import { api } from '../../App.tsx';
 import './TaskDisplay.css';
 
-import { Map, APIProvider } from '@vis.gl/react-google-maps';
+import GmapsApi from '../../components/location/GmapsApi.tsx';
 
-export default function TaskDisplay({ taskData }) {
+interface TaskReply {
+  tasker_id: number,
+  tasker_name: string,
+  rating: number,
+  content: string
+}
+
+interface TaskData {
+  id: number,
+  title: string,
+  description: string
+}
+
+export default function TaskDisplay(props: TaskData) {
   return (
     <div className="TaskDisplayPanel">
       <div className="TaskDisplay">
-        <TaskInfoPanel taskData={taskData} />
-        <TaskLocationPanel />
+        <TaskInfoPanel {...props} />
+        <div className='MapContainer'><GmapsApi /></div>
       </div>
-      <TaskRepliesPanel />
+      <TaskRepliesPanel task_id={props.id} />
     </div>
   );
 }
 
-function TaskLocationPanel() {
-  return (
-    <div className='MapContainer'>
-      <APIProvider apiKey={'REMOVED'} onLoad={() => console.log('Maps API has loaded.')}>
-        <Map defaultZoom={7.5}
-          defaultCenter={{ lat: 38.205542, lng: -28.284108 }}
-        >
-        </Map>
-      </APIProvider>
-    </div>
-  );
-}
-
-function TaskInfoPanel({ taskData }) {
+function TaskInfoPanel({ title, description }: TaskData) {
   return (
     <div className="TaskInfoPanel">
-      <h1 className="TaskTitle"> {taskData.title} </h1>
+      <h1 className="TaskTitle"> {title} </h1>
       <dd className="TaskDescription">
-        {taskData.description}
+        {description}
       </dd>
     </div>
   );
 }
 
-function TaskRepliesPanel() {
+function TaskRepliesPanel({ task_id }) {
   return (
     // Conditionally render this depending on # of replies
     <div className="TaskRepliesPanel">
       <h1 className="RepliesHeader">Replies from Taskers!</h1>
-      <RepliesSection />
+      <RepliesSection task_id={task_id} />
     </div>
   );
 }
 
-const repliesData = [
-  {
-    name: "Casanova Miguel",
-    rating: 5
-  },
-  {
-    name: "Brand Grent",
-    rating: 4
-  },
-  {
-    name: "Casanova Miguel",
-    rating: 5
-  },
-  {
-    name: "Brand Grent",
-    rating: 4
-  },
-  {
-    name: "Casanova Miguel",
-    rating: 5
-  },
-  {
-    name: "Brand Grent",
-    rating: 4
-  },
-  {
-    name: "Casanova Miguel",
-    rating: 5
-  },
-  {
-    name: "Brand Grent",
-    rating: 4
-  },
-  {
-    name: "Casanova Miguel",
-    rating: 5
-  },
-  {
-    name: "Brand Grent",
-    rating: 4
-  },
-  {
-    name: "Casanova Miguel",
-    rating: 5
-  },
-  {
-    name: "Brand Grent",
-    rating: 4
-  }
-];
+function RepliesSection({ task_id }) {
 
-function RepliesSection() {
-  const replies = repliesData.map((item, index) => {
+  const startingData: TaskReply[] = [
+    {
+      tasker_id: 0,
+      tasker_name: 'Thomas JR',
+      rating: 3,
+      content: 'Hey, I am a local student studying economic management and I would love to help out mowing your lawn. I am available as required: once a week, and I am a very hard worker! Thanks, Thomas'
+    },
+    {
+      tasker_id: 0,
+      tasker_name: 'Thomas JR',
+      rating: 3,
+      content: 'Hey, I am a local student studying economic management and I would love to help out mowing your lawn. I am available as required: once a week, and I am a very hard worker! Thanks, Thomas'
+    },
+  ]
+
+  const [repliesData, setRepliesData] = useState(startingData);
+
+  useEffect(() => {
+    console.log('Getting Task Replies API');
+    api.get('tasks/' + task_id + '/replies')
+      .then(resp => {
+        setRepliesData(resp.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [task_id])
+
+  const maxContentChars = 100;
+
+  const replies = repliesData.map((item) => {
     return (
-      <div className="ReplyElement" key={index + item.name}>
+      <div className="ReplyElement" key={item.tasker_id}>
         <div className="ReplyNameContainer">
           <div className="ReplyName">
-            {item.name}
+            {item.tasker_name}
           </div>
           <div className="StarContainer">
             <StarDisplay number={item.rating} />
           </div>
         </div>
         <div className='Divider'></div>
+        <div className='ReplyContent'>{item.content.length > maxContentChars ? item.content.substring(0, maxContentChars - 3) + '...' : item.content}</div>
+        <div className='Divider'></div>
         <button className='MessageButton'>
-          Message
+          Connect
         </button>
       </div>
     );

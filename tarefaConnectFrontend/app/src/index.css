@@ -1,8 +1,8 @@
 :root {
-  --background-primary: rgb(210, 210, 210);
+  --background-primary: rgb(244, 242, 238);
   --background-secondary: white;
   --background-tertiary: #fbd93013;
-  --font-color-primary: black;
+  --font-color-primary: rgba(0, 0, 0, 0.9);
   --font-color-secondary: #015CAB;
   --accent-color: #656565;
   --button-color: #FBD930;

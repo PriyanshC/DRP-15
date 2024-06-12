@@ -4,15 +4,155 @@
     justify-content: stretch;
 }
 
-.MiniProfileInfo {
+.TopContainer {
     display: flex;
     flex-direction: row;
-    flex: 1;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px 10px;
+    padding: 5px;
     font-size: 20px;
-    border-bottom: 1px solid var(--font-color-primary);
+    border-bottom: 1px solid var(--accent-color);
+    background-color: var(--background-secondary);
+}
+
+.BackButtonContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.ReportMessage {
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.ReportProfile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red);
+    color: white;
+    padding-inline: 10px;
+    border-radius: 10px;
+}
+
+.ReportContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.Profile {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color);
+    background-color: var(--background-secondary);
+    margin: 20px auto;
+    width: 60%;
+}
+
+.ProfileHeader {
+    height: 130px;
+    border-bottom: 2px solid var(--accent-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: end;
+    padding-inline: 20px;
+    background-color: var(--font-color-secondary);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.ProfileImage {
+    background-color: var(--background-primary);
+    background-image: url('../assets/profilePicturePlaceholder.jpg');
+    background-size: cover;
+    position: relative;
+    border: 2px solid var(--button-color);
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    top: 100px;
+}
+
+.ProfileName {
+    color: var(--background-primary);
+    font-family: var(--font-family-title);
+    font-size: 60px;
+}
+
+.ProfileContentContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ProfileContent {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.ProfileDescriptionContent {
+    padding: none;
+    padding-left: 10px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.ProfileLabels {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.ProfileLocation {
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--accent-color);
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.ProfileExpertise {
+    margin-left: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.ProfileStats {
+    min-width: 240px;
+    padding-top: 120px;
+    border-left: 1px solid var(--accent-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.RatingElement {
+    margin-bottom: 40px;
+}
+
+.RatingElement {
+    font-weight: bold;
+    font-size: 17px;
+    font-style: italic;
+}
+
+.ExpertiseItem {
+    margin-bottom: 10px;
 }
 
 .BackButton {
@@ -25,20 +165,13 @@
 }
 
 .VerticalLine {
-    border-right: 1px solid rgb(61, 61, 61);
-    height: 90%;
-}
-
-.bi-patch-check-fill {
-    display: flex;
-    font-size: 30px;
-    color: var(--font-color-secondary);
-    align-items: center;
+    border-right: 1px solid var(--accent-color);
+    height: 85%;
+    margin-inline: 5px;
 }
 
 .star-rating {
     display: inline-block;
-
 }
 
 .stars-container {
@@ -60,101 +193,62 @@
     color: #FBD930;
 }
 
-.VerifyRating {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
-    vertical-align: middle;
-}
-
 .StarDisplay {
     vertical-align: middle;
     margin-bottom: 10px;
 }
 
-.ExpandedProfile {
+.ProfileReviewElement {
+    border: 1px solid var(--accent-color);
+    border-radius: 10px;
+    margin: 15px auto;
     display: flex;
     flex-direction: row;
-    flex: 5;
+    align-items: center;
+    background-color: var(--background-tertiary);
+    font-size: 15px;
 }
 
-.ExpandedProfileInfo {
+.ProfileReviewLeft {
     display: flex;
     flex-direction: column;
-    flex: 3;
-    border-right: 1px solid var(--background-color-secondary);
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 10px;
+    padding-block: 5px;
+    text-wrap: nowrap;
+    border-right: 1px solid var(--accent-color);
 }
 
-.ProfileBio {
+.ProfileReviewName {
+    text-align: center;
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 18px;
+}
+
+.ProfileReviewDesc {
     text-align: left;
-    padding: 20px 30px 20px;
+    align-items: start;
+    padding-inline: 10px;
 }
 
-.TradesmanDescription {
-    font-size: x-large;
-    font-weight: 500;
+.ProfileReviewRating {
+    font-size: 15px;
+    text-wrap: nowrap;
 }
 
-.Reviews {
-    display: flex;
-    flex-direction: column;
+.ProfileReviewsHeader {
     text-align: left;
-    gap: 20px;
-    padding: 30px 20px 30px;
-}
-
-.Divider {
-    width: 1px;
-    background-color: black;
-}
-
-.ReplyElement {
-    margin-left: 60px;
-    margin-right: 60px;
-    margin-bottom: 20px;
-    display: flex;
-    border: 1px solid var(--font-color-primary);
-    border-radius: 10px;
-}
-
-.ReplyName {
+    font-size: 24px;
+    font-weight: bold;
     font-style: italic;
-    font-weight: bolder;
-    font-size: x-large;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: var(--font-color-primary)
+    margin-block: 10px;
 }
 
-.ReplyNameContainer {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-}
-
-.ReplyMessage {
-    padding-inline: 20px;
-}
-
-.ReplyMessageContainer {
-    display: flex;
-    flex: 3;
-    align-items: center;
-}
-
-.PictureAndMessage {
-    display: flex;
-    flex-direction: column;
-    flex: 0.5;
-    padding-inline: 20px;
-}
-
-.ProfilePicture {
-    width: 400px;
-    border-radius: 20px;
-    margin-top: 30px;
+.ProfileMaps {
+    margin-inline: 20px;
+    height: 200px;
     margin-bottom: 20px;
+    border: 1px solid var(--accent-color);
 }

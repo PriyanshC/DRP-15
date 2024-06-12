@@ -127,8 +127,8 @@ export default function CreateTask(props: Props) {
 
   const [savedFormData, setSavedForm] = useState(emptyForm);
 
-  const calculateDays = ({ freq, number, period }) => {
-    return Math.round((number * periodSelect[period].days) / freq);
+  const calculateDays = (timePeriod) => {
+    return ((timePeriod.number * periodSelect[timePeriod.period].days) / (timePeriod.freq)).toPrecision(5);
   }
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -148,6 +148,9 @@ export default function CreateTask(props: Props) {
       user_heading: props.categoryInfo[formData.userCategory],
       frequency: calculateDays(formData.timePeriod)
     }
+
+    console.log(formData)
+    console.log(data)
 
     api.post(props.userId + "/create-task", data)
       .then(data => {

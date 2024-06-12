@@ -8,7 +8,7 @@ import Login from './login/Login.tsx'
 import Register from './login/Register.tsx'
 import Forgot from './login/Forgot.tsx'
 import TradesmanList from './tradesmanList/TradesmanList.jsx';
-import TradesmanProfile from './tradesmanProfile/TradesmanProfile.jsx';
+import TradesmanProfile from './tradesmanProfile/TradesmanProfile.tsx';
 import TaskList from './TaskList/TaskList.jsx';
 import PageNotFound from "./404Page";
 
