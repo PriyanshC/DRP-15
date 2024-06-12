@@ -27,20 +27,29 @@ class TaskBase(BaseModel):
     title: str
     description: str
     category: Category | None
-    user_heading: str | None
     frequency: float
 
 
 class TaskCreate(TaskBase):
-    pass
+    user_heading: str | None
 
 
 class Task(TaskBase):
     id: int
     owner_id: int
 
+    user_heading: str | None
+    post_date_time: str
+
     class Config:
         orm_mode = True
+
+
+class TaskElemResponse(TaskBase):
+    distance: float
+    user_id: int
+    rating: float
+    post_date_time: str
 
 
 class UserLogin(BaseModel):
@@ -61,6 +70,8 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     hashed_password: str
+
+    rating: int
 
     tasks: list[Task]
 
@@ -103,9 +114,8 @@ class Tasker(TaskerBase):
 
     # listings: list[Listing]
 
-    rating: int
     # endorsements: list[User]
-    verified: bool
+    # verified: bool
 
     class Config:
         orm_mode = True

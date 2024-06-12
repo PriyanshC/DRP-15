@@ -12,6 +12,7 @@ class User(Base):
     forename = Column(String)
     surname = Column(String)
     hashed_password = Column(String)
+    rating = Column(Float)
 
     tasks = relationship("Task", back_populates="owner")
 
@@ -26,6 +27,7 @@ class Task(Base):
     user_heading = Column(String)
 
     frequency = Column(Float)
+    post_date_time = Column(String)
 
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
     owner = relationship("User", back_populates="tasks")
@@ -57,7 +59,6 @@ class Tasker(Base):
 
     # listings = relationship("Listing", back_populates="tasker")
 
-    rating = Column(Integer)
     verified = Column(Boolean)
 
 

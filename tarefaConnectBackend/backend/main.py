@@ -119,7 +119,7 @@ def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
     return crud.get_tasker(db, tasker_id)  # TODO
 
 
-@app.get("api/tasks", response_model=list[schemas.Task])
+@app.get("api/tasks", response_model=list[schemas.TaskElemResponse])
 def get_task_list(filter_category: schemas.Category | None = None,
                   filter_min_rating: int | None = None,
                   filter_max_distance: int | None = None,

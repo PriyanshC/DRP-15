@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy.orm import Session
 
 from . import models, schemas, testInfo
@@ -6,7 +8,7 @@ from . import models, schemas, testInfo
 def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     user_args = new_user.dict()
     hashed_password = hash_password(user_args.pop('password'))
-    db_user = models.User(**user_args, hashed_password=hashed_password)
+    db_user = models.User(**user_args, hashed_password=hashed_password, rating=0)
 
     db.add(db_user)
     db.commit()
@@ -24,7 +26,8 @@ def create_test_user(db: Session) -> schemas.User:
 
 
 def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> schemas.Task:
-    db_task = models.Task(**new_task.dict(), owner_id=owner_id)
+    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    db_task = models.Task(**new_task.dict(), post_date_time=now, owner_id=owner_id)
 
     db.add(db_task)
     db.commit()
@@ -49,7 +52,6 @@ def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> 
                               headline=tasker_details['headline'],
                               country=country,
                               post_code=post_code,
-                              rating=0,
                               verified=False)
 
     db.add(db_tasker)
@@ -77,32 +79,34 @@ def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
 
 
 def get_task_list(db: Session, filters: schemas.Filters | None,
-                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.ReplyResponse]:
+                  sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.TaskElemResponse]:
     query = db.query(models.Task)
 
     if filters is not None:
         if filters.category is not None:
             query = query.filter(models.Task.category == filters.category)
         if filters.min_rating is not None:
-            pass  # query = query.filter(models.Task.owner.rating >= filters.min_rating)
+            query = query.filter(models.Task.owner.rating >= filters.min_rating)
         if filters.max_distance is not None:
             pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
 
     if sort is not None:
         if sort is schemas.Sort.rating:
-            pass # query = query.order_by(models.Task.rating.desc())
+            query = query.order_by(models.Task.owner.rating.desc())
         else:
             pass  # query = query.order_by(models.Listing.distance.asc()) TODO
 
     query = query.offset(skip).limit(limit).all()
 
-    return query
-    # return map(lambda reply:
-    #            schemas.ReplyResponse(tasker_id=reply.Tasker.id,
-    #                                  tasker_forename=reply.Tasker.user.forename,
-    #                                  tasker_surname=reply.Tasker.user.surname,
-    #                                  message=reply.)
-    #            , query)
+    return list(map(lambda reply:
+                    schemas.TaskElemResponse(title=reply.title,
+                                             description=reply.description,
+                                             frequency=reply.frequency,
+                                             distance=1,  # TODO
+                                             user_id=reply.user_id,
+                                             rating=reply.owner.rating,
+                                             post_date_time=reply.post_date_time)
+                    , query))
 
 
 def get_user(db: Session, user_id: int) -> schemas.User:
@@ -128,7 +132,7 @@ def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[s
                                                         tasker_forename=reply.tasker.user.forename,
                                                         tasker_surname=reply.Tasker.user.surname,
                                                         message=reply.message,
-                                                        rating=reply.tasker.rating),
+                                                        rating=reply.tasker.user.rating),
                     query))
 
 
