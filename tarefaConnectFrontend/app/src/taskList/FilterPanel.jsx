@@ -1,27 +1,35 @@
-export function FilterPanel({ setRating, distance, setDistance }) {
+export function FilterPanel({ setRating, distance, setDistance, handleCategory }) {
 
     return (
-        <div className='FilterPanel'>
+        <div className='FilterPanelContainer'>
             <div>
                 <label className='FilterPanelTitle'> Filter Results </label>
             </div>
             <div className='FilterSection'>
-                <label className='FilterHeader'> Field of work: </label>
+                <label className='FilterHeader'> Category: </label>
                 <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
-                    <label> Home </label>
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="0" type='checkbox' onChange={() => {handleCategory("plumbing")}} />
+                    <label> Plumbing </label>
                 </div>
                 <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
-                    <label> Garden </label>
-                </div>
-                <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="1" type='checkbox' onChange={() => {handleCategory("electrical")}} />
                     <label> Electrical </label>
                 </div>
                 <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
-                    <label> Water </label>
+                    <input  name="FilterCheckbox" className='FilterCheckbox' id="2" type='checkbox' onChange= {() => {handleCategory("gardening")}} />
+                    <label> Gardening </label>
+                </div>
+                <div className="FilterBox">
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="3" type='checkbox' onChange= {() => {handleCategory("domestic")}}/>
+                    <label> Domestic Cleaning </label>
+                </div>
+                <div className="FilterBox">
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="4" type='checkbox' onChange= {() => {handleCategory("dog")}}/>
+                    <label> Dog Walking </label>
+                </div>
+                <div className="FilterBox">
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="5" type='checkbox' onChange= {() => {handleCategory("other")}}/>
+                    <label> Other </label>
                 </div>
             </div>
             <div className='FilterSection'>
@@ -29,26 +37,9 @@ export function FilterPanel({ setRating, distance, setDistance }) {
                 <div className="DistanceSlider">
                     <input className='DistanceFilter' id='DistanceFilter' type='range'
                         min="0" max="10" steps="1" defaultValue="5" onChange={(e) => setDistance(e.target.value)} />
-                    <label> {distance == null ? 5 : distance} km </label>
+                    <label> {distance === -1 ? 5 : distance} km </label>
                 </div>
             </div>
-            {/* <div className="FilterSection">
-                <label className='FilterHeader'> Relation: </label>
-                <div className="Relations">
-                    <div className="FilterBox">
-                        <input className='FilterCheckbox' type='checkbox' />
-                        <label> Endorsed </label>
-                    </div>
-                    <div className="FilterBox">
-                        <input className='FilterCheckbox' type='checkbox' />
-                        <label> Friend </label>
-                    </div>
-                    <div className="FilterBox">
-                        <input className='FilterCheckbox' type='checkbox' />
-                        <label> Endorsed by a Friend </label>
-                    </div>
-                </div>
-            </div> */}
             <div className="FilterSection">
                 <label className="FilterHeader"> Minimum Rating: </label>
                 <div class="rate" id='rate'>

@@ -9,7 +9,7 @@ import Register from './login/Register.tsx'
 import Forgot from './login/Forgot.tsx'
 import TradesmanList from './tradesmanList/TradesmanList.jsx';
 import TradesmanProfile from './tradesmanProfile/TradesmanProfile.tsx';
-import TaskList from './TaskList/TaskList.jsx';
+import TaskList from './taskList/TaskList.tsx';
 import PageNotFound from "./404Page";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
