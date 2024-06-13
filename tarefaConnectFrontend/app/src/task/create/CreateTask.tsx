@@ -279,7 +279,7 @@ export default function CreateTask(props: Props) {
                       ))}
                     </div>
                   </div>
-                  <div className='TimeDropdown TimeSelector PeriodSelect'>
+                  <div className='TimeDropdown TimeSelector'>
                     {periodSelect[formData.timePeriod.period].name + (formData.timePeriod.number > 1 ? 's' : '')}
                     <div className='DropDownContainer'>
                       {periodSelect.map((item, index) => (
@@ -288,6 +288,20 @@ export default function CreateTask(props: Props) {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="RightPanelElement">
+                <label className="FieldLabel">How much do you expect to pay :</label>
+                {/*Changle this pls*/}
+                <div style={{ height: '48px', display: 'flex', flexDirection: 'row', alignItems: 'center', marginRight: '5px' }}>£</div>
+                <input
+                  type="number"
+                  className="CostInput Input"
+                  name='title'
+                  placeholder="Price in £..."
+                  maxLength={100}
+                  defaultValue={savedFormData.title}
+                  required
+                />
               </div>
             </div>
             <button className="PostButton" type='submit' >

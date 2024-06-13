@@ -24,7 +24,7 @@ export default function Task(props: Props) {
   const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.user_heading).filter((item) => { return item }))));
 
   const addCategory: (arg0: string) => boolean = (category: string) => {
-    if (categories.filter((str) => str === category).length === 0) {
+    if ((categories.filter((str) => str === category).length === 0) && (category.length < 25)) {
       setCategories(prev => [...prev, category]);
       return true;
     }
