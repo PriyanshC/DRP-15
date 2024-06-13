@@ -4,6 +4,7 @@ import { api } from '../../App.tsx';
 import './TaskDisplay.css';
 
 import GmapsApi from '../../components/location/GmapsApi.tsx';
+import { Link } from 'react-router-dom';
 
 interface TaskReply {
   tasker_id: number,
@@ -61,9 +62,9 @@ function RepliesSection({ task_id }) {
       content: 'Hey, I am a local student studying economic management and I would love to help out mowing your lawn. I am available as required: once a week, and I am a very hard worker! Thanks, Thomas'
     },
     {
-      tasker_id: 0,
+      tasker_id: 1,
       tasker_name: 'Thomas JR',
-      rating: 3,
+      rating: 4,
       content: 'Hey, I am a local student studying economic management and I would love to help out mowing your lawn. I am available as required: once a week, and I am a very hard worker! Thanks, Thomas'
     },
   ]
@@ -81,11 +82,11 @@ function RepliesSection({ task_id }) {
       });
   }, [task_id])
 
-  const maxContentChars = 100;
+  const maxContentChars = 65;
 
-  const replies = repliesData.map((item) => {
+  const replies = repliesData.map((item, index) => {
     return (
-      <div className="ReplyElement" key={item.tasker_id}>
+      <div className="ReplyElement" key={item.tasker_id} >
         <div className="ReplyNameContainer">
           <div className="ReplyName">
             {item.tasker_name}
@@ -97,10 +98,14 @@ function RepliesSection({ task_id }) {
         <div className='Divider'></div>
         <div className='ReplyContent'>{item.content.length > maxContentChars ? item.content.substring(0, maxContentChars - 3) + '...' : item.content}</div>
         <div className='Divider'></div>
-        <button className='MessageButton'>
-          Connect
-        </button>
-      </div>
+        <Link to={'/tradesmanProfile'} state={{ taskerId: item.tasker_id, pageFrom: '/task' }} style={{
+          color: 'inherit'
+        }}>
+          < button className='MessageButton' >
+            See More
+          </button>
+        </Link>
+      </div >
     );
   })
   return <div className='RepliesContainer'> {replies} </div>

@@ -46,7 +46,7 @@ interface Tasker {
 export default function TradesmanProfile() {
 
   const location = useLocation();
-  const { taskerId } = location.state;
+  const { taskerId, pageFrom } = location.state;
 
   // enum state {
   //   loading = 0,
@@ -114,7 +114,7 @@ export default function TradesmanProfile() {
   return (
     <div className="TradesmanContainer">
       <div className="TopContainer">
-        <Link to="/tradesmanList" style={{ textDecoration: 'none' }}>
+        <Link to={pageFrom} style={{ textDecoration: 'none' }}>
           <button className='BackButton'>
             <i className='bi-caret-left'></i>
             Go Back

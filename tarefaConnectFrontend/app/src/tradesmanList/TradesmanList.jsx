@@ -6,7 +6,7 @@ import { SearchPanel } from './SearchPanel'
 
 function TradesmanList() {
     const [search, setSearch] = useState('')
-    
+
     /* 
         Indices
 
@@ -20,8 +20,8 @@ function TradesmanList() {
 
     return (
         <div className="PageContainer">
-            <FilterPanel setRating = {setRating} distance={distanceFilter} setDistance = {setDistance} />
-            <TradesmanPanel setSearch={setSearch} search={search} distanceFilter= {distanceFilter} ratingFilter = {ratingFilter} />
+            <FilterPanel setRating={setRating} distance={distanceFilter} setDistance={setDistance} />
+            <TradesmanPanel setSearch={setSearch} search={search} distanceFilter={distanceFilter} ratingFilter={ratingFilter} />
         </div>
     )
 }
@@ -30,12 +30,12 @@ function TradesmanPanel({ setSearch, search, distanceFilter, ratingFilter }) {
     return (
         <div className="TradesmanPanel">
             <SearchPanel setSearch={setSearch} toSearchFor={"your task"} />
-            <AvailableTradesmen search = {search} distanceFilter = {distanceFilter} ratingFilter = {ratingFilter} />
+            <AvailableTradesmen search={search} distanceFilter={distanceFilter} ratingFilter={ratingFilter} />
         </div>
     )
 }
 
-const availableTradesmen =[
+const availableTradesmen = [
     {
         name: "Audrey Prenton",
         jobTitle: "Dog Walker",
@@ -107,27 +107,25 @@ function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
             (distanceFilter == null ? item.distance <= 5 : item.distance <= distanceFilter)
         )
     }).map((item, index) => {
-            return (
-                <TradesmanMiniProfile index = {index} name = {item.name} 
-                jobTitle = {item.jobTitle} description = {item.description}
-                 distance = {item.distance} verified = {item.verified} 
-                 rating = {item.rating} toggle = {toggle} selected= {selected} />
-            )
-        })
+        return (
+            <TradesmanMiniProfile index={index} name={item.name}
+                jobTitle={item.jobTitle} description={item.description}
+                distance={item.distance} verified={item.verified}
+                rating={item.rating} toggle={toggle} selected={selected} taskerId={1} />
+        )
+    })
 
-    return (<div className="AvailableTradesmen"> { tradesmen } </div>
+    return (<div className="AvailableTradesmen"> {tradesmen} </div>
     )
 }
 
-function TradesmanMiniProfile({ index, name, jobTitle, description, distance, verified, rating, toggle, selected }) {
+function TradesmanMiniProfile({ index, name, jobTitle, description, distance, verified, rating, toggle, selected, taskerId }) {
     return (
-        <div className="MiniProfile" onClick={ () => toggle(index)}>
+        <div className="MiniProfile" onClick={() => toggle(index)}>
             <ProfileInfo name={name} jobTitle={jobTitle} distance={distance}
-             verified={verified} rating={rating}/>
-             <ProfileDescription index = {index} name = {name} 
-                jobTitle = {jobTitle} description = {description}
-                 distance = {distance} verified = {verified} 
-                 rating = {rating} selected= {selected}/>
+                verified={verified} rating={rating} />
+            <ProfileDescription index={index} description={description}
+                selected={selected} taskerId={taskerId} />
         </div>
     )
 }
@@ -135,11 +133,11 @@ function TradesmanMiniProfile({ index, name, jobTitle, description, distance, ve
 function ProfileInfo({ name, jobTitle, distance, verified, rating }) {
     return (
         <div className="ProfileInfo">
-            <label> { name } </label>
+            <label> {name} </label>
             <div className="VerticalLine"></div>
-            <label> { jobTitle } </label>
+            <label> {jobTitle} </label>
             <div className="VerticalLine"></div>
-            <label> { distance } km </label>
+            <label> {distance} km </label>
             <div className='VerifyRating'>
                 <VerifiedCheck verified={verified} />
                 <StarDisplay number={rating} />
@@ -150,26 +148,22 @@ function ProfileInfo({ name, jobTitle, distance, verified, rating }) {
 
 
 
-function ProfileDescription({ index, name, jobTitle, description, distance, verified, rating, selected }) {
-    return(
-        <div className={selected === index ? "ProfileDescriptionContainershow" 
-        : "ProfileDescriptionContainer"}>
+function ProfileDescription({ index, description, selected, taskerId }) {
+    return (
+        <div className={selected === index ? "ProfileDescriptionContainershow"
+            : "ProfileDescriptionContainer"}>
             <div className='ProfileTopInfo'>
-                <div className= "ProfileDescription"> {description} </div>
+                <div className="ProfileDescription"> {description} </div>
                 <img className='ProfileDescriptionImage' src={require("../assets/electrician.jpg")}
-                 alt={require("../assets/profilePicturePlaceholder.jpg")}/>
+                    alt={"Profile"} />
             </div>
-            <Link to='/tradesmanProfile' 
+            <Link to='/tradesmanProfile'
                 state={{
-                    name: name, 
-                    jobTitle: jobTitle,
-                    description: description,
-                    distance: distance,
-                    verified: verified,
-                    rating: rating
+                    taskerId: taskerId,
+                    pageFrom: '/tradesmanList'
                 }}>
-                <button> 
-                    See more... 
+                <button>
+                    See more...
                 </button>
             </Link>
         </div>
@@ -178,8 +172,8 @@ function ProfileDescription({ index, name, jobTitle, description, distance, veri
 
 function VerifiedCheck({ verified }) {
     return (
-        verified ? <i className='bi-patch-check-fill'></i> 
-        : <i className='bi-patch-check-fill' style={{opacity:'0.1'}}></i> 
+        verified ? <i className='bi-patch-check-fill'></i>
+            : <i className='bi-patch-check-fill' style={{ opacity: '0.1' }}></i>
     )
 }
 
