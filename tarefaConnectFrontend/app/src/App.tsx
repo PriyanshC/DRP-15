@@ -14,7 +14,7 @@ import PageNotFound from "./404Page";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useLocalStorage from 'use-local-storage';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -46,6 +46,7 @@ function App() {
 
   const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [theme, setTheme] = useLocalStorage('theme', isDarkMode ? 'dark' : 'light');
+
   const emptyData: UserData = {
     email: '',
     forename: '',
@@ -54,9 +55,21 @@ function App() {
     hashed_password: '',
     tasks: []
   }
-  const [userData, setUserData] = useState(emptyData);
 
-  // eslint-disable-next-line
+  const [userData, setUserData] = useLocalStorage('user_data', emptyData);
+
+  const addTask: (arg0: ITask) => void = useCallback((task) => {
+    setUserData(prev => {
+      if (!prev) return prev;
+      return ({
+        ...prev,
+        tasks: [...prev.tasks, task]
+      })
+    }
+    );
+    return;
+  }, []);
+
   const changeTheme = () => {
     setTheme((prev) => {
       return (prev === 'dark' ? 'light' : 'dark');
@@ -75,12 +88,12 @@ function App() {
             <Route path='login' element={<Login setUserData={setUserData} />} />
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />
-            <Route path='home' element={<LoginLanding />} />
-            <Route path='findHelp' element={<LoginLandingForHelp />} />
-            <Route path='tradesmanList' element={<TradesmanList />} />
-            <Route path='tradesmanProfile' element={<TradesmanProfile />} />
-            <Route path='taskList' element={<TaskList />} />
-            <Route path='task' element={userData === null ? <Navigate to='/login' /> : <Task userId={userData.id} startingIndex={-1} taskData={userData.tasks} />} />
+            <Route path='home' element={userData == emptyData ? <Navigate to='/login' /> : <LoginLanding />} />
+            <Route path='findHelp' element={userData == emptyData ? <Navigate to='/login' /> : <LoginLandingForHelp />} />
+            <Route path='tradesmanList' element={userData == emptyData ? <Navigate to='/login' /> : <TradesmanList />} />
+            <Route path='tradesmanProfile' element={userData == emptyData ? <Navigate to='/login' /> : <TradesmanProfile />} />
+            <Route path='taskList' element={userData == emptyData ? <Navigate to='/login' /> : <TaskList />} />
+            <Route path='task' element={userData == emptyData ? <Navigate to='/login' /> : <Task userId={userData.id} startingIndex={-1} taskData={userData.tasks} addTask={addTask} />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>

@@ -15,11 +15,12 @@ export interface ITask {
 interface Props {
   taskData: ITask[],
   userId: number,
-  startingIndex: number
+  startingIndex: number,
+  addTask: (arg0: ITask) => void
 }
 
 export default function Task(props: Props) {
-  const [taskData, updateTaskData] = useState(props.taskData);
+  const taskData = props.taskData;
   const [index, setIndex] = useState(props.startingIndex);
   const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.user_heading).filter((item) => { return item }))));
 
@@ -31,15 +32,10 @@ export default function Task(props: Props) {
     return false;
   }
 
-  const addTask = (task: ITask) => {
-    updateTaskData(prev => ([...prev, task]))
-    console.log(task);
-  }
-
   return (
     <div className="Container" >
       <CurrentTaskPanel addCategory={addCategory} changeIndex={setIndex} data={taskData.map((item) => [item.title, item.user_heading, item.id])} categories={categories} />
-      {index === -1 ? <CreateTask addTask={addTask} userId={props.userId} categoryInfo={categories} /> : <TaskDisplay {...taskData[index]} />}
+      {index === -1 ? <CreateTask addTask={props.addTask} userId={props.userId} categoryInfo={categories} /> : <TaskDisplay {...taskData[index]} />}
     </div>
   );
 }
