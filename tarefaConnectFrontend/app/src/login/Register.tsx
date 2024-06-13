@@ -29,6 +29,7 @@ export default function Register(props: Props) {
       email: event.target[2].value,
       forename: event.target[0].value,
       surname: event.target[1].value,
+      post_code: event.target[5].value,
       password: event.target[3].value
     })
       .then(response => {
@@ -79,6 +80,10 @@ export default function Register(props: Props) {
         <div className='InputBox'>
           <input type="password" placeholder='Confirm password...' maxLength={25} required style={passwordStyle} />
           <i className='bi-lock-fill'></i>
+        </div>
+        <div className='InputBox'>
+          <input type="text" placeholder='Postcode...' maxLength={15} required />
+          <i className='bi-person-fill'></i>
         </div>
         <button type='submit'> Register </button>
         {getErrMsg()}
