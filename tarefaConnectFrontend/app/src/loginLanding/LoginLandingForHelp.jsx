@@ -6,18 +6,18 @@ import postTask from '../assets/postTask.svg'
 // eslint-disable-next-line
 const panelData = [
   {
-    id: 2,
-    buttonText: "Find someone to hire",
-    body: "You'll choose a worker. Filter by rating, distance and more",
-    icon: personInMagnifyingGlass,
-    redirectTo: "/tradesmanList"
-  },
-  {
     id: 3,
-    buttonText: "Post a task",
-    body: "You'll receive messages from workers interested in helping you",
+    buttonText: "Let Someone Find You",
+    body: "Create a post and you'll receive messages from workers interested in helping you",
     icon: postTask,
     redirectTo: "/task"
+  },
+  {
+    id: 2,
+    buttonText: "Find someone to hire",
+    body: "You choose a worker. Filter by rating, distance and more",
+    icon: personInMagnifyingGlass,
+    redirectTo: "/tradesmanList"
   }
 ]
 
