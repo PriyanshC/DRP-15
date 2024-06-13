@@ -77,7 +77,9 @@ def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
 
     db_user = crud.create_user(db, schemas.UserCreate(**user_dict))
 
-    return crud.create_tasker(db, tasker_dict, db_user.id)
+    tasker_dict.update({"user_id": db_user.id})
+
+    return crud.create_tasker(db, tasker_dict)
 
 
 @app.post("/api/login", response_model=schemas.User)
@@ -118,6 +120,14 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
 @app.get("/api/taskers/{tasker_id}", response_model=schemas.Tasker)
 def get_tasker(tasker_id: int, db: Session = Depends(get_db)):
     return crud.get_tasker(db, tasker_id)  # TODO
+
+
+@app.post("/api/taskers/{tasker_id}/review", response_model=schemas.Tasker)
+def add_review(tasker_id: int, new_review: schemas.ReviewCreate, db: Session = Depends(get_db)):
+    if crud.has_reviewed(db, new_review.task_id):
+        raise HTTPException(status_code=400, detail="This task has been reviewed")
+
+    return crud.add_review(db, new_review, tasker_id)
 
 
 @app.get("/api/tasks", response_model=list[schemas.TaskElemResponse])

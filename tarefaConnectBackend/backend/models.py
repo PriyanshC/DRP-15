@@ -1,10 +1,10 @@
-from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
+from sqlalchemy import Column, Float, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 # from sqlalchemy.ext.hybrid import hybrid_method
 
 from .database import Base
 
-from . import distance_api
+# from . import distance_api
 
 
 class User(Base):
@@ -19,7 +19,7 @@ class User(Base):
     hashed_password = Column(String)
     rating = Column(Float)
 
-    tasks = relationship("Task", back_populates="owner")
+    # tasks = relationship("Task", back_populates="owner")
 
     # @hybrid_method
     # def distance(self, user_post_code: str) -> float:
@@ -39,7 +39,9 @@ class Task(Base):
     post_date_time = Column(String)
 
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    owner = relationship("User", back_populates="tasks")
+    owner = relationship("User")
+
+    # review = relationship("Review", uselist=False)
 
 
 # class Listing(Base):
@@ -53,6 +55,44 @@ class Task(Base):
 #     tasker = relationship("Tasker", back_populates="listings")
 
 
+class Rating(Base):
+    __tablename__ = "ratings"
+
+    id = Column(Integer, primary_key=True)
+
+    number_ratings = Column(Integer)
+    overall_rating = Column(Float)
+    punctuality = Column(Float)
+    time_taken = Column(Float)
+    value_for_money = Column(Float)
+
+    tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"))
+
+    __table_args__ = (UniqueConstraint("tasker_id"),)
+
+
+class Review(Base):
+    __tablename__ = "reviews"
+
+    id = Column(Integer, primary_key=True)
+    comment = Column(String)
+
+    tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"))
+    task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
+
+    __table_args__ = (UniqueConstraint("task_id"),)
+
+
+class Expertise(Base):
+    __tablename__ = "expertise"
+    id = Column(Integer, primary_key=True)
+
+    title = Column(String)
+    description = Column(String)
+
+    tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"))
+
+
 class Tasker(Base):
     __tablename__ = "taskers"
 
@@ -63,11 +103,13 @@ class Tasker(Base):
 
     headline = Column(String)
 
-    country = Column(String)
+    # verified = Column(Boolean)
 
-    # listings = relationship("Listing", back_populates="tasker")
+    rating = relationship("Rating", uselist=False)
+    expertise = relationship("Expertise")
+    reviews = relationship("Review")
 
-    verified = Column(Boolean)
+    __table_args__ = (UniqueConstraint("user_id"),)
 
 
 class Reply(Base):
