@@ -1,7 +1,10 @@
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+# from sqlalchemy.ext.hybrid import hybrid_method
 
 from .database import Base
+
+from . import distance_api
 
 
 class User(Base):
@@ -11,10 +14,16 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     forename = Column(String)
     surname = Column(String)
+    post_code = Column(String)
+
     hashed_password = Column(String)
     rating = Column(Float)
 
     tasks = relationship("Task", back_populates="owner")
+
+    # @hybrid_method
+    # def distance(self, user_post_code: str) -> float:
+    #     return distance_api.distance_between(user_post_code, self.post_code)
 
 
 class Task(Base):
@@ -55,7 +64,6 @@ class Tasker(Base):
     headline = Column(String)
 
     country = Column(String)
-    post_code = Column(String)
 
     # listings = relationship("Listing", back_populates="tasker")
 
@@ -71,4 +79,3 @@ class Reply(Base):
     task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True)
 
     message = Column(String)
-

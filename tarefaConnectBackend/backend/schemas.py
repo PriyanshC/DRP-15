@@ -61,6 +61,7 @@ class UserBase(BaseModel):
     email: EmailStr
     forename: str
     surname: str
+    post_code: str
 
 
 class UserCreate(UserBase):
@@ -102,7 +103,7 @@ class TaskerBase(BaseModel):
 
 
 class TaskerCreate(TaskerBase, UserCreate):
-    location: str
+    pass
 
 
 class Tasker(TaskerBase):
@@ -110,7 +111,6 @@ class Tasker(TaskerBase):
 
     user_id: int
     country: str
-    post_code: str
 
     # listings: list[Listing]
 

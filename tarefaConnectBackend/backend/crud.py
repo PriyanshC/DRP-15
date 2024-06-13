@@ -2,13 +2,15 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from . import models, schemas, testInfo
+from . import models, schemas, distance_api, testInfo
 
 
 def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     user_args = new_user.dict()
     hashed_password = hash_password(user_args.pop('password'))
-    db_user = models.User(**user_args, hashed_password=hashed_password, rating=0)
+    post_code = user_args.pop('post_code').split()[0]
+    print(post_code)
+    db_user = models.User(**user_args, hashed_password=hashed_password, rating=0, post_code=post_code)
 
     db.add(db_user)
     db.commit()
@@ -78,34 +80,51 @@ def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
     return db.query(models.Tasker).filter(models.Tasker.task_id == task_id).first()
 
 
-def get_task_list(db: Session, filters: schemas.Filters | None,
+def get_task_list(db: Session, post_code: str, filters: schemas.Filters | None,
                   sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.TaskElemResponse]:
-    query = db.query(models.Task)
+    query = db.query(models.Task).join(models.Task.owner)
+
+    has_dist_filter = False
+    has_dist_sort = False
 
     if filters is not None:
         if filters.category is not None:
             query = query.filter(models.Task.category == filters.category)
         if filters.min_rating is not None:
-            query = query.filter(models.Task.owner.rating >= filters.min_rating)
+            query = query.filter(models.User.rating >= filters.min_rating)
         if filters.max_distance is not None:
-            pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
+            has_dist_filter = True
 
     if sort is not None:
         if sort is schemas.Sort.rating:
-            query = query.order_by(models.Task.owner.rating.desc())
+            query = query.order_by(models.User.rating.desc())
         else:
-            pass  # query = query.order_by(models.Listing.distance.asc()) TODO
+            has_dist_sort = True
 
-    query = query.offset(skip).limit(limit).all()
+    if has_dist_filter or has_dist_sort:
+        query = query.all()
 
-    return list(map(lambda reply:
-                    schemas.TaskElemResponse(title=reply.title,
-                                             description=reply.description,
-                                             frequency=reply.frequency,
-                                             distance=1,  # TODO
-                                             owner_id=reply.owner_id,
-                                             rating=reply.owner.rating,
-                                             post_date_time=reply.post_date_time)
+        if has_dist_filter:
+            query = list(filter(
+                lambda task: distance_api.distance_between(task.owner.post_code, post_code) <= filters.max_distance
+                , query))
+
+        if has_dist_sort:
+            query.sort(key=lambda task: distance_api.distance_between(task.owner.post_code, post_code))
+
+        query = query[skip:limit]
+    else:
+        query = query.offset(skip).limit(limit).all()
+
+    return list(map(lambda task:
+                    schemas.TaskElemResponse(title=task.title,
+                                             description=task.description,
+                                             frequency=task.frequency,
+                                             distance=distance_api.distance_between(post_code,
+                                                                                    task.owner.post_code),
+                                             owner_id=task.owner_id,
+                                             rating=task.owner.rating,
+                                             post_date_time=task.post_date_time)
                     , query))
 
 

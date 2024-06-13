@@ -4,7 +4,8 @@ TEST_USER = {
     "email": EmailStr("test@mail.com"),
     "password": "test",
     "forename": "test",
-    "surname": "test"
+    "surname": "test",
+    "post_code": "SW1 1AA"
 }
 
 TEST_USER_TASKS = [
