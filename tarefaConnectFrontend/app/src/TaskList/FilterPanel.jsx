@@ -1,27 +1,36 @@
-export function FilterPanel({ setRating, distance, setDistance }) {
+export function FilterPanel({ setRating, distance, setDistance, handlePlumbing, handleElectrical,
+    handleGardening, handleDomestic, handleDog, handleOther }) {
 
     return (
-        <div className='FilterPanel'>
+        <div className='FilterPanelContainer'>
             <div>
                 <label className='FilterPanelTitle'> Filter Results </label>
             </div>
             <div className='FilterSection'>
-                <label className='FilterHeader'> Field of work: </label>
+                <label className='FilterHeader'> Category: </label>
                 <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
-                    <label> Home </label>
+                    <input className='FilterCheckbox' type='checkbox' onChange={handlePlumbing} />
+                    <label> Plumbing </label>
                 </div>
                 <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
-                    <label> Garden </label>
-                </div>
-                <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
+                    <input className='FilterCheckbox' type='checkbox' onChange={handleElectrical}/>
                     <label> Electrical </label>
                 </div>
                 <div className="FilterBox">
-                    <input className='FilterCheckbox' type='checkbox' />
-                    <label> Water </label>
+                    <input className='FilterCheckbox' type='checkbox' onChange={handleGardening} />
+                    <label> Gardening </label>
+                </div>
+                <div className="FilterBox">
+                    <input className='FilterCheckbox' type='checkbox' onChange={handleDomestic} />
+                    <label> Domestic Cleaning </label>
+                </div>
+                <div className="FilterBox">
+                    <input className='FilterCheckbox' type='checkbox' onChange={handleDog} />
+                    <label> Dog Walking </label>
+                </div>
+                <div className="FilterBox">
+                    <input className='FilterCheckbox' type='checkbox' onChange={handleOther} />
+                    <label> Other </label>
                 </div>
             </div>
             <div className='FilterSection'>
@@ -32,23 +41,6 @@ export function FilterPanel({ setRating, distance, setDistance }) {
                     <label> {distance == null ? 5 : distance} km </label>
                 </div>
             </div>
-            {/* <div className="FilterSection">
-                <label className='FilterHeader'> Relation: </label>
-                <div className="Relations">
-                    <div className="FilterBox">
-                        <input className='FilterCheckbox' type='checkbox' />
-                        <label> Endorsed </label>
-                    </div>
-                    <div className="FilterBox">
-                        <input className='FilterCheckbox' type='checkbox' />
-                        <label> Friend </label>
-                    </div>
-                    <div className="FilterBox">
-                        <input className='FilterCheckbox' type='checkbox' />
-                        <label> Endorsed by a Friend </label>
-                    </div>
-                </div>
-            </div> */}
             <div className="FilterSection">
                 <label className="FilterHeader"> Minimum Rating: </label>
                 <div class="rate" id='rate'>

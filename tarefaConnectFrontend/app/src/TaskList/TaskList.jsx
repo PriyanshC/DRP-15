@@ -1,168 +1,200 @@
 import './TaskList.css'
 import React from 'react'
 import { useState } from 'react'
-import './TaskList.css'
 import { FilterPanel } from './FilterPanel'
 import { SearchPanel } from './SearchPanel'
+import Modal from '../components/modal/Modal'
 
 function TaskList() {
     const [search, setSearch] = useState('')
-    
-    /* 
-        Indices
 
-        0: Type
-        1: Distance
-        2: Relation
-    */
-
+    // Filters
     const [distanceFilter, setDistance] = useState(null)
     const [ratingFilter, setRating] = useState(null)
 
+    // Categories
+    const [isPlumbing, setPlumbing] = useState(false)
+    const [isElectrical, setElectrical] = useState(false)
+    const [isGardening, setGardening] = useState(false)
+    const [isDomestic, setDomestic] = useState(false)
+    const [isDog, setDog] = useState(false)
+    const [isOther, setOther] = useState(false)
+
+    const handlePlumbing = () => {
+        setPlumbing(!isPlumbing)
+    }
+
+    const handleElectrical = () => {
+        setElectrical(!isElectrical)
+    }
+
+    const handleGardening = () => {
+        setGardening(!isGardening)
+    }
+
+    const handleDomestic = () => {
+        setDomestic(!isDomestic)
+    }
+
+    const handleDog = () => {
+        setDog(!isDog)
+    }
+
+    const handleOther = () => {
+        setOther(!isOther)
+    }
+
+    
+    const [showModal, setShowModal] = useState(false)
+
     return (
         <div className="PageContainer">
-            <FilterPanel setRating = {setRating} distance={distanceFilter} setDistance = {setDistance} />
-            <TradesmanPanel setSearch={setSearch} search={search} distanceFilter= {distanceFilter} ratingFilter = {ratingFilter} />
+            <FilterPanel setRating = {setRating} distance={distanceFilter} setDistance = {setDistance}
+             handlePlumbing={handlePlumbing} handleElectrical={handleElectrical} handleGardening={handleGardening}
+             handleDomestic={handleDomestic} handleDog={handleDog} handleOther={handleOther} />
+            <TaskPanel setSearch={setSearch} search={search} distanceFilter= {distanceFilter} ratingFilter = {ratingFilter} setShowModal={setShowModal}
+             isPlumbing={isPlumbing} isElectrical={isElectrical} isGardening={isGardening}
+             isDomestic={isDomestic} isDog={isDog} isOther={isOther} />
+            {showModal && <Modal setShowModal={setShowModal} />}
         </div>
     )
 }
 
-function TradesmanPanel({ setSearch, search, distanceFilter, ratingFilter }) {
+function TaskPanel({ setSearch, search, distanceFilter, ratingFilter, setShowModal, isPlumbing,
+    isElectrical, isGardening, isDomestic, isDog, isOther }) {
     return (
-        <div className="TradesmanPanel">
-            <div className="TradesmanPanelTitle">
+        <div className="TaskPanel">
+            <div className="TaskPanelTitle">
                 <h1> Find people in need of help </h1>
             </div>
-            <SearchPanel setSearch={setSearch} toSearchFor={"a job"} />
-            <AvailableTradesmen search = {search} distanceFilter = {distanceFilter} ratingFilter = {ratingFilter} />
+             <div className='TaskContentPanel'>
+                <SearchPanel setSearch={setSearch} toSearchFor={"a job"} />
+                <AvailableTasks search = {search} distanceFilter = {distanceFilter} ratingFilter = {ratingFilter}
+                 setShowModal={setShowModal} isPlumbing={isPlumbing} isElectrical={isElectrical} isGardening={isGardening}
+                 isDomestic={isDomestic} isDog={isDog} isOther={isOther} />
+            </div>
         </div>
     )
 }
 
-const availableTradesmen =[
+const availableTasks =[
     {
         taskTitle: "Lawn Mowing",
+        location: "South Kensington",
+        price: 10,
+        recurring: 4,
         description: "10x10m square lawn, very overgrown and lots of weeds",
         distance: 5.1,
         timePosted: "2 days ago",
         rating: 4,
+        category: "gardening"
     },
     {
         taskTitle: "Light Bulb",
+        location: "Notting Hill",
+        price: 15,
+        recurring: 10,
         description: "I can't see anything in my room! Please help ASAP.",
         distance: 0.3,
         timePosted: "today",
         rating: 3,
+        category: "electrical"
     },
     {
         taskTitle: "Broken Pipe",
+        location: "Camden",
+        price: 20,
+        recurring: 7,
         description: "Sink pipe has burst - my husband's fault :(",
         distance: 2.3,
         timePosted: "5 days ago",
         rating: 5,
+        category: "plumbing"
     },
     {
         taskTitle: "Toilet Disaster",
+        location: "Soho",
+        price: 12,
+        recurring: 3,
         description: "My mate came over and the toilet doesn't flush anymore",
         distance: 1.6,
         timePosted: "yesterday",
         rating: 4,
+        category: "plumbing"
     }
 ]
 
-function AvailableTradesmen({ search, distanceFilter, ratingFilter }) {
-    const [selected, setSelected] = useState(null)
-    const toggle = (index) => {
-        if (selected === index) {
-            return setSelected(null)
-        }
-
-        setSelected(index)
-    }
-
+function AvailableTasks({ search, distanceFilter, ratingFilter, setShowModal, isPlumbing,
+    isElectrical, isGardening, isDomestic, isDog, isOther }) {
     // FILTER HERE
 
-    const tradesmen = availableTradesmen.filter((item) => {
+    const tasks = availableTasks.filter((item) => {
         return (
             (search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(search)) &&
             (ratingFilter == null ? item : item.rating >= ratingFilter) &&
-            (distanceFilter == null ? item.distance <= 5 : item.distance <= distanceFilter)
+            (distanceFilter == null ? item.distance <= 7 : item.distance <= distanceFilter) &&
+            (isPlumbing ? item.category === "plumbing" : item) &&
+            (isElectrical ? item.category === "electrical" : item) &&
+            (isGardening ? item.category === "gardening" : item) &&
+            (isDomestic ? item.category === "domestic" : item) &&
+            (isDog ? item.category === "dog" : item) &&
+            (isOther ? item.category === "other" : item)
         )
     }).map((item, index) => {
             return (
-                <TradesmanMiniProfile index = {index} 
-                taskTitle = {item.taskTitle} description = {item.description}
+                <TaskMiniProfile index = {index} 
+                taskTitle = {item.taskTitle} location={item.location} price={item.price}
+                 description = {item.description} recurring={item.recurring}
                  distance = {item.distance} timePosted = {item.timePosted} 
-                 rating = {item.rating} toggle = {toggle} selected= {selected} />
+                 rating = {item.rating} setShowModal={setShowModal} />
             )
         })
 
-    return (<div className="AvailableTradesmen"> { tradesmen } </div>
-    )
-}
-
-function TradesmanMiniProfile({ index, taskTitle, description, distance, timePosted, rating, toggle, selected }) {
     return (
-        <div className="MiniProfile" onClick={ () => toggle(index)}>
-            <ProfileInfo taskTitle={taskTitle} distance={distance}
-             timePosted={timePosted} rating={rating}/>
-             <ProfileDescription index = {index} 
-                taskTitle = {taskTitle} description = {description}
-                 distance = {distance} timePosted = {timePosted} 
-                 rating = {rating} selected= {selected}/>
-        </div>
+        (<div className="AvailableTasks"> { tasks } </div>)
     )
 }
 
-function ProfileInfo({ taskTitle, distance, timePosted, rating }) {
+function TaskMiniProfile({ index, taskTitle, location, price, description, recurring, distance, timePosted, rating, setShowModal }) {
+
     return (
-        <div className="ProfileInfo">
-            <label> { taskTitle } </label>
-            <div className="VerticalLine"></div>
-            <label> { timePosted } </label>
-            <div className="VerticalLine"></div>
-            <label> { distance } km </label>
-            <div className='VerifyRating'>
-                <StarDisplay number={rating} />
+        <div className="TaskMiniProfile">
+            <div className="TaskLeftContainer">
+                 <div className="PriceAndRating">
+                    <h3> £{price} </h3>
+                    <StarDisplay number={rating}/>
+                 </div>
             </div>
+            <div className="TaskInfo">
+                <div className='TaskDetails'>
+                    <h2 style={{marginBottom:'5px'}}> {taskTitle} </h2>
+                    <h4 style={{marginBottom:'15px'}}> {location} </h4>
+                    <label style={{textOverflow:'ellipsis'}}>
+                         {description}
+                    </label>
+                </div>
+                <div className='TaskProps'>
+                    <h5 className='TaskProp'>
+                        <i className='bi-calendar-event'></i>
+                        Every {recurring} days 
+                    </h5>
+                    <h5 className='TaskProp'> 
+                        <i className='bi-clock-history'></i>
+                        Posted {timePosted} 
+                    </h5>
+                    <h5 className='TaskProp'>
+                        <i className='bi-pin-map'></i>
+                        {distance} km
+                    </h5>
+                </div>
+            </div>
+            <button type='button' className='ConnectButton' onClick={() => {
+                setShowModal(true)
+                document.body.style.overflow = "hidden";
+            }}> Connect </button>
         </div>
     )
 }
-
-
-
-function ProfileDescription({ index, name, jobTitle, description, distance, timePosted, rating, selected }) {
-    return(
-        <div className={selected === index ? "ProfileDescriptionContainershow" 
-        : "ProfileDescriptionContainer"}>
-            <div className='ProfileTopInfo'>
-                <div className= "ProfileDescription"> {description} </div>
-                <img className='ProfileDescriptionImage' src={require("../assets/electrician.jpg")}
-                 alt={require("../assets/profilePicturePlaceholder.jpg")}/>
-            </div>
-            {/* <Link to='/tradesmanProfile' 
-                state={{
-                    name: name, 
-                    jobTitle: jobTitle,
-                    description: description,
-                    distance: distance,
-                    timePosted: verified,
-                    rating: rating
-                }}>
-                <button> 
-                    See more... 
-                </button>
-            </Link> */}
-        </div>
-    )
-}
-
-// function VerifiedCheck({ verified }) {
-//     return (
-//         verified ? <i className='bi-patch-check-fill'></i> 
-//         : <i className='bi-patch-check-fill' style={{opacity:'0.1'}}></i> 
-//     )
-// }
 
 function StarDisplay({ number }) {
     var stars = [];
@@ -178,6 +210,5 @@ function StarDisplay({ number }) {
     }
     return <div className='StarDisplay'> {stars} </div>
 }
-
 
 export default TaskList;
