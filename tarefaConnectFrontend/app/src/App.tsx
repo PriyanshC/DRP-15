@@ -14,7 +14,7 @@ import PageNotFound from "./404Page";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useLocalStorage from 'use-local-storage';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -68,7 +68,7 @@ function App() {
     }
     );
     return;
-  }, []);
+  }, [setUserData]);
 
   const changeTheme = () => {
     setTheme((prev) => {
@@ -88,12 +88,12 @@ function App() {
             <Route path='login' element={<Login setUserData={setUserData} />} />
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />
-            <Route path='home' element={userData == emptyData ? <Navigate to='/login' /> : <LoginLanding />} />
-            <Route path='findHelp' element={userData == emptyData ? <Navigate to='/login' /> : <LoginLandingForHelp />} />
-            <Route path='tradesmanList' element={userData == emptyData ? <Navigate to='/login' /> : <TradesmanList />} />
-            <Route path='tradesmanProfile' element={userData == emptyData ? <Navigate to='/login' /> : <TradesmanProfile />} />
-            <Route path='taskList' element={userData == emptyData ? <Navigate to='/login' /> : <TaskList />} />
-            <Route path='task' element={userData == emptyData ? <Navigate to='/login' /> : <Task userId={userData.id} startingIndex={-1} taskData={userData.tasks} addTask={addTask} />} />
+            <Route path='home' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLanding />} />
+            <Route path='findHelp' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLandingForHelp />} />
+            <Route path='tradesmanList' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanList />} />
+            <Route path='tradesmanProfile' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanProfile />} />
+            <Route path='taskList' element={userData === emptyData ? <Navigate to='/login' /> : <TaskList />} />
+            <Route path='task' element={userData === emptyData ? <Navigate to='/login' /> : <Task userId={userData.id} startingIndex={-1} taskData={userData.tasks} addTask={addTask} />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>
