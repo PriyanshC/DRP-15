@@ -143,7 +143,6 @@ class Rating(RatingBase):
 class ExpertiseBase(BaseModel):
     title: str
     description: str
-    tasker_id: int
 
 
 class ExpertiseCreate(ExpertiseBase):
@@ -152,6 +151,8 @@ class ExpertiseCreate(ExpertiseBase):
 
 class Expertise(ExpertiseBase):
     id: int
+
+    tasker_id: int
 
     class Config:
         orm_mode = True
@@ -162,7 +163,7 @@ class TaskerBase(BaseModel):
 
 
 class TaskerCreate(TaskerBase, UserCreate):
-    pass
+    expertise: list[ExpertiseCreate] = []
 
 
 class Tasker(TaskerBase):

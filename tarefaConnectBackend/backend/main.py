@@ -70,6 +70,8 @@ def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
     keys = [key for key in schemas.UserCreate.__fields__.keys()]
 
     tasker_dict = tasker.dict()
+    tasker_dict.update({"expertise": tasker.expertise})
+
     user_dict = dict()
 
     for key in keys:

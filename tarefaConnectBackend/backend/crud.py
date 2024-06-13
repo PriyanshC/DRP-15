@@ -45,12 +45,17 @@ def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> sch
 #     return db_listing
 
 
-def create_tasker(db: Session, tasker_details: dict[str, str]) -> schemas.Tasker:
+def create_tasker(db: Session, tasker_details: dict[str, str | list[schemas.ExpertiseCreate]]) -> schemas.Tasker:
+    expertise = tasker_details.pop("expertise")
     db_tasker = models.Tasker(**tasker_details)
 
     db.add(db_tasker)
     db.commit()
     db.refresh(db_tasker)
+
+    for each_expertise in expertise:
+        print(each_expertise)
+        create_expertise(db, each_expertise, db_tasker.id)
 
     create_rating(db, schemas.RatingCreate(tasker_id=db_tasker.id))
 
@@ -70,6 +75,16 @@ def create_rating(db: Session, new_rating: schemas.RatingCreate) -> schemas.Rati
     db.refresh(db_rating)
 
     return db_rating
+
+
+def create_expertise(db: Session, expertise: schemas.ExpertiseCreate, tasker_id: int) -> schemas.Expertise:
+    db_expertise = models.Expertise(**expertise.dict(), tasker_id=tasker_id)
+
+    db.add(db_expertise)
+    db.commit()
+    db.refresh(db_expertise)
+
+    return db_expertise
 
 
 def add_review(db: Session, new_review: schemas.ReviewCreate, tasker_id: int) -> schemas.Tasker:
