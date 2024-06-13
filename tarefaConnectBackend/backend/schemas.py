@@ -13,9 +13,9 @@ class Category(str, Enum):
 
 
 class Filters(BaseModel):
-    category: Category | None
-    min_rating: int | None
-    max_distance: int | None
+    category: Category | None = None
+    min_rating: int | None = None
+    max_distance: int | None = None
 
 
 class Sort(str, Enum):
@@ -26,22 +26,30 @@ class Sort(str, Enum):
 class TaskBase(BaseModel):
     title: str
     description: str
-    category: Category | None
-    user_heading: str | None
+    category: Category | None = None
+    frequency: float
 
 
 class TaskCreate(TaskBase):
-    pass
+    user_heading: str | None = None
 
 
 class Task(TaskBase):
     id: int
     owner_id: int
 
-    # replies: list["Tasker"]
+    user_heading: str | None = None
+    post_date_time: str
 
     class Config:
         orm_mode = True
+
+
+class TaskElemResponse(TaskBase):
+    distance: float
+    owner_id: int
+    rating: float
+    post_date_time: str
 
 
 class UserLogin(BaseModel):
@@ -53,6 +61,7 @@ class UserBase(BaseModel):
     email: EmailStr
     forename: str
     surname: str
+    post_code: str
 
 
 class UserCreate(UserBase):
@@ -63,28 +72,30 @@ class User(UserBase):
     id: int
     hashed_password: str
 
+    rating: int
+
     tasks: list[Task]
 
     class Config:
         orm_mode = True
 
 
-class ListingBase(BaseModel):
-    category: "Category"
-    description: str
-
-    tasker_id: int
-
-
-class ListingCreate(ListingBase):
-    pass
-
-
-class Listing(ListingBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+# class ListingBase(BaseModel):
+#     category: "Category"
+#     description: str
+#
+#     tasker_id: int
+#
+#
+# class ListingCreate(ListingBase):
+#     pass
+#
+#
+# class Listing(ListingBase):
+#     id: int
+#
+#     class Config:
+#         orm_mode = True
 
 
 class TaskerBase(BaseModel):
@@ -92,7 +103,7 @@ class TaskerBase(BaseModel):
 
 
 class TaskerCreate(TaskerBase, UserCreate):
-    location: str
+    pass
 
 
 class Tasker(TaskerBase):
@@ -100,24 +111,28 @@ class Tasker(TaskerBase):
 
     user_id: int
     country: str
-    post_code: str
 
-    listings: list[Listing]
+    # listings: list[Listing]
 
-    rating: int
     # endorsements: list[User]
-    verified: bool
-
-    # task_bids: list[Task]
+    # verified: bool
 
     class Config:
         orm_mode = True
 
 
-class TaskerListing(Tasker, Listing):
-    pass
-
-
 class Reply(BaseModel):
     tasker_id: int
     task_id: int
+
+    message: str | None = None
+
+
+class ReplyResponse(BaseModel):
+    tasker_id: int
+
+    tasker_forename: str
+    tasker_surname: str
+    message: str | None = None
+    rating: int
+

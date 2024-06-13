@@ -1,12 +1,16 @@
+from datetime import datetime
+
 from sqlalchemy.orm import Session
 
-from . import models, schemas, testInfo
+from . import models, schemas, distance_api, testInfo
 
 
 def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     user_args = new_user.dict()
     hashed_password = hash_password(user_args.pop('password'))
-    db_user = models.User(**user_args, hashed_password=hashed_password)
+    post_code = user_args.pop('post_code').split()[0]
+    print(post_code)
+    db_user = models.User(**user_args, hashed_password=hashed_password, rating=0, post_code=post_code)
 
     db.add(db_user)
     db.commit()
@@ -24,7 +28,8 @@ def create_test_user(db: Session) -> schemas.User:
 
 
 def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> schemas.Task:
-    db_task = models.Task(**new_task.dict(), owner_id=owner_id)
+    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    db_task = models.Task(**new_task.dict(), post_date_time=now, owner_id=owner_id)
 
     db.add(db_task)
     db.commit()
@@ -32,13 +37,13 @@ def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> sch
     return db_task
 
 
-def create_listing(db: Session, new_listing: schemas.ListingCreate) -> schemas.Listing:
-    db_listing = models.Listing(**new_listing.dict())
-
-    db.add(db_listing)
-    db.commit()
-    db.refresh(db_listing)
-    return db_listing
+# def create_listing(db: Session, new_listing: schemas.ListingCreate) -> schemas.Listing:
+#     db_listing = models.Listing(**new_listing.dict())
+#
+#     db.add(db_listing)
+#     db.commit()
+#     db.refresh(db_listing)
+#     return db_listing
 
 
 def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> schemas.Tasker:
@@ -49,7 +54,6 @@ def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> 
                               headline=tasker_details['headline'],
                               country=country,
                               post_code=post_code,
-                              rating=0,
                               verified=False)
 
     db.add(db_tasker)
@@ -76,25 +80,52 @@ def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
     return db.query(models.Tasker).filter(models.Tasker.task_id == task_id).first()
 
 
-def get_listings(db: Session, filters: schemas.Filters | None,
-                 sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.Listing]:
-    query = db.query(models.Listing).join(models.Tasker)
+def get_task_list(db: Session, post_code: str, filters: schemas.Filters | None,
+                  sort: schemas.Sort | None, skip: int, limit: int) -> list[schemas.TaskElemResponse]:
+    query = db.query(models.Task).join(models.Task.owner)
+
+    has_dist_filter = False
+    has_dist_sort = False
 
     if filters is not None:
         if filters.category is not None:
-            query = query.filter(models.Listing.category == filters.category)
+            query = query.filter(models.Task.category == filters.category)
         if filters.min_rating is not None:
-            query = query.filter(models.Tasker.rating >= filters.min_rating)
+            query = query.filter(models.User.rating >= filters.min_rating)
         if filters.max_distance is not None:
-            pass  # query = query.filter(models.Tasker.distance <= filters.max_distance) TODO: find distance
+            has_dist_filter = True
 
     if sort is not None:
         if sort is schemas.Sort.rating:
-            query = query.order_by(models.Tasker.rating.desc())
+            query = query.order_by(models.User.rating.desc())
         else:
-            pass  # query = query.order_by(models.Listing.distance.asc()) TODO
+            has_dist_sort = True
 
-    return query.offset(skip).limit(limit).all()
+    if has_dist_filter or has_dist_sort:
+        query = query.all()
+
+        if has_dist_filter:
+            query = list(filter(
+                lambda task: distance_api.distance_between(task.owner.post_code, post_code) <= filters.max_distance
+                , query))
+
+        if has_dist_sort:
+            query.sort(key=lambda task: distance_api.distance_between(task.owner.post_code, post_code))
+
+        query = query[skip:limit]
+    else:
+        query = query.offset(skip).limit(limit).all()
+
+    return list(map(lambda task:
+                    schemas.TaskElemResponse(title=task.title,
+                                             description=task.description,
+                                             frequency=task.frequency,
+                                             distance=distance_api.distance_between(post_code,
+                                                                                    task.owner.post_code),
+                                             owner_id=task.owner_id,
+                                             rating=task.owner.rating,
+                                             post_date_time=task.post_date_time)
+                    , query))
 
 
 def get_user(db: Session, user_id: int) -> schemas.User:
@@ -113,8 +144,15 @@ def get_task(db: Session, task_id: int) -> schemas.Task | None:
     return db.query(models.Task).filter(models.Task.id == task_id).first()
 
 
-def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.Reply]:
-    return db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
+def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.ReplyResponse]:
+    query = db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
+
+    return list(map(lambda reply: schemas.ReplyResponse(tasker_id=reply.tasker_id,
+                                                        tasker_forename=reply.tasker.user.forename,
+                                                        tasker_surname=reply.Tasker.user.surname,
+                                                        message=reply.message,
+                                                        rating=reply.tasker.user.rating),
+                    query))
 
 
 def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | None:

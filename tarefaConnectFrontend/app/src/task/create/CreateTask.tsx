@@ -127,8 +127,8 @@ export default function CreateTask(props: Props) {
 
   const [savedFormData, setSavedForm] = useState(emptyForm);
 
-  const calculateDays = (timePeriod) => {
-    return ((timePeriod.number * periodSelect[timePeriod.period].days) / (timePeriod.freq)).toPrecision(5);
+  const calculateDays = ({ freq, number, period }) => {
+    return Math.round((number * periodSelect[period].days) / (freq + 1));
   }
 
   const handleSubmit: FormEventHandler = (event) => {
