@@ -2,19 +2,18 @@ import React from "react";
 import "./Modal.css";
 import { useState } from "react";
 
-function Modal({ setShowModal }) {
-    const name = 'John'
+function Modal({ setShowModal, taskUsername, scrollHeight }) {
     const [taskHelpDescription, updateDescription] = useState('')
     const [descriptionisValid, setDescriptionValid] = useState(true)
 
   return (
-    <div className="modalBackground">
+    <div className="modalBackground" style={{ position: 'absolute', top: (scrollHeight + "px")}}>
       <div className="modalContainer">
         <div className="title">
           <h1> Connect Now! </h1>
         </div>
         <div className="body">
-          <label style={{flex:'1'}}> Let <b> {name} </b> know how you can help out: </label>
+          <label style={{flex:'1'}}> Let <b> {taskUsername} </b> know how you can help out: </label>
           <textarea type="text" className="HelpDescription"
            onChange={(e) => updateDescription(e.target.value)} 
            style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'none' : 'crimson'}}
@@ -35,7 +34,7 @@ function Modal({ setShowModal }) {
             if (taskHelpDescription.length === 0) {
                 (setDescriptionValid(false))
             } else {
-                console.log("sent message to " + name + ": " + taskHelpDescription)
+                console.log("sent message to " + taskUsername + ": " + taskHelpDescription)
                 setShowModal(false)
                 document.body.style.overflow = "scroll"
             }

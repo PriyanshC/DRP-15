@@ -7,6 +7,7 @@ import { FilterPanel } from './FilterPanel.jsx'
 import { SearchPanel } from './SearchPanel.jsx'
 import Modal from '../components/modal/Modal.jsx'
 import { api } from '../App.tsx'
+import sampleTaskData from './sampleTaskData.json'
 
 interface Props {
     handleSearch: (word: string) => void,
@@ -14,7 +15,9 @@ interface Props {
     distanceFilter: number,
     ratingFilter: number,
     setShowModal: Dispatch<SetStateAction<boolean>>,
-    categories: string[]
+    setTaskUsername: React.Dispatch<React.SetStateAction<string>>,
+    categories: string[],
+    setScrollHeight: React.Dispatch<React.SetStateAction<number>>,
   }
 
 function TaskList() {
@@ -32,28 +35,25 @@ function TaskList() {
     const [categories, setCategory] = useState(["priyansh"])
 
     const handleCategory = (category: string) => {
-        console.log(category)
-        console.log(categories)
 
         if (categories.includes(category)) {
             setCategory(prev => prev.filter(cat => cat !== category))
         } else {
             setCategory(prev => [...prev, category])
         }
-
-        console.log(categories)
     }
 
-    
+    const [scrollHeight, setScrollHeight] = useState(0)
     const [showModal, setShowModal] = useState(false)
+    const [taskUsername, setTaskUsername] = useState("Priyansh")
 
     return (
         <div className="PageContainer">
             <FilterPanel setRating = {setRating} distance={distanceFilter} setDistance = {setDistance}
              handleCategory={handleCategory} />
             <TaskPanel {...{ handleSearch: handleSearch, search: search, distanceFilter: distanceFilter, ratingFilter: ratingFilter, setShowModal: setShowModal,
-             categories: categories }} />
-            {showModal && <Modal setShowModal={setShowModal} /> }
+             setTaskUsername: setTaskUsername, categories: categories, setScrollHeight: setScrollHeight}} />
+            {showModal && <Modal setShowModal={setShowModal} taskUsername={taskUsername} scrollHeight={scrollHeight} /> }
         </div>
     )
 }
@@ -82,7 +82,8 @@ const availableTasks =[
         distance: 5.1,
         timePosted: "2 days ago",
         rating: 4,
-        category: "gardening"
+        category: "gardening",
+        postedBy: "John"
     },
     {
         taskTitle: "Light Bulb",
@@ -93,7 +94,8 @@ const availableTasks =[
         distance: 0.3,
         timePosted: "today",
         rating: 3,
-        category: "electrical"
+        category: "electrical",
+        postedBy: "John"
     },
     {
         taskTitle: "Broken Pipe",
@@ -104,7 +106,8 @@ const availableTasks =[
         distance: 2.3,
         timePosted: "5 days ago",
         rating: 5,
-        category: "plumbing"
+        category: "plumbing",
+        postedBy: "John"
     },
     {
         taskTitle: "Toilet Disaster",
@@ -115,7 +118,8 @@ const availableTasks =[
         distance: 1.6,
         timePosted: "yesterday",
         rating: 4,
-        category: "plumbing"
+        category: "plumbing",
+        postedBy: "John"
     }
 ]
 
@@ -129,8 +133,9 @@ function AvailableTasks(props: Props) {
         // .then(response => {
         //     availableTasks = response.data
         // })
+
     // FILTER HERE
-    const tasks = availableTasks.filter((item) => {
+    const tasks = sampleTaskData.filter((item) => {
         return (
             (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
             (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
@@ -139,11 +144,12 @@ function AvailableTasks(props: Props) {
         )
     }).map((item, index) => {
             return (
-                <TaskMiniProfile index = {index} 
-                taskTitle = {item.taskTitle} location={item.location} price={item.price}
+                <TaskMiniProfile 
+                 taskTitle = {item.taskTitle} location={item.location} price={item.price}
                  description = {item.description} recurring={item.recurring}
                  distance = {item.distance} timePosted = {item.timePosted} 
-                 rating = {item.rating} setShowModal={props.setShowModal} />
+                 rating = {item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
+                 setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} />
             )
         })
 
@@ -152,7 +158,9 @@ function AvailableTasks(props: Props) {
     )
 }
 
-function TaskMiniProfile({ index, taskTitle, location, price, description, recurring, distance, timePosted, rating, setShowModal }) {
+function TaskMiniProfile({ taskTitle, location, price, description, recurring, distance, timePosted, rating, postedBy, setShowModal, setTaskUsername, setScrollHeight }) {
+
+    const timePostedText = "Posted " + (timePosted === 0 ? "today" : (timePosted === 1 ? "yesterday" : timePosted + " days ago"))
 
     return (
         <div className="TaskMiniProfile">
@@ -177,7 +185,7 @@ function TaskMiniProfile({ index, taskTitle, location, price, description, recur
                     </h5>
                     <h5 className='TaskProp'> 
                         <i className='bi-clock-history'></i>
-                        Posted {timePosted} 
+                        {timePostedText}
                     </h5>
                     <h5 className='TaskProp'>
                         <i className='bi-pin-map'></i>
@@ -186,7 +194,9 @@ function TaskMiniProfile({ index, taskTitle, location, price, description, recur
                 </div>
             </div>
             <button type='button' className='ConnectButton' onClick={() => {
+                setTaskUsername(postedBy)
                 setShowModal(true)
+                setScrollHeight(window.scrollY)
                 document.body.style.overflow = "hidden";
             }}> Message </button>
         </div>
