@@ -38,6 +38,8 @@ class Task(Base):
     frequency = Column(Float)
     post_date_time = Column(String)
 
+    expected_price = Column(Float)
+
     owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
     owner = relationship("User")
 

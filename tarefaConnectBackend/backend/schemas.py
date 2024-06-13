@@ -28,6 +28,7 @@ class TaskBase(BaseModel):
     description: str
     category: Category | None = None
     frequency: float
+    expected_price: float
 
 
 class TaskCreate(TaskBase):
@@ -51,6 +52,7 @@ class TaskElemResponse(TaskBase):
     owner_id: int
     rating: float
     post_date_time: str
+    expected_price: float
 
 
 class UserLogin(BaseModel):

@@ -14,20 +14,23 @@ TEST_USER_TASKS = [
         "description": 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus dolores minus, quo fuga '
                        'possimus iure iusto commodi voluptatibus, aut architecto nesciunt est amet reiciendis quas '
                        'odit suscipit laudantium quis hic.',
-        "frequency": 7
+        "frequency": 7,
+        "expected_price": 12.30
     },
     {
         "title": "Gardening every two Week",
         "description": 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus dolores minus, quo fuga '
                        'possimus iure iusto commodi voluptatibus, aut architecto nesciunt est amet reiciendis quas '
                        'odit suscipit laudantium quis hic.',
-        "frequency": 14
+        "frequency": 14,
+        "expected_price": 11.30
     },
     {
         "title": "Repairs",
         "description": 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus dolores minus, quo fuga '
                        'possimus iure iusto commodi voluptatibus, aut architecto nesciunt est amet reiciendis quas '
                        'odit suscipit laudantium quis hic.',
-        "frequency": 1
+        "frequency": 1,
+        "expected_price": 10.30
     }
 ]

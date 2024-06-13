@@ -184,7 +184,8 @@ def get_task_list(db: Session, post_code: str, filters: schemas.Filters | None,
                                                                                     task.owner.post_code),
                                              owner_id=task.owner_id,
                                              rating=task.owner.rating,
-                                             post_date_time=task.post_date_time)
+                                             post_date_time=task.post_date_time,
+                                             expected_price=task.expected_price)
                     , query))
 
 
