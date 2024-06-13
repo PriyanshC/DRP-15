@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { FilterPanel } from './FilterPanel.jsx'
 import { SearchPanel } from './SearchPanel.jsx'
 import Modal from '../components/modal/Modal.jsx'
-import { api } from '../App.tsx'
+// import { api } from '../App.tsx'
 import sampleTaskData from './sampleTaskData.json'
 
 interface Props {
@@ -71,57 +71,6 @@ function TaskPanel( props: Props ) {
         </div>
     )
 }
-
-const availableTasks =[
-    {
-        taskTitle: "Lawn Mowing",
-        location: "South Kensington",
-        price: 10,
-        recurring: 4,
-        description: "10x10m square lawn, very overgrown and lots of weeds",
-        distance: 5.1,
-        timePosted: "2 days ago",
-        rating: 4,
-        category: "gardening",
-        postedBy: "John"
-    },
-    {
-        taskTitle: "Light Bulb",
-        location: "Notting Hill",
-        price: 15,
-        recurring: 10,
-        description: "I can't see anything in my room! Please help ASAP.",
-        distance: 0.3,
-        timePosted: "today",
-        rating: 3,
-        category: "electrical",
-        postedBy: "John"
-    },
-    {
-        taskTitle: "Broken Pipe",
-        location: "Camden",
-        price: 20,
-        recurring: 7,
-        description: "Sink pipe has burst - my husband's fault :(",
-        distance: 2.3,
-        timePosted: "5 days ago",
-        rating: 5,
-        category: "plumbing",
-        postedBy: "John"
-    },
-    {
-        taskTitle: "Toilet Disaster",
-        location: "Soho",
-        price: 12,
-        recurring: 3,
-        description: "My mate came over and the toilet doesn't flush anymore",
-        distance: 1.6,
-        timePosted: "yesterday",
-        rating: 4,
-        category: "plumbing",
-        postedBy: "John"
-    }
-]
 
 function AvailableTasks(props: Props) {
 

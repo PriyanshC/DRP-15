@@ -37,7 +37,7 @@ export function FilterPanel({ setRating, distance, setDistance, handleCategory }
                 <div className="DistanceSlider">
                     <input className='DistanceFilter' id='DistanceFilter' type='range'
                         min="0" max="10" steps="1" defaultValue="5" onChange={(e) => setDistance(e.target.value)} />
-                    <label> {distance == -1 ? 5 : distance} km </label>
+                    <label> {distance === -1 ? 5 : distance} km </label>
                 </div>
             </div>
             <div className="FilterSection">
@@ -57,13 +57,4 @@ export function FilterPanel({ setRating, distance, setDistance, handleCategory }
             </div>
         </div>
     );
-}
-
-function selectOnlyThis(id) {
-    console.log("Trying to select only: " + id)
-    for (var i = 0; i <= 5; i++)
-    {
-        document.getElementById(i.toString).checked = false;
-    }
-    document.getElementById(id).checked = true;
 }
