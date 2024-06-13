@@ -45,7 +45,6 @@
  .TaskMiniProfile {
     display: flex;
     flex-direction: row;
-    cursor: pointer;
     justify-content: space-around;
     border: 1px solid rgb(61, 61, 61);
     border-radius: 15px;

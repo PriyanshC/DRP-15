@@ -1,10 +1,10 @@
-export function SearchPanel({ setSearch, toSearchFor }) {
+export function SearchPanel({ handleSearch, toSearchFor }) {
     const searchWord = "Search for " + toSearchFor + "..."
     return (
             <div className="SearchBar">
                 <input type="search"
                     placeholder={searchWord}
-                    onChange={(e) => setSearch(e.target.value)} />
+                    onChange={(e) => handleSearch(e.target.value)} />
                 {/* <i className='bi-search'></i> */}
             </div>
     );

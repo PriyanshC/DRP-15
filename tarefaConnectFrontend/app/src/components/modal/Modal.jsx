@@ -17,7 +17,7 @@ function Modal({ setShowModal }) {
           <label style={{flex:'1'}}> Let <b> {name} </b> know how you can help out: </label>
           <textarea type="text" className="HelpDescription"
            onChange={(e) => updateDescription(e.target.value)} 
-           style={{ borderWidth: '2px', borderColor: descriptionisValid ? 'none' : 'crimson'}}
+           style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'none' : 'crimson'}}
            placeholder="E.g. Hello there, my name is Jane. I'd love to get involved..." />
         </div>
         <div className="footer">
@@ -32,12 +32,15 @@ function Modal({ setShowModal }) {
           </button>
           <button 
           onClick={() => { 
-            taskHelpDescription.length === 0 ? (setDescriptionValid(false)) :
-            console.log("sent message to " + name + ": " + taskHelpDescription)
-            setShowModal(false)
-            document.body.style.overflow = "scroll";
+            if (taskHelpDescription.length === 0) {
+                (setDescriptionValid(false))
+            } else {
+                console.log("sent message to " + name + ": " + taskHelpDescription)
+                setShowModal(false)
+                document.body.style.overflow = "scroll"
+            }
           }
-          }>Submit</button>
+          }>Connect</button>
         </div>
       </div>
     </div>

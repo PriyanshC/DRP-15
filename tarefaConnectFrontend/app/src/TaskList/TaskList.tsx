@@ -1,47 +1,47 @@
 import './TaskList.css'
 import React from 'react'
+import { Dispatch } from 'react'
+import { SetStateAction } from 'react'
 import { useState } from 'react'
-import { FilterPanel } from './FilterPanel'
-import { SearchPanel } from './SearchPanel'
-import Modal from '../components/modal/Modal'
+import { FilterPanel } from './FilterPanel.jsx'
+import { SearchPanel } from './SearchPanel.jsx'
+import Modal from '../components/modal/Modal.jsx'
+import { api } from '../App.tsx'
+
+interface Props {
+    handleSearch: (word: string) => void,
+    search: string,
+    distanceFilter: number,
+    ratingFilter: number,
+    setShowModal: Dispatch<SetStateAction<boolean>>,
+    categories: string[]
+  }
 
 function TaskList() {
     const [search, setSearch] = useState('')
 
+    const handleSearch = (word: string) => {
+        setSearch(word)
+    }
+
     // Filters
-    const [distanceFilter, setDistance] = useState(null)
-    const [ratingFilter, setRating] = useState(null)
+    const [distanceFilter, setDistance] = useState(-1)
+    const [ratingFilter, setRating] = useState(-1)
 
     // Categories
-    const [isPlumbing, setPlumbing] = useState(false)
-    const [isElectrical, setElectrical] = useState(false)
-    const [isGardening, setGardening] = useState(false)
-    const [isDomestic, setDomestic] = useState(false)
-    const [isDog, setDog] = useState(false)
-    const [isOther, setOther] = useState(false)
+    const [categories, setCategory] = useState(["priyansh"])
 
-    const handlePlumbing = () => {
-        setPlumbing(!isPlumbing)
-    }
+    const handleCategory = (category: string) => {
+        console.log(category)
+        console.log(categories)
 
-    const handleElectrical = () => {
-        setElectrical(!isElectrical)
-    }
+        if (categories.includes(category)) {
+            setCategory(prev => prev.filter(cat => cat !== category))
+        } else {
+            setCategory(prev => [...prev, category])
+        }
 
-    const handleGardening = () => {
-        setGardening(!isGardening)
-    }
-
-    const handleDomestic = () => {
-        setDomestic(!isDomestic)
-    }
-
-    const handleDog = () => {
-        setDog(!isDog)
-    }
-
-    const handleOther = () => {
-        setOther(!isOther)
+        console.log(categories)
     }
 
     
@@ -50,28 +50,23 @@ function TaskList() {
     return (
         <div className="PageContainer">
             <FilterPanel setRating = {setRating} distance={distanceFilter} setDistance = {setDistance}
-             handlePlumbing={handlePlumbing} handleElectrical={handleElectrical} handleGardening={handleGardening}
-             handleDomestic={handleDomestic} handleDog={handleDog} handleOther={handleOther} />
-            <TaskPanel setSearch={setSearch} search={search} distanceFilter= {distanceFilter} ratingFilter = {ratingFilter} setShowModal={setShowModal}
-             isPlumbing={isPlumbing} isElectrical={isElectrical} isGardening={isGardening}
-             isDomestic={isDomestic} isDog={isDog} isOther={isOther} />
-            {showModal && <Modal setShowModal={setShowModal} />}
+             handleCategory={handleCategory} />
+            <TaskPanel {...{ handleSearch: handleSearch, search: search, distanceFilter: distanceFilter, ratingFilter: ratingFilter, setShowModal: setShowModal,
+             categories: categories }} />
+            {showModal && <Modal setShowModal={setShowModal} /> }
         </div>
     )
 }
 
-function TaskPanel({ setSearch, search, distanceFilter, ratingFilter, setShowModal, isPlumbing,
-    isElectrical, isGardening, isDomestic, isDog, isOther }) {
+function TaskPanel( props: Props ) {
     return (
         <div className="TaskPanel">
             <div className="TaskPanelTitle">
                 <h1> Find people in need of help </h1>
             </div>
              <div className='TaskContentPanel'>
-                <SearchPanel setSearch={setSearch} toSearchFor={"a job"} />
-                <AvailableTasks search = {search} distanceFilter = {distanceFilter} ratingFilter = {ratingFilter}
-                 setShowModal={setShowModal} isPlumbing={isPlumbing} isElectrical={isElectrical} isGardening={isGardening}
-                 isDomestic={isDomestic} isDog={isDog} isOther={isOther} />
+                <SearchPanel handleSearch={props.handleSearch} toSearchFor={"a job"} />
+                <AvailableTasks {...props} />
             </div>
         </div>
     )
@@ -124,21 +119,23 @@ const availableTasks =[
     }
 ]
 
-function AvailableTasks({ search, distanceFilter, ratingFilter, setShowModal, isPlumbing,
-    isElectrical, isGardening, isDomestic, isDog, isOther }) {
-    // FILTER HERE
+function AvailableTasks(props: Props) {
 
+        // var availableTasks = []
+
+        // api.get("/listings", {
+        //     responseType: 'blob'
+        // })
+        // .then(response => {
+        //     availableTasks = response.data
+        // })
+    // FILTER HERE
     const tasks = availableTasks.filter((item) => {
         return (
-            (search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(search)) &&
-            (ratingFilter == null ? item : item.rating >= ratingFilter) &&
-            (distanceFilter == null ? item.distance <= 7 : item.distance <= distanceFilter) &&
-            (isPlumbing ? item.category === "plumbing" : item) &&
-            (isElectrical ? item.category === "electrical" : item) &&
-            (isGardening ? item.category === "gardening" : item) &&
-            (isDomestic ? item.category === "domestic" : item) &&
-            (isDog ? item.category === "dog" : item) &&
-            (isOther ? item.category === "other" : item)
+            (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
+            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
+            (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
+            (props.categories.length === 1 ? item : props.categories.includes(item.category))
         )
     }).map((item, index) => {
             return (
@@ -146,7 +143,7 @@ function AvailableTasks({ search, distanceFilter, ratingFilter, setShowModal, is
                 taskTitle = {item.taskTitle} location={item.location} price={item.price}
                  description = {item.description} recurring={item.recurring}
                  distance = {item.distance} timePosted = {item.timePosted} 
-                 rating = {item.rating} setShowModal={setShowModal} />
+                 rating = {item.rating} setShowModal={props.setShowModal} />
             )
         })
 
@@ -191,13 +188,13 @@ function TaskMiniProfile({ index, taskTitle, location, price, description, recur
             <button type='button' className='ConnectButton' onClick={() => {
                 setShowModal(true)
                 document.body.style.overflow = "hidden";
-            }}> Connect </button>
+            }}> Message </button>
         </div>
     )
 }
 
 function StarDisplay({ number }) {
-    var stars = [];
+    var stars: JSX.Element[] = [];
     for (let i = 0; i < number; i++) {
         stars.push(
             <div className="golden-star" key={i + 100}>&#9733;</div>
@@ -208,7 +205,7 @@ function StarDisplay({ number }) {
             <div className="star" key={i}>&#9733;</div>
         )
     }
-    return <div className='StarDisplay'> {stars} </div>
+    return <div className='StarDisplay' style={{textWrap: 'nowrap'}}> {stars} </div>
 }
 
 export default TaskList;
