@@ -105,6 +105,7 @@ function AvailableTasks(props: Props) {
   useEffect(() => {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
+        console.log(resp.data);
         const tasks = resp.data.filter((item) => {
           return (
             (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
