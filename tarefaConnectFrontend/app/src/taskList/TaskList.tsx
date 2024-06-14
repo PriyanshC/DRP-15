@@ -110,7 +110,7 @@ function AvailableTasks(props: Props) {
         console.log(resp.data);
         const tasks = resp.data.filter((item) => {
           return (
-            (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
+            (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
             (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
             (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
