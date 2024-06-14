@@ -115,12 +115,13 @@ function AvailableTasks(props: Props) {
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item) => {
+          const randStar = Math.round(Math.random() * 5);
           return (
             <TaskMiniProfile
               taskTitle={item.title} location={item.location} price={item.expected_price}
               description={item.description} recurring={item.frequency}
               distance={item.distance} timePosted={item.post_date_time}
-              rating={item.rating} postedBy={item.name} setShowModal={props.setShowModal}
+              rating={randStar} postedBy={item.name} setShowModal={props.setShowModal}
               setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={item.id} />
           );
         });
