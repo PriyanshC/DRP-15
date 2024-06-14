@@ -46,6 +46,16 @@ class Task(TaskBase):
         orm_mode = True
 
 
+class TaskQuery(BaseModel):
+    post_code: str
+    filter_category: Category | None = None
+    filter_min_rating: float | None = None
+    filter_max_distance: float | None = None
+    sort: Sort | None = None
+    skip: int = 0
+    limit: int = 20
+
+
 class TaskElemResponse(TaskBase):
     id: int
     distance: float

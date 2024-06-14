@@ -132,18 +132,11 @@ def add_review(tasker_id: int, new_review: schemas.ReviewCreate, db: Session = D
     return crud.add_review(db, new_review, tasker_id)
 
 
-@app.get("/api/tasks", response_model=list[schemas.TaskElemResponse])
-def get_task_list(post_code: str,
-                  filter_category: schemas.Category | None = None,
-                  filter_min_rating: float | None = None,
-                  filter_max_distance: float | None = None,
-                  sort: schemas.Sort | None = None,
-                  skip: int = 0,
-                  limit: int = 20,
-                  db: Session = Depends(get_db)):
-    return crud.get_task_list(db, post_code, schemas.Filters(category=filter_category,
-                                                             min_rating=filter_min_rating,
-                                                             max_distance=filter_max_distance),
+@app.post("/api/tasks", response_model=list[schemas.TaskElemResponse])
+def get_task_list(query: schemas.TaskQuery, db: Session = Depends(get_db)):
+    return crud.get_task_list(db, query.post_code, schemas.Filters(category=query.filter_category,
+                                                                   min_rating=query.filter_min_rating,
+                                                                   max_distance=query.filter_max_distance),
                               sort, skip, limit)
 
 
