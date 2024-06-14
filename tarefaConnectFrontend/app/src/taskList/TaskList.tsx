@@ -103,7 +103,6 @@ function AvailableTasks(props: Props) {
   const [taskData, setTaskData] = useState([<div key={-1}></div>]);
 
   useEffect(() => {
-    var taskDataTemp = [<div></div>];
     api.post('tasks', { post_code: props.post_code })
       .then(resp => {
         console.log(resp);
