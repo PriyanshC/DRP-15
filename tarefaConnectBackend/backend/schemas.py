@@ -28,6 +28,7 @@ class TaskBase(BaseModel):
     description: str
     category: Category | None = None
     frequency: float
+    expected_price: float
 
 
 class TaskCreate(TaskBase):
@@ -46,10 +47,12 @@ class Task(TaskBase):
 
 
 class TaskElemResponse(TaskBase):
+    id: int
     distance: float
     owner_id: int
     rating: float
     post_date_time: str
+    expected_price: float
 
 
 class UserLogin(BaseModel):
@@ -72,9 +75,9 @@ class User(UserBase):
     id: int
     hashed_password: str
 
-    rating: int
+    rating: float
 
-    tasks: list[Task]
+    # tasks: list[Task]
 
     class Config:
         orm_mode = True
@@ -98,19 +101,82 @@ class User(UserBase):
 #         orm_mode = True
 
 
+class ReviewBase(BaseModel):
+    comment: str | None = None
+    task_id: int
+
+
+class ReviewCreate(ReviewBase):
+    overall_rating: float
+    punctuality: float
+    time_taken: float
+    value_for_money: float
+
+
+class Review(ReviewBase):
+    id: int
+    tasker_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class RatingBase(BaseModel):
+    tasker_id: int
+
+
+class RatingCreate(RatingBase):
+    pass
+
+
+class Rating(RatingBase):
+    id: int
+
+    number_ratings: int
+    overall_rating: float
+    punctuality: float
+    time_taken: float
+    value_for_money: float
+
+    class Config:
+        orm_mode = True
+
+
+class ExpertiseBase(BaseModel):
+    title: str
+    description: str
+
+
+class ExpertiseCreate(ExpertiseBase):
+    pass
+
+
+class Expertise(ExpertiseBase):
+    id: int
+
+    tasker_id: int
+
+    class Config:
+        orm_mode = True
+
+
 class TaskerBase(BaseModel):
     headline: str
 
 
 class TaskerCreate(TaskerBase, UserCreate):
-    pass
+    expertise: list[ExpertiseCreate] = []
 
 
 class Tasker(TaskerBase):
     id: int
 
     user_id: int
-    country: str
+    user: User
+
+    rating: Rating
+    expertise: list[Expertise]
+    reviews: list[Review]
 
     # listings: list[Listing]
 

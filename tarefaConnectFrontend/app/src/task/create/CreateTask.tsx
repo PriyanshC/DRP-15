@@ -147,7 +147,7 @@ export default function CreateTask(props: Props) {
       category: categoryEnum[formData.category].value,
       user_heading: props.categoryInfo[formData.userCategory],
       frequency: calculateDays(formData.timePeriod),
-      cost: event.target[2].value
+      expected_price: event.target[2].value
     }
 
     console.log(data);

@@ -8,9 +8,8 @@ from . import models, schemas, distance_api, testInfo
 def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     user_args = new_user.dict()
     hashed_password = hash_password(user_args.pop('password'))
-    post_code = user_args.pop('post_code').split()[0]
-    print(post_code)
-    db_user = models.User(**user_args, hashed_password=hashed_password, rating=0, post_code=post_code)
+
+    db_user = models.User(**user_args, hashed_password=hashed_password, rating=0)
 
     db.add(db_user)
     db.commit()
@@ -46,27 +45,87 @@ def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> sch
 #     return db_listing
 
 
-def create_tasker(db: Session, tasker_details: dict[str, str], user_id: int) -> schemas.Tasker:
-    location = tasker_details.pop('location')
-    post_code, country = location.split(", ")
-
-    db_tasker = models.Tasker(user_id=user_id,
-                              headline=tasker_details['headline'],
-                              country=country,
-                              post_code=post_code,
-                              verified=False)
+def create_tasker(db: Session, tasker_details: dict[str, str | list[schemas.ExpertiseCreate]]) -> schemas.Tasker:
+    expertise = tasker_details.pop("expertise")
+    db_tasker = models.Tasker(**tasker_details)
 
     db.add(db_tasker)
     db.commit()
     db.refresh(db_tasker)
+
+    for each_expertise in expertise:
+        print(each_expertise)
+        create_expertise(db, each_expertise, db_tasker.id)
+
+    create_rating(db, schemas.RatingCreate(tasker_id=db_tasker.id))
+
     return db_tasker
+
+
+def create_rating(db: Session, new_rating: schemas.RatingCreate) -> schemas.Rating:
+    db_rating = models.Rating(**new_rating.dict(),
+                              number_ratings=0,
+                              overall_rating=0,
+                              punctuality=0,
+                              time_taken=0,
+                              value_for_money=0)
+
+    db.add(db_rating)
+    db.commit()
+    db.refresh(db_rating)
+
+    return db_rating
+
+
+def create_expertise(db: Session, expertise: schemas.ExpertiseCreate, tasker_id: int) -> schemas.Expertise:
+    db_expertise = models.Expertise(**expertise.dict(), tasker_id=tasker_id)
+
+    db.add(db_expertise)
+    db.commit()
+    db.refresh(db_expertise)
+
+    return db_expertise
+
+
+def add_review(db: Session, new_review: schemas.ReviewCreate, tasker_id: int) -> schemas.Tasker:
+    tasker: models.Tasker = db.query(models.Tasker).filter(models.Tasker.id == tasker_id).one()
+
+    tasker.reviews.append(models.Review(comment=new_review.comment,
+                                        task_id=new_review.task_id))
+
+    tasker.rating.number_ratings += 1
+
+    total = tasker.rating.number_ratings
+
+    prev_faction = (total - 1) / total
+
+    new_fraction = 1 / total
+
+    tasker.rating.overall_rating = (prev_faction * tasker.rating.overall_rating
+                                    + new_fraction * new_review.overall_rating)
+
+    tasker.rating.punctuality = (prev_faction * tasker.rating.punctuality
+                                 + new_fraction * new_review.punctuality)
+
+    tasker.rating.time_taken = (prev_faction * tasker.rating.time_taken
+                                + new_fraction * new_review.time_taken)
+
+    tasker.rating.value_for_money = (prev_faction * tasker.rating.value_for_money
+                                     + new_fraction * new_review.value_for_money)
+
+    db.commit()
+    db.refresh(tasker)
+
+    return tasker
 
 
 def create_reply(db: Session, reply: schemas.Reply) -> models.Reply:
     db_reply = models.Reply(**reply.dict())
+
     db.add(db_reply)
     db.commit()
     db.refresh(db_reply)
+
     return db_reply
 
 
@@ -76,8 +135,8 @@ def has_replied(db: Session, reply: schemas.Reply) -> bool:
             .first() is not None)
 
 
-def get_tasker(db: Session, task_id: int) -> schemas.Tasker:
-    return db.query(models.Tasker).filter(models.Tasker.task_id == task_id).first()
+def get_tasker(db: Session, tasker_id: int) -> schemas.Tasker:
+    return db.query(models.Tasker).filter(models.Tasker.id == tasker_id).first()
 
 
 def get_task_list(db: Session, post_code: str, filters: schemas.Filters | None,
@@ -117,14 +176,16 @@ def get_task_list(db: Session, post_code: str, filters: schemas.Filters | None,
         query = query.offset(skip).limit(limit).all()
 
     return list(map(lambda task:
-                    schemas.TaskElemResponse(title=task.title,
+                    schemas.TaskElemResponse(id=task.id,
+                                             title=task.title,
                                              description=task.description,
                                              frequency=task.frequency,
                                              distance=distance_api.distance_between(post_code,
                                                                                     task.owner.post_code),
                                              owner_id=task.owner_id,
                                              rating=task.owner.rating,
-                                             post_date_time=task.post_date_time)
+                                             post_date_time=task.post_date_time,
+                                             expected_price=task.expected_price)
                     , query))
 
 
@@ -137,7 +198,7 @@ def get_user_by_email(db: Session, email: schemas.EmailStr) -> schemas.User | No
 
 
 def get_user_tasks(db: Session, user_id: int, skip: int | None, limit: int | None) -> list[schemas.Task]:
-    return db.query(models.User).filter(models.User.id == user_id).first().tasks[skip:limit]
+    return db.query(models.Task).filter(models.Task.owner_id == user_id).offset(skip).limit(limit).all()
 
 
 def get_task(db: Session, task_id: int) -> schemas.Task | None:
@@ -149,7 +210,7 @@ def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[s
 
     return list(map(lambda reply: schemas.ReplyResponse(tasker_id=reply.tasker_id,
                                                         tasker_forename=reply.tasker.user.forename,
-                                                        tasker_surname=reply.Tasker.user.surname,
+                                                        tasker_surname=reply.tasker.user.surname,
                                                         message=reply.message,
                                                         rating=reply.tasker.user.rating),
                     query))
@@ -164,6 +225,10 @@ def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.
 
 def has_test_user(db: Session) -> bool:
     return get_user_by_email(db, testInfo.TEST_USER.get("email")) is not None
+
+
+def has_reviewed(db: Session, task_id: int) -> bool:
+    return db.query(models.Review).filter(models.Review.task_id == task_id).first() is not None
 
 
 def hash_password(password: str) -> str:
