@@ -78,7 +78,7 @@ function AvailableTasks(props: Props) {
   const [taskData, setTaskData] = useState(<div></div>);
 
   useEffect(() => {
-    api.get('tasks/?post_code=' + props.post_code)
+    api.get('tasks/?post_code=' + JSON.stringify(props.post_code))
       .then(resp => {
         console.log(resp);
         console.log(resp.data);
