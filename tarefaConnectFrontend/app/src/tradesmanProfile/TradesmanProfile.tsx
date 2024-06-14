@@ -6,40 +6,35 @@ import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps
 
 interface Rating {
   punctuality: number,
-  time: number,
-  cost: number,
-  overall: number
+  time_taken: number,
+  value_for_money: number,
+  overall_rating: number
 }
 
 interface Review {
-  reviewerName: string,
-  ratingAverage: number,
-  title: string,
-  desc: string
+  comment: string
 }
 
 interface Expertise {
-  name: string,
-  desc: string
+  title: string,
+  description: string
 }
 
-interface ContactInfo {
+interface User {
   email: string,
-  phone: string,
-  website: string
+  forename: string,
+  surname: string,
+  post_code: string,
+  id: number,
+  hashed_password: string,
+  rating: number
 }
 
 interface Tasker {
-  name: string,
-  description: string,
-  expertises: Expertise[],
-  contact: ContactInfo,
-  why: string
-  address: string,
-  distance: number,
+  headline: string,
+  user: User,
   rating: Rating,
-  lat: number,
-  long: number,
+  expertise: Expertise[],
   reviews: Review[]
 }
 
@@ -54,48 +49,24 @@ export default function TradesmanProfile() {
   // };
 
   const emptyTasker: Tasker = {
-    name: 'Jason Mimosa',
-    description: "Hello! I'm Sam Johnson, a dedicated and passionate gardening amateur based in the beautiful city of Minneapolis. With over 15 years of experience in the gardening and landscaping my own garden, I have honed my skills to transform my outdoor space into a lush, vibrant garden.Let's work together to create the garden of your dreams! Whether you need a complete garden makeover or just a little help with maintenance, I'm here to help. Give me a call or send me an email, and let's get started on your next gardening project.",
-    expertises: [
-      {
-        name: "Lawn Care",
-        desc: "I currently tend to several people's gardens, mowing them once a week, as well as watering some people's houseplants."
-      },
-      {
-        name: "Plant Trimming",
-        desc: "I also have a plant trimming set, and have sculpted friends and family bushes for about a year now!"
-      }
-    ],
-    why: "I am a kind person, I promise to be exceptionally punctual and forthcoming about my vaccancies and workload. I'll always try my best to give you a well nurtured garden!",
-    contact: {
-      phone: "(612) 555-1243",
-      email: "jasonmimosa1989@gmail.com",
-      website: ""
+    headline: '',
+    user: {
+      email: '',
+      forename: '',
+      surname: '',
+      post_code: '',
+      id: 0,
+      hashed_password: '',
+      rating: 0
     },
-    distance: 1.9,
-    address: '54033, Minneapolis, United States',
-    lat: 44.921787,
-    long: -93.231356,
     rating: {
-      punctuality: 3,
-      time: 2,
-      cost: 2,
-      overall: 4
+      punctuality: 0,
+      time_taken: 0,
+      value_for_money: 0,
+      overall_rating: 0
     },
-    reviews: [
-      {
-        reviewerName: 'Mother Theresa',
-        ratingAverage: 3,
-        title: 'Great',
-        desc: 'He was a great help! Always kind and punctual.'
-      },
-      {
-        reviewerName: 'Gengis Khan',
-        ratingAverage: 2,
-        title: 'Awful Gardener!',
-        desc: 'My garden was butchered! This guy doesn\'t know what he is doing! Not Pleased !!!'
-      }
-    ]
+    expertise: [],
+    reviews: []
   };
 
   // const [currentState, setState] = useState(state.loading);
@@ -153,30 +124,30 @@ function Profile(profile: Tasker) {
   return (
     <div className="Profile">
       <div className='ProfileHeader'>
-        <div className='ProfileName'>{profile.name}</div>
+        <div className='ProfileName'>{profile.user.forename + ' ' + profile.user.surname}</div>
         <div className='ProfileImage'></div>
       </div>
       <div className='ProfileContentContainer'>
         <div className='ProfileContent'>
           <label className='ProfileLabels'>Address :</label>
-          <div className='ProfileLocation'>{profile.address}<br /> {profile.distance} km from task</div>
+          <div className='ProfileLocation'>{profile.user.post_code}<br /> {3.8} km from task</div>
           <label className='ProfileLabels'>About Me :</label>
-          <div className='ProfileDescriptionContent'>{profile.description}</div>
+          <div className='ProfileDescriptionContent'>{profile.headline}</div>
           <label className='ProfileLabels'>Expertise :</label>
           <ul className='ProfileExpertise'>
-            {profile.expertises.map((item, index) => (
-              <li className='ExpertiseItem' key={index}><b>{item.name} </b>{item.desc}</li>
+            {profile.expertise.map((item, index) => (
+              <li className='ExpertiseItem' key={index}><b>{item.title} </b>{item.description}</li>
             ))}
           </ul>
           <label className='ProfileLabels'>Why Choose Me :</label>
-          <div className='ProfileDescriptionContent'>{profile.why}</div>
+          <div className='ProfileDescriptionContent'>I am a committed and hardworking individual, and will never be late!</div>
           <label className='ProfileLabels'>Contact Me :</label>
           <div className='ProfileLocation'>
-            {profile.contact.email !== '' && 'Email : ' + profile.contact.email}
-            {profile.contact.email !== '' && < br />}
-            {profile.contact.phone !== '' && 'Phone : ' + profile.contact.phone}
+            {profile.user.email !== '' && 'Email : ' + profile.user.email}
+            {profile.user.email !== '' && < br />}
+            {/* {profile.contact.phone !== '' && 'Phone : ' + profile.contact.phone}
             {profile.contact.phone !== '' && < br />}
-            {profile.contact.website !== '' && 'Website : ' + profile.contact.website}
+            {profile.contact.website !== '' && 'Website : ' + profile.contact.website} */}
           </div>
           <hr></hr>
           <div className='ProfileReviews'>
@@ -186,18 +157,18 @@ function Profile(profile: Tasker) {
                 <div className='ProfileReviewLeft'>
                   <div className='ProfileReviewName'>
                     <i className='bi-person-circle'> </i>
-                    {item.reviewerName}
+                    Reviewer
                   </div>
                   <div className='ProfileReviewRating'>
-                    <StarDisplay stars={item.ratingAverage} />
+                    <StarDisplay stars={3} />
                   </div>
                 </div>
                 <div className='VerticalLine'></div>
                 <div className='ProfileReviewDesc'>
-                  <b>{item.title}</b>
+                  <b>Comment :</b>
                   <br />
                   {
-                    item.desc.length > maxReview ? item.desc.substring(0, maxReview) + '...' : item.desc
+                    item.comment.length > maxReview ? item.comment.substring(0, maxReview) + '...' : item.comment
                   }
                 </div>
               </div>
@@ -211,9 +182,9 @@ function Profile(profile: Tasker) {
                 id="gmap"
                 mapId="8c732c82e4ec29d9"
                 zoom={mapZoom}
-                defaultCenter={{ lat: profile.lat, lng: profile.long }}
+                defaultCenter={{ lat: 44.921787, lng: -59 }}
               >
-                <AdvancedMarker position={{ lat: profile.lat, lng: profile.long }}>
+                <AdvancedMarker position={{ lat: 44.921787, lng: -59 }}>
                   <Pin background={'var(--font-color-secondary)'} glyphColor={'var(--background-primary)'} borderColor={'black'} />
                 </AdvancedMarker>
               </Map>
@@ -231,7 +202,7 @@ function Ratings(ratings: Rating) {
     <div className='RatingContainer'>
       <div className='RatingElement'>
         <label className='RatingLabel'>Cost</label>
-        <StarDisplay stars={ratings.cost} />
+        <StarDisplay stars={ratings.value_for_money} />
       </div>
       <div className='RatingElement'>
         <label className='RatingLabel'>Punctuality</label>
@@ -239,11 +210,11 @@ function Ratings(ratings: Rating) {
       </div>
       <div className='RatingElement'>
         <label className='RatingLabel'>Time</label>
-        <StarDisplay stars={ratings.time} />
+        <StarDisplay stars={ratings.time_taken} />
       </div>
       <div className='RatingElement'>
         <label className='RatingLabel'>Overall</label>
-        <StarDisplay stars={ratings.overall} />
+        <StarDisplay stars={ratings.overall_rating} />
       </div>
     </div>
   );

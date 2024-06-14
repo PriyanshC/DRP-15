@@ -6,7 +6,7 @@ export function LandingPage(panelData) {
     <div className="LoginLanding">
       {panelData.map((item) => {
         return (
-          <Link to={item.redirectTo} style={{ textDecoration: 'inherit', color: 'inherit' }}>
+          <Link to={item.redirectTo} state={{ ...item.state }} style={{ textDecoration: 'inherit', color: 'inherit' }}>
             <div key={item.id} className="LoginLandingItem">
               <LoginLandingButton text={item.buttonText} />
               <img className='LoginLandingIcon' src={item.icon} alt='../assets/electrician.jpg' />

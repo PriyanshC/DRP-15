@@ -5,7 +5,7 @@ import CreateTask from "./create/CreateTask.tsx";
 import TaskDisplay from "./display/TaskDisplay.tsx"
 import React, { FormEvent, ReactNode, useEffect, useState } from "react";
 import { api } from "../App.tsx";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 export interface ITask {
   title: string,
@@ -24,8 +24,8 @@ interface Props {
 }
 
 export default function Task(props: Props) {
-  const location = useLocation();
-  const startingId: number = location.state.startingId;
+  // const location = useLocation();
+  const startingId: number = -1;
 
   const taskEmptyData: ITask[] = [];
   const [taskData, setTaskData] = useState(taskEmptyData);

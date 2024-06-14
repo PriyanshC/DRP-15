@@ -103,10 +103,8 @@ function AvailableTasks(props: Props) {
   const [taskData, setTaskData] = useState([<div key={-1}></div>]);
 
   useEffect(() => {
-    api.post('tasks', { post_code: props.post_code })
+    api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
-        console.log(resp);
-        console.log(resp.data);
         const tasks = resp.data.filter((item) => {
           return (
             (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&

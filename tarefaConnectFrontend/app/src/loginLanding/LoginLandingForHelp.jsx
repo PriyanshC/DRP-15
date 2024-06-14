@@ -10,14 +10,16 @@ const panelData = [
     buttonText: "Let Someone Find You",
     body: "Create a post and you'll receive messages from workers interested in helping you",
     icon: postTask,
-    redirectTo: "/task"
+    redirectTo: "/task",
+    state: { startingId: -1 }
   },
   {
     id: 2,
     buttonText: "Find someone to hire",
     body: "You choose a worker. Filter by rating, distance and more",
     icon: personInMagnifyingGlass,
-    redirectTo: "/tradesmanList"
+    redirectTo: "/tradesmanList",
+    state: {}
   }
 ]
 
