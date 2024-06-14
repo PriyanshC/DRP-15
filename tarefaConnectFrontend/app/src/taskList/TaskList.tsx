@@ -6,8 +6,7 @@ import { useState } from 'react'
 import { FilterPanel } from './FilterPanel.jsx'
 import { SearchPanel } from './SearchPanel.jsx'
 import Modal from '../components/modal/Modal.jsx'
-// import { api } from '../App.tsx'
-import sampleTaskData from './sampleTaskData.json'
+import { api } from '../App.tsx'
 
 interface Props {
     handleSearch: (word: string) => void,
@@ -74,37 +73,41 @@ function TaskPanel( props: Props ) {
 
 function AvailableTasks(props: Props) {
 
-        // var availableTasks = []
+    const data = {
+        post_code: 'W5 4TN',
+    };
 
-        // api.get("/listings", {
-        //     responseType: 'blob'
-        // })
-        // .then(response => {
-        //     availableTasks = response.data
-        // })
-
-    // FILTER HERE
-    const tasks = sampleTaskData.filter((item) => {
-        return (
-            (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
-            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
-            (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
-            (props.categories.length === 1 ? item : props.categories.includes(item.category))
-        )
-    }).map((item, index) => {
+    api.get('tasks/?post_code=' + data.post_code)
+      .then(resp => {
+        const tasks = resp.data.filter((item) => {
             return (
-                <TaskMiniProfile 
-                 taskTitle = {item.taskTitle} location={item.location} price={item.price}
-                 description = {item.description} recurring={item.recurring}
-                 distance = {item.distance} timePosted = {item.timePosted} 
-                 rating = {item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
-                 setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} />
+                (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
+                (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
+                (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
+                (props.categories.length === 1 ? item : props.categories.includes(item.category))
             )
-        })
+        }).map((item, index) => {
+                return (
+                    <TaskMiniProfile 
+                     taskTitle = {item.taskTitle} location={item.location} price={item.price}
+                     description = {item.description} recurring={item.recurring}
+                     distance = {item.distance} timePosted = {item.timePosted} 
+                     rating = {item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
+                     setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} />
+                )
+            })
+    
+        return (
+            (<div className="AvailableTasks"> { tasks } </div>)
+        )
+        
+      })
+      .catch(err => {
+        console.log(err);
+        (<div className="AvailableTasks"> { [] } </div>)
+      })
 
-    return (
-        (<div className="AvailableTasks"> { tasks } </div>)
-    )
+
 }
 
 function TaskMiniProfile({ taskTitle, location, price, description, recurring, distance, timePosted, rating, postedBy, setShowModal, setTaskUsername, setScrollHeight }) {
