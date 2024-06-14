@@ -58,6 +58,7 @@ class TaskQuery(BaseModel):
 
 class TaskElemResponse(TaskBase):
     id: int
+    name: str
     distance: float
     owner_id: int
     rating: float

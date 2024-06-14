@@ -196,6 +196,7 @@ def get_task_list(db: Session, post_code: str, filters: schemas.Filters | None,
 
     return list(map(lambda task:
                     schemas.TaskElemResponse(id=task.id,
+                                             name=task.owner.forename + " " + task.owner.surname,
                                              title=task.title,
                                              description=task.description,
                                              frequency=task.frequency,
