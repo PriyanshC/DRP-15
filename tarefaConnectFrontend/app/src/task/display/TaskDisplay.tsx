@@ -83,8 +83,6 @@ function RepliesSection({ task_id }) {
       });
   }
 
-  setInterval(() => { getReplies(task_id) }, 5000);
-
   useEffect(() => {
     getReplies(task_id);
   }, [task_id])
