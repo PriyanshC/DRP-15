@@ -137,7 +137,7 @@ def get_task_list(query: schemas.TaskQuery, db: Session = Depends(get_db)):
     return crud.get_task_list(db, query.post_code, schemas.Filters(category=query.filter_category,
                                                                    min_rating=query.filter_min_rating,
                                                                    max_distance=query.filter_max_distance),
-                              sort, skip, limit)
+                              query.sort, query.skip, query.limit)
 
 
 # @app.post("/api/taskers/create-listing", response_model=schemas.Listing)
