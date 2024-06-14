@@ -53,7 +53,7 @@ def get_db() -> Generator:
 @app.post("/api/create-user", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     if not crud.has_test_user(db):
-        crud.create_test_user(db)
+        crud.create_test_info(db)
 
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user is not None:
@@ -87,7 +87,7 @@ def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
 @app.post("/api/login", response_model=schemas.User)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
     if not crud.has_test_user(db):
-        crud.create_test_user(db)
+        crud.create_test_info(db)
     db_user = crud.check_user_details(db, user_details)
 
     if db_user is None:

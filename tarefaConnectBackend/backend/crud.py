@@ -17,13 +17,32 @@ def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     return db_user
 
 
-def create_test_user(db: Session) -> schemas.User:
+def create_test_info(db: Session) -> tuple[schemas.User, schemas.Tasker]:
     test_user_db = create_user(db, new_user=schemas.UserCreate(**testInfo.TEST_USER))
 
     for task in testInfo.TEST_USER_TASKS:
         create_task(db, schemas.TaskCreate(**task), test_user_db.id)
 
-    return test_user_db
+    keys = [key for key in schemas.UserCreate.__fields__.keys()]
+
+    tasker = schemas.TaskerCreate(**testInfo.TEST_TASKER)
+
+    tasker_dict = tasker.dict()
+
+    tasker_dict.update({"expertise": tasker.expertise})
+
+    user_dict = dict()
+
+    for key in keys:
+        user_dict.update({key: tasker_dict.pop(key)})
+
+    db_user = create_user(db, schemas.UserCreate(**user_dict))
+
+    tasker_dict.update({"user_id": db_user.id})
+
+    test_tasker_db = create_tasker(db, tasker_dict)
+
+    return test_user_db, test_tasker_db
 
 
 def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> schemas.Task:

@@ -34,3 +34,30 @@ TEST_USER_TASKS = [
         "expected_price": 10.30
     }
 ]
+
+
+TEST_TASKER = {
+    "forename": 'Jason',
+    "surname": ' Mimosa',
+    "email": "jason@mail.com",
+    "password": "password",
+    "post_code": 'W5 4TN',
+    "headline": "Hello! I'm Sam Johnson, a dedicated and passionate gardening amateur based in the beautiful city of "
+                "Minneapolis. With over 15 years of experience in the gardening and landscaping my own garden, I have "
+                "honed my skills to transform my outdoor space into a lush, vibrant garden.Let's work together to "
+                "create the garden of your dreams! Whether you need a complete garden makeover or just a little help "
+                "with maintenance, I'm here to help. Give me a call or send me an email, and let's get started on your "
+                "next gardening project.",
+    "expertises": [
+      {
+        "title": "Lawn Care",
+        "description": "I currently tend to several people's gardens, mowing them once a week, as well as watering some"
+                       " people's houseplants."
+      },
+      {
+        "title": "Plant Trimming",
+        "description": "I also have a plant trimming set, and have sculpted friends and family bushes for about a year"
+                       " now!"
+      }
+    ]
+}
