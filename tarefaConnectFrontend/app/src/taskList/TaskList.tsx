@@ -136,14 +136,14 @@ function AvailableTasks(props: Props) {
             (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
-        }).map((item) => {
+        }).map((item, index) => {
           return (
             <TaskMiniProfile
               taskTitle={item.taskTitle} location={item.location} price={item.price}
               description={item.description} recurring={item.recurring}
               distance={item.distance} timePosted={item.timePosted}
               rating={item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
-              setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={0} />
+              setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={index} />
           );
         });
 
@@ -152,7 +152,7 @@ function AvailableTasks(props: Props) {
     setTaskData(taskDataTemp);
   }, [props])
 
-  return <div>{taskData}</div>
+  return <div className='AvailableTasks'>{taskData}</div>
 }
 
 function TaskMiniProfile({ taskTitle, location, price, description, recurring, distance, timePosted, rating, postedBy, setShowModal, setTaskUsername, setScrollHeight, setTaskIdCB, taskId }) {
@@ -160,7 +160,7 @@ function TaskMiniProfile({ taskTitle, location, price, description, recurring, d
   const timePostedText = "Posted " + (timePosted === 0 ? "today" : (timePosted === 1 ? "yesterday" : timePosted + " days ago"))
 
   return (
-    <div className="TaskMiniProfile">
+    <div className="TaskMiniProfile" key={taskId}>
       <div className="TaskLeftContainer">
         <div className="PriceAndRating">
           <h3> £{price} </h3>
