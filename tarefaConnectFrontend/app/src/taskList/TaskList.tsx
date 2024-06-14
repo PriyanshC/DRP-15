@@ -100,7 +100,7 @@ function TaskPanel(props: Props) {
 }
 
 function AvailableTasks(props: Props) {
-  const [taskData, setTaskData] = useState([<div></div>]);
+  const [taskData, setTaskData] = useState([<div key={-1}></div>]);
 
   useEffect(() => {
     var taskDataTemp = [<div></div>];
@@ -125,10 +125,10 @@ function AvailableTasks(props: Props) {
               setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={item.id} />
           );
         });
-        taskDataTemp = tasks;
+        setTaskData(tasks);
       })
       .catch(err => {
-        console.log(err);
+        console.log("ahh error!", err);
         const tasks = sampleTaskData.filter((item) => {
           return (
             (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
@@ -146,12 +146,11 @@ function AvailableTasks(props: Props) {
               setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={index} />
           );
         });
-
-        taskDataTemp = tasks;
+        setTaskData(tasks);
       })
-    setTaskData(taskDataTemp);
   }, [props])
 
+  console.log('taskData: ', taskData);
   return <div className='AvailableTasks'>{taskData}</div>
 }
 
