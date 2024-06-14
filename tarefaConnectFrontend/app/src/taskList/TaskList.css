@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: stretch;
  }
-  
+
  .FilterPanelContainer {
     height: vh;
     display: flex;
@@ -13,16 +13,16 @@
     border-right: 1px solid var(--accent-color);
     background-color: var(--background-secondary);
  }
- 
+
 
  .TaskPanel {
     width: 100%;
-    display:block;
+    display: block;
     flex-direction: column;
     justify-content: center;
     align-items: center;
  }
- 
+
 
  .TaskPanelTitle {
     padding: 20px 0px 30px;
@@ -30,7 +30,7 @@
 
  .SearchBar {
     width: 100%;
-    position:static;
+    position: static;
     padding-inline: 10%;
     padding-bottom: 40px;
     color: white;
@@ -52,7 +52,7 @@
     border-radius: 15px;
     background-color: var(--background-secondary);
  }
- 
+
 
  .TaskLeftContainer {
     display: flex;
@@ -110,11 +110,13 @@
     border-bottom-right-radius: 15px;
     border: none;
     cursor: pointer;
-    padding-inline: 5px;
+    padding-inline: 10px;
     text-decoration: inherit;
     color: inherit;
     text-align: center;
-    font-weight: 600;
+    font-weight: bold;
+    font-size: 20px;
+    transition: all 0.3s;
  }
 
  .ConnectButton:hover {
