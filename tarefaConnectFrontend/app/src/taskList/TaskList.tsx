@@ -42,6 +42,21 @@ function TaskList() {
         }
     }
 
+    const handlePost = (msg: string) => {
+        const data = {
+            // ...tasker_id, ...task_id
+            message: msg
+        }
+
+        api.post('tasks/reply', data)
+          .then(resp => {
+            console.log("sent message: " + resp.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+    }
+
     const [scrollHeight, setScrollHeight] = useState(0)
     const [showModal, setShowModal] = useState(false)
     const [taskUsername, setTaskUsername] = useState("Priyansh")
@@ -52,7 +67,7 @@ function TaskList() {
              handleCategory={handleCategory} />
             <TaskPanel {...{ handleSearch: handleSearch, search: search, distanceFilter: distanceFilter, ratingFilter: ratingFilter, setShowModal: setShowModal,
              setTaskUsername: setTaskUsername, categories: categories, setScrollHeight: setScrollHeight}} />
-            {showModal && <Modal setShowModal={setShowModal} taskUsername={taskUsername} scrollHeight={scrollHeight} /> }
+            {showModal && <Modal setShowModal={setShowModal} taskUsername={taskUsername} scrollHeight={scrollHeight} handleSubmit={handlePost} /> }
         </div>
     )
 }

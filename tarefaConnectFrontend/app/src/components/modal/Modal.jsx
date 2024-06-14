@@ -2,7 +2,7 @@ import React from "react";
 import "./Modal.css";
 import { useState } from "react";
 
-function Modal({ setShowModal, taskUsername, scrollHeight }) {
+function Modal({ setShowModal, taskUsername, scrollHeight, handleSubmit }) {
     const [taskHelpDescription, updateDescription] = useState('')
     const [descriptionisValid, setDescriptionValid] = useState(true)
 
@@ -34,7 +34,7 @@ function Modal({ setShowModal, taskUsername, scrollHeight }) {
             if (taskHelpDescription.length === 0) {
                 (setDescriptionValid(false))
             } else {
-                console.log("sent message to " + taskUsername + ": " + taskHelpDescription)
+                handleSubmit(taskHelpDescription);
                 setShowModal(false)
                 document.body.style.overflow = "scroll"
             }
