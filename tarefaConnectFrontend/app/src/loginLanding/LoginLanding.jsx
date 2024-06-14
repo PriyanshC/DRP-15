@@ -1,17 +1,17 @@
 import { LandingPage } from './LandingUtils';
 import './LoginLanding.css';
 import earnMoney from '../assets/earnMoney.svg'
-import personRaisingHand from '../assets/personRaisingHand.svg'
+import postTask from '../assets/postTask.svg'
 
 // eslint-disable-next-line
 const panelData = [
   {
-    id: 0,
-    buttonText: "Need help with something?",
-    body: "Get help from a worker for repeating tasks",
-    icon: personRaisingHand,
-    redirectTo: "/findHelp",
-    state: {}
+    id: 3,
+    buttonText: "Let Someone Find You",
+    body: "Create a post and you'll receive messages from workers interested in helping you",
+    icon: postTask,
+    redirectTo: "/task",
+    state: { startingId: -1 }
   },
   {
     id: 1,

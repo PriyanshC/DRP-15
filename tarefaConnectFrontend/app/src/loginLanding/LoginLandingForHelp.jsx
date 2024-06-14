@@ -1,18 +1,9 @@
 import { LandingPage } from './LandingUtils';
 import './LoginLanding.css';
 import personInMagnifyingGlass from '../assets/personInMagnifyingGlass.svg'
-import postTask from '../assets/postTask.svg'
 
 // eslint-disable-next-line
-const panelData = [
-  {
-    id: 3,
-    buttonText: "Let Someone Find You",
-    body: "Create a post and you'll receive messages from workers interested in helping you",
-    icon: postTask,
-    redirectTo: "/task",
-    state: { startingId: -1 }
-  },
+const panelData = [,
   {
     id: 2,
     buttonText: "Find someone to hire",

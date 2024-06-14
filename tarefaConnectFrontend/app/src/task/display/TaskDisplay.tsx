@@ -71,15 +71,22 @@ function RepliesSection({ task_id }) {
 
   const [repliesData, setRepliesData] = useState(startingData);
 
-  useEffect(() => {
+
+  const getReplies = (taskId: number) => {
     console.log('Getting Task Replies API');
-    api.get('tasks/' + task_id + '/replies')
+    api.get('tasks/' + taskId + '/replies')
       .then(resp => {
         setRepliesData(resp.data);
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  setInterval(() => { getReplies(task_id) }, 5000);
+
+  useEffect(() => {
+    getReplies(task_id);
   }, [task_id])
 
   const maxContentChars = 65;
