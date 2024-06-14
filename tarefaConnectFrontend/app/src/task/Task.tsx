@@ -1,4 +1,4 @@
-import useLocalStorage from "use-local-storage";
+// import useLocalStorage from "use-local-storage";
 import "./Task.css";
 
 import CreateTask from "./create/CreateTask.tsx";
@@ -24,12 +24,10 @@ interface Props {
 }
 
 export default function Task(props: Props) {
-
   const location = useLocation();
   const startingId: number = location.state.startingId;
 
   const taskEmptyData: ITask[] = [];
-
   const [taskData, setTaskData] = useState(taskEmptyData);
 
   useEffect(() => {
@@ -40,7 +38,7 @@ export default function Task(props: Props) {
       .catch(err => {
         console.log(err);
       })
-  }, [])
+  }, [props.userId])
 
   const [index, setIndex] = useState(startingId);
   const [categories, setCategories] = useState(Array.from(new Set(taskData.map((item) => item.user_heading).filter((item) => { return item }))));

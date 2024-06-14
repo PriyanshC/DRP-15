@@ -14,7 +14,7 @@ import PageNotFound from "./404Page";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useLocalStorage from 'use-local-storage';
-import React, { useCallback } from 'react';
+import React from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -22,9 +22,6 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
-
-
-import { ITask } from './task/Task.tsx'
 
 export const api = axios.create({
   baseURL: 'http://tarefaconnect.doc.ic.ac.uk/api/',

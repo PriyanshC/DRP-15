@@ -12,6 +12,14 @@ interface Props {
   categoryInfo: string[]
 }
 
+interface PostTask {
+  title: string,
+  description: string,
+  category: string,
+  user_heading: string,
+  frequency: number,
+  expected_price: number
+}
 
 export default function CreateTask(props: Props) {
   enum state {
@@ -128,7 +136,7 @@ export default function CreateTask(props: Props) {
   const [savedFormData, setSavedForm] = useState(emptyForm);
 
   const calculateDays = ({ freq, number, period }) => {
-    return ((number * periodSelect[period].days) / (freq + 1)).toPrecision(5);
+    return ((number * periodSelect[period].days) / (freq + 1));
   }
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -141,13 +149,13 @@ export default function CreateTask(props: Props) {
 
     setState(state.loading);
 
-    const data = {
+    const data: PostTask = {
       title: event.target[0].value,
       description: event.target[1].value,
       category: categoryEnum[formData.category].value,
       user_heading: props.categoryInfo[formData.userCategory],
       frequency: calculateDays(formData.timePeriod),
-      expected_price: event.target[2].value
+      expected_price: event.target[2].value,
     }
 
     console.log(data);
