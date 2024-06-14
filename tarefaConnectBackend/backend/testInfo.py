@@ -323,7 +323,7 @@ TEST_TASKER = {
                 "create the garden of your dreams! Whether you need a complete garden makeover or just a little help "
                 "with maintenance, I'm here to help. Give me a call or send me an email, and let's get started on your "
                 "next gardening project.",
-    "expertises": [
+    "expertise": [
       {
         "title": "Lawn Care",
         "description": "I currently tend to several people's gardens, mowing them once a week, as well as watering some"
