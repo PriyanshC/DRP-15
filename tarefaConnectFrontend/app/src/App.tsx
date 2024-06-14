@@ -39,7 +39,7 @@ interface UserData {
   surname: string,
   id: number,
   hashed_password: string,
-  tasks: ITask[]
+  rating: number
 }
 
 function App() {
@@ -53,22 +53,10 @@ function App() {
     surname: '',
     id: -1,
     hashed_password: '',
-    tasks: []
+    rating: -1
   }
 
   const [userData, setUserData] = useLocalStorage('user_data', emptyData);
-
-  const addTask: (arg0: ITask) => void = useCallback((task) => {
-    setUserData(prev => {
-      if (!prev) return prev;
-      return ({
-        ...prev,
-        tasks: [...prev.tasks, task]
-      })
-    }
-    );
-    return;
-  }, [setUserData]);
 
   const changeTheme = () => {
     setTheme((prev) => {
@@ -93,7 +81,7 @@ function App() {
             <Route path='tradesmanList' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanList />} />
             <Route path='tradesmanProfile' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanProfile />} />
             <Route path='taskList' element={userData === emptyData ? <Navigate to='/login' /> : <TaskList />} />
-            <Route path='task' element={userData === emptyData ? <Navigate to='/login' /> : <Task userId={userData.id} startingIndex={-1} taskData={userData.tasks} addTask={addTask} />} />
+            <Route path='task' element={userData === emptyData ? <Navigate to='/login' /> : <Task userId={userData.id} />} />
             <Route path='*' element={<PageNotFound />} />
           </Route>
         </Routes>

@@ -1,28 +1,49 @@
+import useLocalStorage from "use-local-storage";
 import "./Task.css";
 
 import CreateTask from "./create/CreateTask.tsx";
 import TaskDisplay from "./display/TaskDisplay.tsx"
-import React, { FormEvent, ReactNode, useState } from "react";
+import React, { FormEvent, ReactNode, useEffect, useState } from "react";
+import { api } from "../App.tsx";
+import { useLocation } from "react-router-dom";
 
 export interface ITask {
   title: string,
   description: string,
   category: string,
+  frequency: number,
+  expected_price: number,
+  id: number,
+  owner_id: number,
   user_heading: string,
-  id: number
+  post_date_time: string
 }
 
 interface Props {
-  taskData: ITask[],
-  userId: number,
-  startingIndex: number,
-  addTask: (arg0: ITask) => void
+  userId: number
 }
 
 export default function Task(props: Props) {
-  const taskData = props.taskData;
-  const [index, setIndex] = useState(props.startingIndex);
-  const [categories, setCategories] = useState(Array.from(new Set(props.taskData.map((item) => item.user_heading).filter((item) => { return item }))));
+
+  const location = useLocation();
+  const startingId: number = location.state.startingId;
+
+  const taskEmptyData: ITask[] = [];
+
+  const [taskData, setTaskData] = useState(taskEmptyData);
+
+  useEffect(() => {
+    api.get(props.userId + '/tasks')
+      .then(resp => {
+        setTaskData(resp.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
+
+  const [index, setIndex] = useState(startingId);
+  const [categories, setCategories] = useState(Array.from(new Set(taskData.map((item) => item.user_heading).filter((item) => { return item }))));
 
   const addCategory: (arg0: string) => boolean = (category: string) => {
     if ((categories.filter((str) => str === category).length === 0) && (category.length < 25)) {
@@ -32,10 +53,27 @@ export default function Task(props: Props) {
     return false;
   }
 
+  const addTask: (arg0: ITask) => boolean = (task) => {
+    if (!task) {
+      return false;
+    } else {
+      api.post(props.userId + 'create-task', task)
+        .then(resp => {
+          setTaskData(prev => [...prev, task])
+          return true;
+        })
+        .catch(err => {
+          console.log(err);
+          return false;
+        })
+      return true;
+    }
+  }
+
   return (
     <div className="Container" >
       <CurrentTaskPanel addCategory={addCategory} changeIndex={setIndex} data={taskData.map((item) => [item.title, item.user_heading, item.id])} categories={categories} />
-      {index === -1 ? <CreateTask addTask={props.addTask} userId={props.userId} categoryInfo={categories} /> : <TaskDisplay {...taskData[index]} />}
+      {index === -1 ? <CreateTask addTask={addTask} userId={props.userId} categoryInfo={categories} /> : <TaskDisplay {...taskData[index]} />}
     </div>
   );
 }
