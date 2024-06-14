@@ -55,6 +55,8 @@ function TaskList({ post_code, user_id }) {
       message: msg
     }
 
+    console.log(data);
+
     api.post('tasks/reply', data)
       .then(resp => {
         console.log("sent message: " + resp.data);
@@ -107,11 +109,11 @@ function AvailableTasks(props: Props) {
       .then(resp => {
         console.log(resp.data);
         const tasks = resp.data.filter((item) => {
-          return (true
-            // (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
-            // (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
-            // (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
-            // (props.categories.length === 1 ? item : props.categories.includes(item.category))
+          return (
+            (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
+            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
+            (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
+            (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item) => {
           const randStar = Math.round(Math.random() * 5);
