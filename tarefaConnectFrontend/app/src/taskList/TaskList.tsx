@@ -7,6 +7,7 @@ import { FilterPanel } from './FilterPanel.jsx'
 import { SearchPanel } from './SearchPanel.jsx'
 import Modal from '../components/modal/Modal.jsx'
 import { api } from '../App.tsx'
+import sampleTaskData from './sampleTaskData.json';
 
 interface Props {
   handleSearch: (word: string) => void,
@@ -17,10 +18,11 @@ interface Props {
   setTaskUsername: React.Dispatch<React.SetStateAction<string>>,
   categories: string[],
   setScrollHeight: React.Dispatch<React.SetStateAction<number>>
-  post_code: string
+  post_code: string,
+  setTaskIdCB: (arg0: number) => void
 }
 
-function TaskList({ post_code }) {
+function TaskList({ post_code, user_id }) {
   const [search, setSearch] = useState('')
 
   const handleSearch = (word: string) => {
@@ -43,9 +45,32 @@ function TaskList({ post_code }) {
     }
   }
 
+  const [taskId, setTaskId] = useState(-1);
+
+  const handlePost = (msg: string) => {
+
+    const data = {
+      tasker_id: user_id,
+      task_id: taskId,
+      message: msg
+    }
+
+    api.post('tasks/reply', data)
+      .then(resp => {
+        console.log("sent message: " + resp.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   const [scrollHeight, setScrollHeight] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const [taskUsername, setTaskUsername] = useState("Priyansh")
+
+  const setTaskIdCB = (taskId: number) => {
+    setTaskId(taskId);
+  }
 
   return (
     <div className="PageContainer">
@@ -53,9 +78,9 @@ function TaskList({ post_code }) {
         handleCategory={handleCategory} />
       <TaskPanel {...{
         handleSearch: handleSearch, search: search, distanceFilter: distanceFilter, ratingFilter: ratingFilter, setShowModal: setShowModal,
-        setTaskUsername: setTaskUsername, categories: categories, setScrollHeight: setScrollHeight, post_code: post_code
+        setTaskUsername: setTaskUsername, categories: categories, setScrollHeight: setScrollHeight, post_code: post_code, setTaskIdCB: setTaskIdCB
       }} />
-      {showModal && <Modal setShowModal={setShowModal} taskUsername={taskUsername} scrollHeight={scrollHeight} />}
+      {showModal && <Modal setShowModal={setShowModal} taskUsername={taskUsername} scrollHeight={scrollHeight} handleSubmit={handlePost} />}
     </div>
   )
 }
@@ -75,9 +100,10 @@ function TaskPanel(props: Props) {
 }
 
 function AvailableTasks(props: Props) {
-  const [taskData, setTaskData] = useState(<div></div>);
+  const [taskData, setTaskData] = useState([<div></div>]);
 
   useEffect(() => {
+    var taskDataTemp = [<div></div>];
     api.post('tasks', { post_code: props.post_code })
       .then(resp => {
         console.log(resp);
@@ -92,24 +118,44 @@ function AvailableTasks(props: Props) {
         }).map((item) => {
           return (
             <TaskMiniProfile
+              taskTitle={item.title} location={item.location} price={item.expected_price}
+              description={item.description} recurring={item.frequency}
+              distance={item.distance} timePosted={item.post_date_time}
+              rating={item.rating} postedBy={item.name} setShowModal={props.setShowModal}
+              setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={item.id} />
+          );
+        });
+        taskDataTemp = tasks;
+      })
+      .catch(err => {
+        console.log(err);
+        const tasks = sampleTaskData.filter((item) => {
+          return (
+            (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
+            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
+            (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
+            (props.categories.length === 1 ? item : props.categories.includes(item.category))
+          );
+        }).map((item) => {
+          return (
+            <TaskMiniProfile
               taskTitle={item.taskTitle} location={item.location} price={item.price}
               description={item.description} recurring={item.recurring}
               distance={item.distance} timePosted={item.timePosted}
               rating={item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
-              setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} />
+              setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={0} />
           );
         });
-        setTaskData(tasks);
+
+        taskDataTemp = tasks;
       })
-      .catch(err => {
-        console.log(err);
-      })
+    setTaskData(taskDataTemp);
   }, [props])
 
   return <div>{taskData}</div>
 }
 
-function TaskMiniProfile({ taskTitle, location, price, description, recurring, distance, timePosted, rating, postedBy, setShowModal, setTaskUsername, setScrollHeight }) {
+function TaskMiniProfile({ taskTitle, location, price, description, recurring, distance, timePosted, rating, postedBy, setShowModal, setTaskUsername, setScrollHeight, setTaskIdCB, taskId }) {
 
   const timePostedText = "Posted " + (timePosted === 0 ? "today" : (timePosted === 1 ? "yesterday" : timePosted + " days ago"))
 
@@ -145,6 +191,7 @@ function TaskMiniProfile({ taskTitle, location, price, description, recurring, d
         </div>
       </div>
       <button type='button' className='ConnectButton' onClick={() => {
+        setTaskIdCB(taskId)
         setTaskUsername(postedBy)
         setShowModal(true)
         setScrollHeight(window.scrollY)
