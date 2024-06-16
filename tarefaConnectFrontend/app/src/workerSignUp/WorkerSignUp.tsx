@@ -1,4 +1,4 @@
-import React, { FormEventHandler, ReactNode, useState } from "react";
+import React, { BaseSyntheticEvent, FormEventHandler, ReactNode, useState } from "react";
 
 import './WorkerSignUp.css'
 import '../login/Login.css'
@@ -6,7 +6,7 @@ import { api } from "../App.tsx";
 import { useNavigate } from "react-router-dom";
 
 export default function WorkerSignUp({ setUserData }) {
-  const [stage, setStage] = useState(3);
+  const [stage, setStage] = useState(0);
   const navigate = useNavigate();
 
   const basicForm = {
@@ -15,30 +15,27 @@ export default function WorkerSignUp({ setUserData }) {
     email: ''
   }
   const [basicFormData, setBasicFormData] = useState(basicForm);
-  const submitBasic: FormEventHandler = (e) => {
+  const submitBasic = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     setBasicFormData({
       forename: e.target[0].value,
       surname: e.target[1].value,
       email: e.target[2].value
     })
-    e.target[0].value = '';
-    e.target[1].value = '';
-    e.target[2].value = '';
-    changeStage(1);;
+    e.target.reset();
+    changeStage(1);
   }
 
   const [password, setPassword] = useState('');
   const [passwordErr, setPassErr] = useState(false);
-  const submitSecurity: FormEventHandler = (e) => {
+  const submitSecurity = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     if (e.target[0].value !== e.target[1].value) {
       setPassErr(true);
       return false;
     }
-    e.target[0].value = '';
-    e.target[1].value = '';
     setPassErr(false);
+    e.target.reset();
     setPassword(e.target[0].value);
     changeStage(1);
     return true;
@@ -46,15 +43,13 @@ export default function WorkerSignUp({ setUserData }) {
 
   const [postcodeErr, setPostcodeErr] = useState(false);
   const [personalData, setPersonalData] = useState({ post_code: '', headline: '' });
-  const submitPersonal: FormEventHandler = (e) => {
+  const submitPersonal = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     setPersonalData({
       post_code: e.target[0].value,
       headline: e.target[1].value
     })
-
-    e.target[0].value = '';
-    e.target[1].value = '';
+    e.target.reset();
     changeStage(1);
   }
 
@@ -66,7 +61,7 @@ export default function WorkerSignUp({ setUserData }) {
   const emptyExpertise: Expertise[] = [];
   const [id, setId] = useState(0);
   const [expertiseList, setExpertiseList] = useState(emptyExpertise);
-  const submitExpertise: FormEventHandler = (e) => {
+  const submitExpertise = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     const retval = [new Array(expertiseList.length)].map((item, index) => ({ title: e.target[2 * index].value, description: e.target[2 * index + 1].value, id: index }));
     setExpertiseList(retval);
@@ -186,12 +181,12 @@ export default function WorkerSignUp({ setUserData }) {
 function Container({ number, max, changeStage, children, handleSubmit }) {
   return (
     <div className="PageWrapper">
-      <form className="Wrapper" onSubmit={handleSubmit}>
+      <form className="Wrapper" onSubmit={handleSubmit} id='sign-up-form'>
         <div className="PageIndicator">{number + 1} / {max + 1}</div>
         <h1>Sign Up</h1>
         {children}
         <div className="NavigationPanel">
-          {number > 0 && <button type='button' className="NavigationButton" onClick={() => { changeStage(-1) }}>
+          {number > 0 && <button type='button' className="NavigationButton" onClick={() => { document.getElementById('sign-up-form').reset(); changeStage(-1) }}>
             Back
           </button>}
           {number < max && <button type='submit' className="NavigationButton">
