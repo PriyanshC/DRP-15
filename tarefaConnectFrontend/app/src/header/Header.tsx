@@ -81,7 +81,7 @@ export default function Header(props: Props) {
 
         <Link className='HeaderTitle' to="/home" style={{ textDecoration: 'inherit', color: 'inherit' }}>
           <h1 className='HeaderTitleText' style={{ fontSize: 'inherit' }}>
-            TarefaConnect
+            TaskCircle
           </h1>
         </Link>
 

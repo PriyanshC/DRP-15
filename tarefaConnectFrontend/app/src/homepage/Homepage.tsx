@@ -12,7 +12,7 @@ export default function Homepage() {
               Task
             </div>
             <div className="Title TitleSecond">
-              Connect
+              Circle
             </div>
           </div>
           <div className="MainListContainer">
@@ -39,7 +39,7 @@ export default function Homepage() {
         </div>
       </div>
       <div className="IconDisplay">
-        <div className="IconContainer"><i className="bi-patch-question-fill Icon"></i>Our aim here at Task Connect is to develop long lived and meaningful connections in the community. </div>
+        <div className="IconContainer"><i className="bi-patch-question-fill Icon"></i>Our aim here at Task Circle is to develop long lived and meaningful connections in the community. </div>
         <div className="IconContainer"><i className="bi-calendar2-check-fill Icon"></i>We specialise in repeatable tasks you may be unable to do due to time or physical constraints, i.e weekly lawn mowing or monthly gutter cleaning. </div>
         <div className="IconContainer"><i className="bi-chat-right-dots-fill Icon"></i>Simply post a task and let friendly people in the community come to you, then check out their profiles and connect!</div>
       </div>
