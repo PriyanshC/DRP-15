@@ -22,6 +22,7 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
+import Homepage from './homepage/Homepage.tsx';
 
 export const api = axios.create({
   baseURL: 'http://tarefaconnect.doc.ic.ac.uk/api/',
@@ -71,7 +72,7 @@ function App() {
         </CheckHeader>
         <Routes>
           <Route path='/'>
-            <Route index element={<Navigate to={'/login'} />} />
+            <Route index element={<Homepage />} />
             <Route path='login' element={<Login setUserData={setUserData} />} />
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />

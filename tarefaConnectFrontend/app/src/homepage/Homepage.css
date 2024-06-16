@@ -1,0 +1,136 @@
+.Homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.TopBackground {
+  width: 100%;
+  background-image: url('../assets/oldfun.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.TitleCard {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--background-transparent);
+}
+
+.TitleContainer {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 8vw;
+  padding-block: 10vh;
+}
+
+.Title {
+  font-family: var(--font-family-title);
+  font-size: 110px;
+  font-weight: bold;
+  color: var(--font-color-secondary);
+}
+
+.TitleFirst {
+  text-align: start;
+}
+
+.TitleSecond {
+  padding-left: calc(5vw * 2);
+  text-align: end;
+}
+
+.MainListContainer {
+  padding-inline: 5vw;
+  margin-block: 40px;
+  border-left: 4px solid var(--font-color-primary);
+}
+
+.MainPointList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 30px;
+  text-align: left;
+  font-weight: bold;
+  padding-right: 10px;
+}
+
+.MainPoint {
+  padding-block: 1.5vw;
+}
+
+.RedirectMenu {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: var(--background-transparent);
+  border-bottom: 1px solid var(--accent-color);
+  padding-bottom: 70px;
+}
+
+.Redirect {
+  background-color: var(--background-secondary);
+  padding: 20px;
+  border: 1px solid var(--accent-color);
+  border-radius: 20px;
+  width: 40vw;
+  height: 100%;
+}
+
+.SignInButton {
+  padding-inline: 20px;
+  padding-right: 30px;
+  padding-block: 20px;
+  font-size: 60px;
+  font-family: var(--font-family-title);
+  background-color: var(--button-color);
+  color: inherit;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.SignInButton:hover {
+  background-color: var(--button-press);
+  cursor: pointer;
+}
+
+.RedirectContent {
+  padding-top: 35px;
+  padding-bottom: 15px;
+  padding-inline: 40px;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.IconDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: var(--background-secondary);
+  padding-block: 40px;
+  width: 100%;
+}
+
+.IconContainer {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 25px;
+  margin-block: 30px;
+  margin-inline: 20px;
+}
+
+.Icon {
+  font-size: 100px;
+  color: vaR(--font-color-secondary);
+  margin-bottom: 20px;
+}
