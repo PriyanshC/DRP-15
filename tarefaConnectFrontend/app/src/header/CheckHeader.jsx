@@ -7,7 +7,7 @@ const CheckHeader = ({ children }) => {
     const [showHeader, setShowHeader] = useState(false)
 
     useEffect(() => {
-        (location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/forgot') || location.pathname === '/') ? setShowHeader(false)
+        (location.pathname.startsWith('/login') || location.pathname.startsWith('/register') || location.pathname.startsWith('/workerSignUp') || location.pathname.startsWith('/forgot') || location.pathname === '/') ? setShowHeader(false)
             : setShowHeader(true)
     }, [location])
 

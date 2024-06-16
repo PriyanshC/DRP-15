@@ -30,7 +30,7 @@ export default function Homepage() {
               <div className="RedirectContent">Click here if you have odd jobs that need doing, and would like to post a task!</div>
             </div>
           </Link>
-          <Link to='/' style={{ color: 'inherit', textDecoration: 'inherit' }}>
+          <Link to='/workerSignUp' style={{ color: 'inherit', textDecoration: 'inherit' }}>
             <div className="Redirect RedirectWorker">
               <button className="SignInButton"><i className="bi-person-walking"> </i>Worker Sign In</button>
               <div className="RedirectContent">Click here if you would like to connect to your community and help people out!</div>

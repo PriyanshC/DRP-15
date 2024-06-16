@@ -23,6 +23,7 @@ import {
   Navigate
 } from "react-router-dom";
 import Homepage from './homepage/Homepage.tsx';
+import WorkerSignUp from './workerSignUp/WorkerSignUp.tsx';
 
 export const api = axios.create({
   baseURL: 'http://tarefaconnect.doc.ic.ac.uk/api/',
@@ -76,6 +77,7 @@ function App() {
             <Route path='login' element={<Login setUserData={setUserData} />} />
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />
+            <Route path='workerSignUp' element={<WorkerSignUp setUserData={setUserData} />} />
             <Route path='home' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLanding />} />
             <Route path='findHelp' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLandingForHelp />} />
             <Route path='tradesmanList' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanList />} />

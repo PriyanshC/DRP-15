@@ -1,0 +1,42 @@
+.PageIndicator {
+  position: absolute;
+  font-size: 10px;
+  top: 12px;
+}
+
+.NavigationPanel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.NavigationButton {
+  padding-inline: 30px;
+  padding-block: 10px;
+  background-color: var(--background-transparent);
+  color: var(--font-color-primary);
+  border: none;
+  border-radius: 10px;
+  margin-inline: 10px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+::placeholder {
+  color: var(--font-color-primary);
+  opacity: 0.8;
+}
+
+.bi-x-octagon-fill {
+  position: absolute;
+  right: 15px;
+  transform: translate(0, -25px);
+  font-size: 16px;
+}
+
+.DescriptionTextBox {
+  text-align: left;
+  resize: none;
+}

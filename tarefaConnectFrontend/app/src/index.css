@@ -13,6 +13,7 @@
   --red: red;
   --green: rgb(0, 200, 0);
   --background-transparent: rgba(243, 242, 238, 0.6);
+  --background-transparent-2: rgba(243, 242, 238, 0.1);
 }
 
 [data-theme='dark'] {
@@ -26,6 +27,7 @@
   --button-press: #019aab;
   --button-press-highlight: #01ab81;
   --background-transparent: rgb(30, 30, 30, 0.6);
+  --background-transparent-2: rgb(30, 30, 30, 0.3);
 }
 
 body {
