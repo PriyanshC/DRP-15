@@ -150,8 +150,8 @@ def create_reply(db: Session, reply: schemas.Reply) -> models.Reply:
 
 def has_replied(db: Session, reply: schemas.Reply) -> bool:
     return (db.query(models.Reply)
-            .filter(models.Reply.tasker_id == reply.tasker_id and models.Reply.task_id == reply.task_id)
-            .first() is not None)
+            .filter(models.Reply.task_id == reply.task_id, models.Reply.tasker_id == reply.tasker_id)
+            .first()) is not None
 
 
 def get_tasker(db: Session, tasker_id: int) -> schemas.Tasker:

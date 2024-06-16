@@ -204,6 +204,9 @@ class Reply(BaseModel):
 
     message: str | None = None
 
+    class Config:
+        orm_mode = True
+
 
 class ReplyResponse(BaseModel):
     tasker_id: int
