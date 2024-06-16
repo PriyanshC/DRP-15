@@ -3,13 +3,15 @@ import React, { FormEventHandler, ReactNode, useState } from "react";
 import './WorkerSignUp.css'
 import '../login/Login.css'
 import { api } from "../App.tsx";
+import { useNavigate } from "react-router-dom";
 
 export default function WorkerSignUp({ setUserData }) {
   const [stage, setStage] = useState(3);
+  const navigate = useNavigate();
 
   const basicForm = {
     forename: '',
-    lastname: '',
+    surname: '',
     email: ''
   }
   const [basicFormData, setBasicFormData] = useState(basicForm);
@@ -17,9 +19,12 @@ export default function WorkerSignUp({ setUserData }) {
     e.preventDefault();
     setBasicFormData({
       forename: e.target[0].value,
-      lastname: e.target[1].value,
+      surname: e.target[1].value,
       email: e.target[2].value
     })
+    e.target[0].value = '';
+    e.target[1].value = '';
+    e.target[2].value = '';
     changeStage(1);;
   }
 
@@ -31,9 +36,11 @@ export default function WorkerSignUp({ setUserData }) {
       setPassErr(true);
       return false;
     }
+    e.target[0].value = '';
+    e.target[1].value = '';
     setPassErr(false);
     setPassword(e.target[0].value);
-    changeStage(1);;
+    changeStage(1);
     return true;
   }
 
@@ -45,6 +52,9 @@ export default function WorkerSignUp({ setUserData }) {
       post_code: e.target[0].value,
       headline: e.target[1].value
     })
+
+    e.target[0].value = '';
+    e.target[1].value = '';
     changeStage(1);
   }
 
@@ -58,22 +68,25 @@ export default function WorkerSignUp({ setUserData }) {
   const [expertiseList, setExpertiseList] = useState(emptyExpertise);
   const submitExpertise: FormEventHandler = (e) => {
     e.preventDefault();
-    const retval = new Array(expertiseList.length).map((item, index) => ({ title: e.target[2 * index].value, description: e.target[2 * index + 1].value, id: index }));
+    const retval = [new Array(expertiseList.length)].map((item, index) => ({ title: e.target[2 * index].value, description: e.target[2 * index + 1].value, id: index }));
     setExpertiseList(retval);
 
-    api.post('create-tasker', {
+    const data = {
       expertise: retval,
       ...personalData,
       password: password,
       ...basicFormData
-    })
+    }
+
+    api.post('create-tasker', data)
       .then(resp => {
         switch (resp.status) {
-          case 404: // Change to postcode invalid
+          case 404: // Handle invalid requests
             setPostcodeErr(true);
             break;
           default:
             setUserData(resp.data.user);
+            navigate('/home');
             break;
         }
       })
@@ -98,11 +111,11 @@ export default function WorkerSignUp({ setUserData }) {
       children: (
         <div>
           <div className="InputBox" style={{}}>
-            <input type="text" name="forename" placeholder='Firstname...' defaultValue={basicForm.forename} minLength={1} maxLength={20} required />
+            <input type="text" name="forename" placeholder='Forename...' defaultValue={basicForm.forename} minLength={1} maxLength={20} required />
             <i className="bi-person-fill"></i>
           </div>
           <div className="InputBox" style={{}}>
-            <input type="text" name="surname" placeholder='Lastname...' defaultValue={basicForm.lastname} minLength={1} maxLength={20} required />
+            <input type="text" name="surname" placeholder='Surname...' defaultValue={basicForm.surname} minLength={1} maxLength={20} required />
             <i className="bi-person-fill" ></i>
           </div>
           <div className="InputBox" style={{}}>
@@ -178,7 +191,7 @@ function Container({ number, max, changeStage, children, handleSubmit }) {
         <h1>Sign Up</h1>
         {children}
         <div className="NavigationPanel">
-          {number > 0 && <button className="NavigationButton" onClick={() => { changeStage(-1) }}>
+          {number > 0 && <button type='button' className="NavigationButton" onClick={() => { changeStage(-1) }}>
             Back
           </button>}
           {number < max && <button type='submit' className="NavigationButton">

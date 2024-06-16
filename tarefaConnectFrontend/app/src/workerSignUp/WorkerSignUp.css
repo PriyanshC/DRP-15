@@ -39,4 +39,5 @@
 .DescriptionTextBox {
   text-align: left;
   resize: none;
+  color: var(--font-color-primary) !important;
 }
