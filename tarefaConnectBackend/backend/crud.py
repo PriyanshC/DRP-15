@@ -138,17 +138,17 @@ def add_review(db: Session, new_review: schemas.ReviewCreate, tasker_id: int) ->
     return tasker
 
 
-def create_reply(db: Session, reply: schemas.Reply) -> models.Reply:
+def create_reply(db: Session, reply: schemas.ReplyCreate) -> schemas.ReplyResponse:
     db_reply = models.Reply(**reply.dict())
 
     db.add(db_reply)
     db.commit()
     db.refresh(db_reply)
 
-    return db_reply
+    return reply_to_response(db_reply)
 
 
-def has_replied(db: Session, reply: schemas.Reply) -> bool:
+def has_replied(db: Session, reply: schemas.ReplyCreate) -> bool:
     return (db.query(models.Reply)
             .filter(models.Reply.task_id == reply.task_id, models.Reply.tasker_id == reply.tasker_id)
             .first()) is not None
@@ -226,14 +226,12 @@ def get_task(db: Session, task_id: int) -> schemas.Task | None:
 
 
 def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[schemas.ReplyResponse]:
-    query = db.query(models.Reply).filter(models.Reply.task_id == task_id).offset(skip).limit(limit).all()
+    query = db.query(models.Reply). \
+        join(models.Reply.tasker).join(models.Tasker.user). \
+        filter(models.Reply.task_id == task_id). \
+        offset(skip).limit(limit).all()
 
-    return list(map(lambda reply: schemas.ReplyResponse(tasker_id=reply.tasker_id,
-                                                        tasker_forename=reply.tasker.user.forename,
-                                                        tasker_surname=reply.tasker.user.surname,
-                                                        message=reply.message,
-                                                        rating=reply.tasker.user.rating),
-                    query))
+    return list(map(lambda reply: reply_to_response(reply), query))
 
 
 def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | None:
@@ -253,3 +251,11 @@ def has_reviewed(db: Session, task_id: int) -> bool:
 
 def hash_password(password: str) -> str:
     return password
+
+
+def reply_to_response(reply: schemas.Reply) -> schemas.ReplyResponse:
+    return schemas.ReplyResponse(tasker_id=reply.tasker_id,
+                                 tasker_forename=reply.tasker.user.forename,
+                                 tasker_surname=reply.tasker.user.surname,
+                                 message=reply.message,
+                                 rating=reply.tasker.rating)
