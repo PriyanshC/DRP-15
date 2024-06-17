@@ -140,11 +140,11 @@ export default function WorkerSignUp({ setUserData, setTasker }) {
       children: <div>
         <div className="InputBox">
           <input type="text" style={postcodeErr ? { border: '2px solid var(--red)' } : {}} maxLength={20} defaultValue={personalData.post_code} placeholder="Your Postcode / Zip code..." minLength={4} required />
-          <i className="bi-house-door-fill"></i>
+          <i className="bi-house-door-fill SignUpIcon"></i>
         </div>
         <div className="InputBox">
           {postcodeErr && <p style={{ color: 'var(--red)' }}>Invalid Postcode / Zip code</p>}
-          <textarea className='DescriptionTextBox' maxLength={1000} defaultValue={personalData.headline} rows={10} placeholder="A brief description of you (people will be able to see this on your profile)..." />
+          <textarea className='DescriptionTextBoxSignUp' maxLength={1000} defaultValue={personalData.headline} rows={10} placeholder="A brief description of you (people will be able to see this on your profile)..." />
           <i className="bi-file-text-fill"></i>
         </div>
       </div>,
