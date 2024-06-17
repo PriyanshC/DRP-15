@@ -8,8 +8,8 @@
   }
   
   .modalContainer {
-    width: 500px;
-    height: 500px;
+    width: 700px;
+    height: 700px;
     border-radius: 12px;
     background-color:var(--background-secondary);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -42,6 +42,7 @@
     min-width: 100%;
     font-size: large;
     padding: 10px 10px 10px;
+    margin-bottom: 30px;
     resize: none;
   }
   
@@ -84,6 +85,7 @@
   .taskerRate {
       height: 46px;
       width:fit-content;
+      margin-bottom: 15px;
   }
   .taskerRate:not(:checked) > input {
       position:absolute;

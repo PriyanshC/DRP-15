@@ -16,7 +16,7 @@ function Modal({ setShowModal, taskUsername, scrollHeight, handleSubmit }) {
           <label style={{ flex: '1' }}> Let <b> {taskUsername} </b> know how you can help out: </label>
           <textarea type="text" className="HelpDescription"
             onChange={(e) => updateDescription(e.target.value)}
-            style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'none' : 'crimson' }}
+            style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'var(--accent-color)' : 'crimson' }}
             placeholder="E.g. Hello there, my name is Jane. I'd love to get involved..." />
         </div>
         <div className="footer">

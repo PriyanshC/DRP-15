@@ -119,8 +119,7 @@
 
 .RateTaskerButton {
     background-color: var(--button-color);
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-radius: 15px;
     border: none;
     cursor: pointer;
     padding-inline: 10px;
@@ -128,8 +127,9 @@
     color: inherit;
     text-align: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 25px;
     transition: all 0.3s;
+    margin-bottom: 15px;
 }
 
 .RateTaskerButton:hover {
