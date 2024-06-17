@@ -197,6 +197,7 @@ function Profile({profile, isTasker}) {
 }
 
 function RateButton({isTasker}) {
+  console.log(isTasker)
   return (
     isTasker ? null : <button> Rate </button>
   )

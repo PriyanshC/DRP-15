@@ -12,19 +12,19 @@ export function FilterPanel({ setRating, distance, setDistance, handleCategory }
                     <label> Plumbing </label>
                 </div>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="1" type='checkbox' onChange={() => { handleCategory("electrical") }} />
-                    <label> Electrical </label>
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="1" type='checkbox' onChange={() => { handleCategory("electric") }} />
+                    <label> Electric </label>
                 </div>
                 <div className="FilterBox">
                     <input name="FilterCheckbox" className='FilterCheckbox' id="2" type='checkbox' onChange={() => { handleCategory("gardening") }} />
                     <label> Gardening </label>
                 </div>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="3" type='checkbox' onChange={() => { handleCategory("domestic") }} />
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="3" type='checkbox' onChange={() => { handleCategory("domestic cleaning") }} />
                     <label> Domestic Cleaning </label>
                 </div>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="4" type='checkbox' onChange={() => { handleCategory("dog") }} />
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="4" type='checkbox' onChange={() => { handleCategory("dog walking") }} />
                     <label> Dog Walking </label>
                 </div>
                 <div className="FilterBox">
