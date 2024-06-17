@@ -134,7 +134,6 @@ function AvailableTasks(props: TaskProps) {
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item) => {
-          const str: string = '';
           return (
             <TaskMiniProfile
               taskTitle={item.title} location={item.location} price={item.expected_price}
