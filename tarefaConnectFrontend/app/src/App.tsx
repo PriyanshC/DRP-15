@@ -92,7 +92,7 @@ function App() {
             <Route path='home' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLanding isTasker={taskerid.tasker} />} />
             <Route path='findHelp' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLandingForHelp />} />
             <Route path='tradesmanList' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanList />} />
-            <Route path='tradesmanProfile' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanProfile isTasker={taskerid.tasker} />} />
+            <Route path='tradesmanProfile' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanProfile />} />
             <Route path='taskList' element={userData === emptyData ? <Navigate to='/login' /> : <TaskList post_code={userData.post_code} user_id={taskerid.id} />} />
             <Route path='task' element={userData === emptyData ? <Navigate to='/login' /> : <Task userId={userData.id} />} />
             <Route path='*' element={<PageNotFound />} />

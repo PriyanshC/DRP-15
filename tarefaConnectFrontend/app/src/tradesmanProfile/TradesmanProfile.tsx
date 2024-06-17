@@ -3,6 +3,7 @@ import './TradesmanProfile.css'
 import React, { ReactElement, useEffect, useState } from 'react';
 import { api } from '../App.tsx';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import RatingModal from '../components/ratingModal/RatingModal.jsx'
 
 interface Rating {
   punctuality: number,
@@ -38,7 +39,7 @@ interface Tasker {
   reviews: Review[]
 }
 
-export default function TradesmanProfile({ isTasker }) {
+export default function TradesmanProfile() {
 
   const location = useLocation();
   const { taskerId, pageFrom } = location.state;
@@ -71,6 +72,35 @@ export default function TradesmanProfile({ isTasker }) {
 
   // const [currentState, setState] = useState(state.loading);
   const [taskerData, setTaskerData] = useState(emptyTasker);
+  const [showModal, setShowModal] = useState(false)
+
+  const handleRate = (msg: string, cost: number, punctuality: number, time: number, overall: number) => {
+
+    // TODO
+
+    console.log("message: " + msg)
+    console.log("cost rating: " + cost.toString())
+    console.log("punctuality rating: " + punctuality.toString())
+    console.log("time rating: " + time.toString())
+    console.log("overall rating: " + overall.toString())
+
+
+    // const data = {
+    //   tasker_id: user_id,
+    //   task_id: taskId,
+    //   message: msg
+    // }
+
+    // console.log(data);
+
+    // api.post('tasks/reply', data)
+    //   .then(resp => {
+    //     console.log("sent message: " + resp.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+  }
 
   useEffect(() => {
     api.get('taskers/' + taskerId)
@@ -92,7 +122,8 @@ export default function TradesmanProfile({ isTasker }) {
           </button>
         </Link>
       </div>
-      <Profile profile={taskerData} isTasker={isTasker} />
+      <Profile profile={taskerData} setShowModal={setShowModal} />
+      {showModal && <RatingModal setShowModal={setShowModal} taskUsername={taskerData.user.forename} handleSubmit={handleRate} />}
     </div>
   )
 }
@@ -112,7 +143,7 @@ function StarDisplay({ stars }) {
   return <div className='StarDisplay'> {starArr} </div>
 }
 
-function Profile({profile, isTasker}) {
+function Profile({profile, setShowModal}) {
 
   const maxReview = 190;
   const [mapZoom, setMapZoom] = useState(10);
@@ -141,13 +172,10 @@ function Profile({profile, isTasker}) {
           <div className='ProfileLocation'>
             {profile.user.email !== '' && 'Email : ' + profile.user.email}
             {profile.user.email !== '' && < br />}
-            {/* {profile.contact.phone !== '' && 'Phone : ' + profile.contact.phone}
-            {profile.contact.phone !== '' && < br />}
-            {profile.contact.website !== '' && 'Website : ' + profile.contact.website} */}
           </div>
           <hr></hr>
           <div className='ProfileReviews'>
-            <div className='ProfileReviewsHeader'>Top Reviews</div>
+            <div className='ProfileReviewsHeader'>Reviews</div>
             {profile.reviews.map((item, index) => (
               <div className='ProfileReviewElement' key={index}>
                 <div className='ProfileReviewLeft'>
@@ -189,17 +217,12 @@ function Profile({profile, isTasker}) {
           <Ratings {...profile.rating} />
         </div>
         <div>
-          <RateButton isTasker={isTasker} />
+          <button onClick={() =>
+            setShowModal(true)
+          }> Rate </button>
         </div>
       </div>
     </div >
-  )
-}
-
-function RateButton({isTasker}) {
-  console.log(isTasker)
-  return (
-    isTasker ? null : <button> Rate </button>
   )
 }
 
