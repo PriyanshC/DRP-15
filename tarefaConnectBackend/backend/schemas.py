@@ -198,11 +198,22 @@ class Tasker(TaskerBase):
         orm_mode = True
 
 
-class Reply(BaseModel):
+class ReplyBase(BaseModel):
     tasker_id: int
     task_id: int
 
+
+class ReplyCreate(ReplyBase):
+    pass
+
+
+class Reply(ReplyBase):
+    tasker: Tasker
+
     message: str | None = None
+
+    class Config:
+        orm_mode = True
 
 
 class ReplyResponse(BaseModel):
@@ -211,5 +222,5 @@ class ReplyResponse(BaseModel):
     tasker_forename: str
     tasker_surname: str
     message: str | None = None
-    rating: int
+    rating: Rating
 

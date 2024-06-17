@@ -101,7 +101,7 @@ class Tasker(Base):
     id = Column(Integer, primary_key=True)
 
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    user = relationship("User")
+    user = relationship("User", uselist=False)
 
     headline = Column(String)
 
@@ -118,7 +118,7 @@ class Reply(Base):
     __tablename__ = "replies"
 
     tasker_id = Column(Integer, ForeignKey("taskers.id", ondelete="CASCADE"), primary_key=True)
-    tasker = relationship("Tasker")
+    tasker = relationship("Tasker", uselist=False)
 
     task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), primary_key=True)
 
