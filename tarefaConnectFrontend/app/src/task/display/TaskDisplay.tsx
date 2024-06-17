@@ -1,4 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
+import { useInterval } from 'usehooks-ts'
+import { POLLING_INTERVAL_MILLIS } from '../../index.jsx'
 
 import { api } from '../../App.tsx';
 import './TaskDisplay.css';
@@ -79,9 +81,9 @@ function RepliesSection({ task_id }) {
       });
   }
 
-  useEffect(() => {
+  useInterval(() => {
     getReplies(task_id);
-  }, [task_id])
+  }, POLLING_INTERVAL_MILLIS)
 
   const maxContentChars = 65;
 
