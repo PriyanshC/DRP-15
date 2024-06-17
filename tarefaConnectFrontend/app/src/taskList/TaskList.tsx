@@ -120,7 +120,6 @@ function TaskPanel(props: Props) {
 function AvailableTasks(props: TaskProps) {
   const [taskData, setTaskData] = useState([(<div key={-1} style={{ height: '10vmin', width: '10vmin' }}><Loading /></div>)]);
   useEffect(() => {
-    var today = new Date();
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
         console.log(resp.data);
@@ -177,8 +176,14 @@ function AvailableTasks(props: TaskProps) {
 }
 
 function TaskMiniProfile({ taskTitle, location, price, description, recurring, distance, timePosted, rating, postedBy, setShowModal, setTaskUsername, setScrollHeight, setTaskIdCB, taskId }) {
+  var today = new Date();
+  var dateOf = new Date(timePosted.toString().split(" ")[0]);
+  var timeInMillis = dateOf.getTime() - today.getTime();
+  var timeInDays = Math.ceil(timeInMillis / (1000 * 60 * 60 * 24));
+  console.log("today is: " + dateOf);
+  console.log("days is: " + timeInDays);
 
-  const timePostedText = "Posted " + (timePosted === 0 ? "today" : (timePosted === 1 ? "yesterday" : timePosted + " days ago"))
+  const timePostedText = "Posted " + (timeInDays === 0 ? "today" : (timeInDays === 1 ? "yesterday" : timeInDays + " days ago"))
 
   return (
     <div className="TaskMiniProfile" key={taskId}>
