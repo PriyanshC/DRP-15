@@ -3,7 +3,7 @@ import './TradesmanProfile.css'
 import React, { ReactElement, useEffect, useState } from 'react';
 import { api } from '../App.tsx';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
-import { RatingModal } from '../components/ratingModal/RatingModal.jsx'
+import { RatingModal } from '../components/ratingModal/ratingModal.jsx'
 
 interface Rating {
   punctuality: number,
