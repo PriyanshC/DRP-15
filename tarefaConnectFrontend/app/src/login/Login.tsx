@@ -60,10 +60,12 @@ export default function Login(props: Props) {
               userData = response.data.user;
               props.setTasker(response.data.id);
               console.log("Tasker Login");
+              console.log(response.data.user);
             } catch (e) {
               userData = response.data;
               console.log("User Login");
             } finally {
+              console.log(userData);
               props.setUserData(userData)
               console.log('LOGIN SUCCESS!');
               navigate('/home')
