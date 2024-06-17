@@ -8,6 +8,7 @@ import { SearchPanel } from './SearchPanel.jsx'
 import Modal from '../components/modal/Modal.jsx'
 import { api } from '../App.tsx'
 import sampleTaskData from './sampleTaskData.json';
+import Loading from '../components/loading/Loading.tsx'
 
 interface Props {
   handleSearch: (word: string) => void,
@@ -74,7 +75,9 @@ function TaskList({ post_code, user_id }) {
     setTaskId(taskId);
   }
 
-  return (
+  const [loading, setLoading] = useState(true);
+
+  return loading ? (<Loading />) : (
     <div className="PageContainer">
       <FilterPanel setRating={setRating} distance={distanceFilter} setDistance={setDistance}
         handleCategory={handleCategory} />
