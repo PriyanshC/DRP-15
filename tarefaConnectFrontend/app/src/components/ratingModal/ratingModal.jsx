@@ -1,5 +1,5 @@
 import React from "react";
-import "./Modal.css";
+import "./ratingModal.css";
 import { useState } from "react";
 
 export function RatingModal({ setShowModal, taskerName, handleRate }) {
