@@ -160,8 +160,6 @@ function TaskMiniProfile({ taskTitle, location, price, description, recurring, d
   var dateOf = new Date(timePosted.toString().split(" ")[0]);
   var timeInMillis = dateOf.getTime() - today.getTime();
   var timeInDays = Math.ceil(timeInMillis / (1000 * 60 * 60 * 24));
-  console.log("posted on: " + timePosted);
-  console.log("days is: " + timeInDays);
 
   const timePostedText = "Posted " + (timeInDays === 0 ? "today" : (timeInDays === 1 ? "yesterday" : timeInDays + " days ago"))
 
