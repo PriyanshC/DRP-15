@@ -5,7 +5,8 @@ import { api } from '../App.tsx'
 import { Link, useNavigate } from 'react-router-dom';
 
 interface Props {
-  setUserData: (data) => void
+  setUserData: (data) => void,
+  setTasker: (arg0: number) => void
 }
 
 const testLogin = {
@@ -54,9 +55,19 @@ export default function Login(props: Props) {
       })
         .then(response => {
           if (response.status === 200) {
-            props.setUserData(response.data)
-            console.log('LOGIN SUCCESS!');
-            navigate('/home')
+            var userData = {};
+            try {
+              userData = response.data.user;
+              props.setTasker(response.data.id);
+              console.log("Tasker Login");
+            } catch (e) {
+              userData = response.data;
+              console.log("User Login");
+            } finally {
+              props.setUserData(userData)
+              console.log('LOGIN SUCCESS!');
+              navigate('/home')
+            }
           } else {
             setLoginErr(error.validation);
             console.log('LOGIN FAILURE!');

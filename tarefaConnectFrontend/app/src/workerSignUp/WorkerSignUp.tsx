@@ -5,7 +5,7 @@ import '../login/Login.css'
 import { api } from "../App.tsx";
 import { useNavigate } from "react-router-dom";
 
-export default function WorkerSignUp({ setUserData }) {
+export default function WorkerSignUp({ setUserData, setTasker }) {
   const [stage, setStage] = useState(0);
   const navigate = useNavigate();
 
@@ -81,6 +81,7 @@ export default function WorkerSignUp({ setUserData }) {
             break;
           default:
             setUserData(resp.data.user);
+            setTasker(resp.data.id);
             navigate('/home');
             break;
         }

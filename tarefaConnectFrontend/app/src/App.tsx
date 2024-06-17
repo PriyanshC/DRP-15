@@ -14,7 +14,7 @@ import PageNotFound from "./404Page";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import useLocalStorage from 'use-local-storage';
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -58,11 +58,17 @@ function App() {
   }
 
   const [userData, setUserData] = useLocalStorage('user_data', emptyData);
+  const [taskerid, setTaskerId] = useState({ tasker: false, id: -1 });
 
   const changeTheme = () => {
     setTheme((prev) => {
       return (prev === 'dark' ? 'light' : 'dark');
     })
+  }
+
+  const setTaskerLogin: (arg1: number) => void = (id) => {
+    setTaskerId({ tasker: true, id: id });
+    return;
   }
 
   return (
@@ -74,11 +80,11 @@ function App() {
         <Routes>
           <Route path='/'>
             <Route index element={<Homepage />} />
-            <Route path='login' element={<Login setUserData={setUserData} />} />
+            <Route path='login' element={<Login setUserData={setUserData} setTasker={setTaskerLogin} />} />
             <Route path='register' element={<Register setUserData={setUserData} />} />
             <Route path='forgot' element={<Forgot />} />
-            <Route path='workerSignUp' element={<WorkerSignUp setUserData={setUserData} />} />
-            <Route path='home' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLanding />} />
+            <Route path='workerSignUp' element={<WorkerSignUp setUserData={setUserData} setTasker={setTaskerLogin} />} />
+            <Route path='home' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLanding isTasker={taskerid.tasker} />} />
             <Route path='findHelp' element={userData === emptyData ? <Navigate to='/login' /> : <LoginLandingForHelp />} />
             <Route path='tradesmanList' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanList />} />
             <Route path='tradesmanProfile' element={userData === emptyData ? <Navigate to='/login' /> : <TradesmanProfile />} />
