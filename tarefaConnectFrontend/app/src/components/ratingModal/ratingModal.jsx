@@ -1,7 +1,6 @@
 import React from "react";
 import "./Modal.css";
 import { useState } from "react";
-import { connectStorageEmulator } from "firebase/storage";
 
 function RatingModal({ setShowModal, taskerName, handleRate }) {
   const [taskHelpDescription, updateDescription] = useState('')
@@ -115,4 +114,4 @@ function RatingModal({ setShowModal, taskerName, handleRate }) {
   );
 }
 
-export default Modal;
+export default RatingModal;

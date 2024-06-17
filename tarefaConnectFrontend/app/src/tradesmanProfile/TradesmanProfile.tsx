@@ -123,7 +123,7 @@ export default function TradesmanProfile() {
         </Link>
       </div>
       <Profile profile={taskerData} setShowModal={setShowModal} />
-      {showModal && <RatingModal setShowModal={setShowModal} taskUsername={taskerData.user.forename} handleSubmit={handleRate} />}
+      {showModal && <RatingModal setShowModal={setShowModal} taskerName={taskerData.user.forename} handleRate={handleRate} />}
     </div>
   )
 }
