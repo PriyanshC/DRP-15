@@ -9,6 +9,7 @@ import Modal from '../components/modal/Modal.jsx'
 import { api } from '../App.tsx'
 import sampleTaskData from './sampleTaskData.json';
 import Loading from '../components/loading/Loading.tsx'
+import Error from '../components/error/Error.tsx';
 
 interface Props {
   handleSearch: (word: string) => void,
@@ -143,31 +144,11 @@ function AvailableTasks(props: TaskProps) {
         setTaskData(tasks);
       })
       .catch(err => {
-        console.log("ahh error!", err);
-        const tasks = sampleTaskData.filter((item) => {
-          return (
-            (props.search.toLowerCase() === '' ? item : item.taskTitle.toLowerCase().includes(props.search)) &&
-            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
-            (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
-            (props.categories.length === 1 ? item : props.categories.includes(item.category))
-          );
-        }).map((item, index) => {
-          var dateOf = new Date(item.timePosted.toString());
-          var timeInMillis = dateOf.getTime() - today.getTime();
-          var timeInDays = Math.ceil(timeInMillis / (1000 * 60 * 60 * 24));
-          console.log("day is: " + dateOf);
-          console.log("millis are: " + timeInMillis);
-          console.log("days is: " + timeInDays);
-          return (
-            <TaskMiniProfile
-              taskTitle={item.taskTitle} location={item.location} price={item.price}
-              description={item.description} recurring={item.recurring}
-              distance={item.distance} timePosted={timeInDays}
-              rating={item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
-              setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={index} />
-          );
-        });
-        setTaskData(tasks);
+        setTaskData (
+            [(<div style={{ margin: 'auto', marginTop: '40px', color: 'var(--red)', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '50px', fontWeight: 'bold' }}>
+              <Error size={200} />
+              A network error has occurred!
+            </div>)]);
       })
   }, [props])
 
@@ -180,7 +161,7 @@ function TaskMiniProfile({ taskTitle, location, price, description, recurring, d
   var dateOf = new Date(timePosted.toString().split(" ")[0]);
   var timeInMillis = dateOf.getTime() - today.getTime();
   var timeInDays = Math.ceil(timeInMillis / (1000 * 60 * 60 * 24));
-  console.log("today is: " + dateOf);
+  console.log("posted on: " + timePosted);
   console.log("days is: " + timeInDays);
 
   const timePostedText = "Posted " + (timeInDays === 0 ? "today" : (timeInDays === 1 ? "yesterday" : timeInDays + " days ago"))
