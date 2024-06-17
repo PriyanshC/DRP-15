@@ -24,5 +24,5 @@ const panelData = [
 ]
 
 export default function LoginLanding({ isTasker }) {
-  return LandingPage(panelData.length = (isTasker ? panelData.length : 1));
+  return LandingPage(panelData.slice(0, isTasker ? 1 : panelData.length - 1));
 }
