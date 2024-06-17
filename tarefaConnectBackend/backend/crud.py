@@ -46,7 +46,7 @@ def create_test_info(db: Session) -> tuple[schemas.User, schemas.Tasker]:
 
 
 def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> schemas.Task:
-    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     db_task = models.Task(**new_task.dict(), post_date_time=now, owner_id=owner_id)
 
     db.add(db_task)
