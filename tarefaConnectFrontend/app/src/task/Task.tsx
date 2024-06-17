@@ -55,15 +55,7 @@ export default function Task(props: Props) {
     if (!task) {
       return false;
     } else {
-      api.post(props.userId + 'create-task', task)
-        .then(resp => {
-          setTaskData(prev => [...prev, task])
-          return true;
-        })
-        .catch(err => {
-          console.log(err);
-          return false;
-        })
+      setTaskData(prev => [...prev, task]);
       return true;
     }
   }
