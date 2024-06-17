@@ -153,9 +153,12 @@ function AvailableTasks(props: TaskProps) {
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item, index) => {
-          var date_to_reply = new Date(item.timePosted.toString());
-          var timeInMillis = date_to_reply.getTime() - today.getTime();
+          var dateOf = new Date(item.timePosted.toString());
+          var timeInMillis = dateOf.getTime() - today.getTime();
           var timeInDays = Math.ceil(timeInMillis / (1000 * 60 * 60 * 24));
+          console.log("day is: " + dateOf);
+          console.log("millis are: " + timeInMillis);
+          console.log("days is: " + timeInDays);
           return (
             <TaskMiniProfile
               taskTitle={item.taskTitle} location={item.location} price={item.price}
