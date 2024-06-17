@@ -137,7 +137,7 @@ function AvailableTasks(props: TaskProps) {
             <TaskMiniProfile
               taskTitle={item.title} location={item.location} price={item.expected_price}
               description={item.description} recurring={item.frequency}
-              distance={item.distance} timePosted={item.post_date_time}
+              distance={Math.round(item.distance * 10) / 10} timePosted={item.post_date_time}
               rating={(item.title.length % 5) + 1} postedBy={item.name} setShowModal={props.setShowModal}
               setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={item.id} />
           );
