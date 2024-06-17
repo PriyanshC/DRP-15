@@ -95,20 +95,28 @@ def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
     return db_user
 
 
-@app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
-def get_user_tasks(user_id: int, skip: int | None = None, limit: int | None = None, db: Session = Depends(get_db)):
-    db_user = crud.get_user(db, user_id=user_id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return crud.get_user_tasks(db, user_id, skip, limit)
-
-
 @app.post("/api/{user_id}/create-task", response_model=schemas.Task)
 def create_task(user_id: int, new_task: schemas.TaskCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return crud.create_task(db, new_task, user_id)
+
+
+@app.post("/api/tasks", response_model=list[schemas.TaskElemResponse])
+def get_task_list(query: schemas.TaskQuery, db: Session = Depends(get_db)):
+    return crud.get_task_list(db, query.post_code, schemas.Filters(category=query.filter_category,
+                                                                   min_rating=query.filter_min_rating,
+                                                                   max_distance=query.filter_max_distance),
+                              query.sort, query.skip, query.limit)
+
+
+@app.get("/api/{user_id}/tasks", response_model=list[schemas.Task])
+def get_user_tasks(user_id: int, skip: int | None = None, limit: int | None = None, db: Session = Depends(get_db)):
+    db_user = crud.get_user(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return crud.get_user_tasks(db, user_id, skip, limit)
 
 
 @app.get("/api/tasks/{task_id}", response_model=schemas.Task)
@@ -130,35 +138,6 @@ def add_review(tasker_id: int, new_review: schemas.ReviewCreate, db: Session = D
         raise HTTPException(status_code=400, detail="This task has been reviewed")
 
     return crud.add_review(db, new_review, tasker_id)
-
-
-@app.post("/api/tasks", response_model=list[schemas.TaskElemResponse])
-def get_task_list(query: schemas.TaskQuery, db: Session = Depends(get_db)):
-    return crud.get_task_list(db, query.post_code, schemas.Filters(category=query.filter_category,
-                                                                   min_rating=query.filter_min_rating,
-                                                                   max_distance=query.filter_max_distance),
-                              query.sort, query.skip, query.limit)
-
-
-# @app.post("/api/taskers/create-listing", response_model=schemas.Listing)
-# def create_listing(listing: schemas.ListingCreate, db: Session = Depends(get_db)):
-#     print("here")
-#     return crud.create_listing(db, listing)  # TODO
-
-
-# @app.get("/api/listings", response_model=list[schemas.Listing])
-# def get_listings(filter_category: schemas.Category | None = None,
-#                  filter_min_rating: int | None = None,
-#                  filter_max_distance: int | None = None,
-#                  sort: schemas.Sort | None = None,
-#                  skip: int = 0,
-#                  limit: int = 20,
-#                  db: Session = Depends(get_db)):
-#     raise HTTPException(status_code=404, detail="Listings not found")
-# return crud.get_listings(db, schemas.Filters(category=filter_category,
-#                                              min_rating=filter_min_rating,
-#                                              max_distance=filter_max_distance),
-#                          sort, skip, limit)
 
 
 @app.post("/api/tasks/reply", response_model=schemas.ReplyResponse)
