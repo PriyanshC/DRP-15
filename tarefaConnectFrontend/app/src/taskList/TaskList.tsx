@@ -7,7 +7,6 @@ import { FilterPanel } from './FilterPanel.jsx'
 import { SearchPanel } from './SearchPanel.jsx'
 import Modal from '../components/modal/Modal.jsx'
 import { api } from '../App.tsx'
-import sampleTaskData from './sampleTaskData.json';
 import Loading from '../components/loading/Loading.tsx'
 import Error from '../components/error/Error.tsx';
 
