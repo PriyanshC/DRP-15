@@ -124,6 +124,7 @@ function AvailableTasks(props: TaskProps) {
   useEffect(() => {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
+        props.loaded();
         console.log(resp.data);
         const tasks = resp.data.filter((item) => {
           return (
@@ -133,13 +134,13 @@ function AvailableTasks(props: TaskProps) {
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item) => {
-          const randStar = Math.round(Math.random() * 5);
+          const str: string = '';
           return (
             <TaskMiniProfile
               taskTitle={item.title} location={item.location} price={item.expected_price}
               description={item.description} recurring={item.frequency}
               distance={item.distance} timePosted={item.post_date_time}
-              rating={randStar} postedBy={item.name} setShowModal={props.setShowModal}
+              rating={(item.title.length % 5) + 1} postedBy={item.name} setShowModal={props.setShowModal}
               setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={item.id} />
           );
         });
