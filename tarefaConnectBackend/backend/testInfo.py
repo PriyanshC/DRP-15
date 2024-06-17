@@ -1,74 +1,85 @@
 from pydantic import EmailStr
 
-TEST_USER = {
+TEST_USERS = [{
     "email": EmailStr("test@mail.com"),
     "password": "test",
-    "forename": "Paulo",
-    "surname": "Rui",
+    "forename": "Paul",
+    "surname": "Smith",
     "post_code": "SW1 1AA"
-}
+  }, {
+    "email": EmailStr("test2@mail.com"),
+    "password": "password",
+    "forename": "Bob",
+    "surname": "Tucker",
+    "post_code": "SW18 5EZ"
+  }, {
+    "email": EmailStr("test3@mail.com"),
+    "password": "password",
+    "forename": "Charles",
+    "surname": "Brown",
+    "post_code": "BH8 9AW"
+  }
+]
 
 TEST_USER_TASKS = [{
-    "title": "Fix leaky faucet",
-    "expected_price": 2,
-    "frequency": 8,
-    "description": "I need help to stop water wastage and save on my bills by repairing my leaky faucet. The job involves identifying the leak source, replacing worn-out parts, and ensuring a tight seal. I want the fix to be durable and eliminate those annoying drips!",
-    "category": "other",
-  }, {
-    "title": "Unclog kitchen sink",
-    "expected_price": 24,
-    "frequency": 18,
-    "description": "My kitchen sink is clogged and it's halting my daily chores. I need someone to remove the blockage and restore normal drainage. The task may require tools or chemicals for a thorough clean. I just want my sink to function smoothly again.",
-    "category": "dog walking",
-  }, {
-    "title": "Install new showerhead",
-    "expected_price": 28,
-    "frequency": 7,
-    "description": "I want to upgrade my bathroom experience by installing a new showerhead. This job involves removing the old one and securely fitting the new one. I'm looking for better water flow and maybe some additional features. I can't wait to enjoy a refreshing shower every day!",
-    "category": "electric",
-  }, {
-    "title": "Repair running toilet",
-    "expected_price": 21,
-    "frequency": 6,
-    "description": "My toilet keeps running and it's wasting a lot of water. I need someone to fix or replace the faulty parts, like the flapper or valve. It's important to me to reduce my water bill and ensure efficient usage. I just want my toilet to work properly.",
-    "category": "other",
-  }, {
-    "title": "Replace bathroom tiles",
+    "title": "Oven cleaning",
     "expected_price": 30,
-    "frequency": 5,
-    "description": "I'd like to replace the tiles in my bathroom to give it a fresh new look. The job includes removing old tiles, preparing the surface, and installing new ones. I have a design in mind that I really like. I want my bathroom to look clean and updated.",
-    "category": "gardening",
+    "frequency": 14,
+    "description": "I can't reach the back of the oven when cleaning, its quite a large one!",
+    "category": "domestic cleaning",
   }, {
-    "title": "Clear blocked drain",
-    "expected_price": 21,
-    "frequency": 4,
-    "description": "My drain is blocked and it's causing bad odors and water backup. I need someone to clear the blockage using specialized tools and techniques. I want the water to flow smoothly again and prevent future clogs. Keeping my home hygienic is really important to me.",
-    "category": "other",
-  }, {
-    "title": "Install kitchen sink",
-    "expected_price": 5,
-    "frequency": 8,
-    "description": "I want to install a new kitchen sink to upgrade my kitchen. This task involves removing the old sink, fitting the new one, and connecting the plumbing. I have a specific sink that I think will be perfect. I can't wait to have a functional and stylish kitchen centerpiece.",
+    "title": "3 big dogs need daily walking",
+    "expected_price": 20,
+    "frequency": 1,
+    "description": "My dogs are a little too energetic and I'm afraid I'll get hurt when I walk them.",
     "category": "dog walking",
   }, {
-    "title": "Repair water heater",
-    "expected_price": 6,
-    "frequency": 15,
-    "description": "My water heater needs repair to ensure I always have hot water. I need someone to diagnose the issue, replace any faulty parts, and restore efficient operation. I really want to avoid cold showers and high energy bills. Having consistent hot water is crucial.",
+    "title": "Family dinner twice a month",
+    "expected_price": 80,
+    "frequency": 14,
+    "description": "My family of 11 (4 children) comes to eat at my house every two weeks but I feel like I am getting too old to cook for so many people! However, I love to have dinner with the, so if anyone can cook for us, you have my eternal thanks!",
+    "category": "other",
+  }, {
+    "title": "Big grocery shop every month",
+    "expected_price": 30,
+    "frequency": 30,
+    "description": "Every month, I need to get heavy things from the store, but I cannot carry them. Please help.",
+    "category": "grocery shopping",
+  }, {
+    "title": "Mowing lawn",
+    "expected_price": 25,
+    "frequency": 14,
+    "description": "My grass is getting really big, I need someone to mow my lawn every two weeks or I think I'll trip on the grass!",
     "category": "gardening",
   }, {
-    "title": "Replace old pipes",
-    "expected_price": 20,
+    "title": "Whole apartment clean",
+    "expected_price": 35,
     "frequency": 7,
-    "description": "I need to replace some old pipes that are causing leaks and water quality issues. The job involves removing the outdated pipes and installing new ones. I want to ensure reliable water flow and prevent any damage. Modern plumbing is important for my home.",
+    "description": "My health doesn't allow me to do house cleaning anymore, It isn't a big apartment. 1 bedroom, 1 living room and 1 bathroom.",
     "category": "domestic cleaning",
-  }, {
-    "title": "Install new dishwasher",
-    "expected_price": 3,
-    "frequency": 14,
-    "description": "I want to install a new dishwasher to make my kitchen chores easier. This service includes setting up the appliance, connecting water and drainage lines, and making sure it operates properly. I want to save time and energy. Spotless dishes with minimal effort sound great to me!",
-    "category": "domestic cleaning",
-  }]
+  }
+]
+
+
+TEST_TASKER_REVIEWS = [
+    {
+        "comment": "My lawn has never looked better! I recommend.",
+        "task_id": 5,
+        "tasker_id": 1,
+        "overall_rating": 5,
+        "punctuality": 5,
+        "time_taken": 3,
+        "value_for_money": 4
+    }, {
+        "comment": "Very sweet guy, the dogs love him!",
+        "task_id": 2,
+        "tasker_id": 1,
+        "overall_rating": 5,
+        "punctuality": 4,
+        "time_taken": 5,
+        "value_for_money": 4
+    }
+]
 
 
 TEST_TASKER = {
