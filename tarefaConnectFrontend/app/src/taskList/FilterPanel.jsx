@@ -8,27 +8,23 @@ export function FilterPanel({ setRating, distance, setDistance, handleCategory }
             <div className='FilterSection'>
                 <label className='FilterHeader'> Category: </label>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="0" type='checkbox' onChange={() => { handleCategory("plumbing") }} />
-                    <label> Plumbing </label>
-                </div>
-                <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="1" type='checkbox' onChange={() => { handleCategory("electrical") }} />
-                    <label> Electrical </label>
-                </div>
-                <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="2" type='checkbox' onChange={() => { handleCategory("gardening") }} />
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="0" type='checkbox' onChange={() => { handleCategory("gardening") }} />
                     <label> Gardening </label>
                 </div>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="3" type='checkbox' onChange={() => { handleCategory("domestic") }} />
-                    <label> Domestic Cleaning </label>
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="1" type='checkbox' onChange={() => { handleCategory("domestic cleaning") }} />
+                    <label> Domestic cleaning </label>
                 </div>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="4" type='checkbox' onChange={() => { handleCategory("dog") }} />
-                    <label> Dog Walking </label>
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="2" type='checkbox' onChange={() => { handleCategory("dog walking") }} />
+                    <label> Dog walking </label>
                 </div>
                 <div className="FilterBox">
-                    <input name="FilterCheckbox" className='FilterCheckbox' id="5" type='checkbox' onChange={() => { handleCategory("other") }} />
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="3" type='checkbox' onChange={() => { handleCategory("grocery shopping") }} />
+                    <label> Grocery shopping </label>
+                </div>
+                <div className="FilterBox">
+                    <input name="FilterCheckbox" className='FilterCheckbox' id="4" type='checkbox' onChange={() => { handleCategory("other") }} />
                     <label> Other </label>
                 </div>
             </div>
