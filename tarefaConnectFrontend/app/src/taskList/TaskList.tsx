@@ -105,7 +105,7 @@ interface TaskProps {
 function TaskPanel(props: Props) {
   const [loading, setLoading] = useState(true);
   const taskProps: TaskProps = { ...props, loaded: () => { setLoading(false) } };
-  return loading ? (<Loading />) : (
+  return loading ? (<div style={{ height: '300px', width: '300px' }}><Loading /></div>) : (
     <div className="TaskPanel">
       <div className="TaskPanelTitle">
         <h1> Find people in need of help </h1>
