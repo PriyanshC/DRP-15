@@ -4,11 +4,10 @@ from enum import Enum
 
 
 class Category(str, Enum):
-    plumbing = 'plumbing'
-    electric = 'electric'
     gardening = 'gardening'
     domestic_cleaning = 'domestic cleaning'
     dog_walking = 'dog walking'
+    grocery_shopping = 'grocery shopping'
     other = 'other'
 
 

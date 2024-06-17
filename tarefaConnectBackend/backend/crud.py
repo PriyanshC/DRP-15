@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 
 from sqlalchemy.orm import Session
@@ -17,11 +18,22 @@ def create_user(db: Session, new_user: schemas.UserCreate) -> schemas.User:
     return db_user
 
 
-def create_test_info(db: Session) -> tuple[schemas.User, schemas.Tasker]:
-    test_user_db = create_user(db, new_user=schemas.UserCreate(**testInfo.TEST_USER))
+def create_test_info(db: Session) -> tuple[list[schemas.User], schemas.Tasker]:
+    users_db = []
+    for test_user in testInfo.TEST_USERS:
+        test_user_db = create_user(db, new_user=schemas.UserCreate(**test_user))
+        test_user_db.rating = random.randint(3, 5)
 
+        db.commit()
+        db.refresh(test_user_db)
+
+        users_db.append(test_user_db)
+
+    user_id = 1
     for task in testInfo.TEST_USER_TASKS:
-        create_task(db, schemas.TaskCreate(**task), test_user_db.id)
+        create_task(db, schemas.TaskCreate(**task), user_id)
+        create_task(db, schemas.TaskCreate(**task), user_id)
+        user_id += 1
 
     keys = [key for key in schemas.UserCreate.__fields__.keys()]
 
@@ -42,7 +54,11 @@ def create_test_info(db: Session) -> tuple[schemas.User, schemas.Tasker]:
 
     test_tasker_db = create_tasker(db, tasker_dict)
 
-    return test_user_db, test_tasker_db
+    for test_review in testInfo.TEST_TASKER_REVIEWS:
+        tasker_id = test_review.pop("tasker_id")
+        add_review(db, schemas.ReviewCreate(**test_review), tasker_id)
+
+    return users_db, test_tasker_db
 
 
 def create_task(db: Session, new_task: schemas.TaskCreate, owner_id: int) -> schemas.Task:
@@ -245,7 +261,7 @@ def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.
 
 
 def has_test_user(db: Session) -> bool:
-    return get_user_by_email(db, testInfo.TEST_USER.get("email")) is not None
+    return get_user_by_email(db, testInfo.TEST_USERS[0].get("email")) is not None
 
 
 def has_reviewed(db: Session, task_id: int) -> bool:
