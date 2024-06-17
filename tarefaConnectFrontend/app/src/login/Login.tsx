@@ -56,20 +56,21 @@ export default function Login(props: Props) {
         .then(response => {
           if (response.status === 200) {
             var userData = {};
-            try {
+            console.log(response.data);
+            if (response.data.user) {
               userData = response.data.user;
               props.setTasker(response.data.id);
               console.log("Tasker Login");
               console.log(response.data.user);
-            } catch (e) {
+            } else {
               userData = response.data;
+              console.log(response.data);
               console.log("User Login");
-            } finally {
-              console.log(userData);
-              props.setUserData(userData)
-              console.log('LOGIN SUCCESS!');
-              navigate('/home')
             }
+            console.log(userData);
+            props.setUserData(userData)
+            console.log('LOGIN SUCCESS!');
+            navigate('/home')
           } else {
             setLoginErr(error.validation);
             console.log('LOGIN FAILURE!');
