@@ -120,6 +120,7 @@ function TaskPanel(props: Props) {
 function AvailableTasks(props: TaskProps) {
   const [taskData, setTaskData] = useState([(<div key={-1} style={{ height: '10vmin', width: '10vmin' }}><Loading /></div>)]);
   useEffect(() => {
+    var today = new Date();
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
         console.log(resp.data);
@@ -152,11 +153,14 @@ function AvailableTasks(props: TaskProps) {
             (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item, index) => {
+          var date_to_reply = new Date(item.timePosted.toString());
+          var timeInMillis = date_to_reply.getTime() - today.getTime();
+          var timeInDays = Math.ceil(timeInMillis / (1000 * 60 * 60 * 24));
           return (
             <TaskMiniProfile
               taskTitle={item.taskTitle} location={item.location} price={item.price}
               description={item.description} recurring={item.recurring}
-              distance={item.distance} timePosted={item.timePosted}
+              distance={item.distance} timePosted={timeInDays}
               rating={item.rating} postedBy={item.postedBy} setShowModal={props.setShowModal}
               setTaskUsername={props.setTaskUsername} setScrollHeight={props.setScrollHeight} setTaskIdCB={props.setTaskIdCB} taskId={index} />
           );
