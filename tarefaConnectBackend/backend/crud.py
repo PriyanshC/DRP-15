@@ -234,11 +234,13 @@ def get_task_replies(db: Session, task_id: int, skip: int, limit: int) -> list[s
     return list(map(lambda reply: reply_to_response(reply), query))
 
 
-def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | None:
+def check_user_details(db: Session, user_details: schemas.UserLogin) -> schemas.User | schemas.Tasker | None:
     db_user = get_user_by_email(db, user_details.email)
     if db_user is None or db_user.hashed_password != hash_password(user_details.password):
         return None
-    return db_user
+
+    query = db.query(models.Tasker).filter(models.Tasker.user_id == db_user.id).first()
+    return query if query is not None else db_user
 
 
 def has_test_user(db: Session) -> bool:

@@ -84,7 +84,7 @@ def create_tasker(tasker: schemas.TaskerCreate, db: Session = Depends(get_db)):
     return crud.create_tasker(db, tasker_dict)
 
 
-@app.post("/api/login", response_model=schemas.User)
+@app.post("/api/login", response_model=schemas.User | schemas.Tasker)
 def login_user(user_details: schemas.UserLogin, db: Session = Depends(get_db)):
     if not crud.has_test_user(db):
         crud.create_test_info(db)
