@@ -125,7 +125,7 @@ function AvailableTasks(props: TaskProps) {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
         console.log(resp.data);
-        console.log("filtering with: " + props);
+        console.log(props);
         const tasks = resp.data.filter((item) => {
           return (
             (props.search === '' || item.title.toLowerCase().includes(props.search.toLowerCase())) &&
