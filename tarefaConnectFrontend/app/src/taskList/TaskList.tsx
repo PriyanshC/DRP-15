@@ -125,12 +125,13 @@ function AvailableTasks(props: TaskProps) {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
         console.log(resp.data);
+        console.log("filtering with: " + props);
         const tasks = resp.data.filter((item) => {
           return (
-            (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
-            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
-            (props.distanceFilter === -1 ? item.distance >= 0 : item.distance <= props.distanceFilter) &&
-            (props.categories.length === 1 ? item : props.categories.includes(item.category))
+            (props.search === '' || item.title.toLowerCase().includes(props.search.toLowerCase())) &&
+            (props.ratingFilter === -1 || item.rating >= props.ratingFilter) &&
+            (props.distanceFilter === -1 || item.distance <= props.distanceFilter) &&
+            (props.categories.length === 1 || props.categories.includes(item.category))
           );
         }).map((item) => {
           return (
