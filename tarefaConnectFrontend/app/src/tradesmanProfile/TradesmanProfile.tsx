@@ -38,7 +38,7 @@ interface Tasker {
   reviews: Review[]
 }
 
-export default function TradesmanProfile() {
+export default function TradesmanProfile({ isTasker }) {
 
   const location = useLocation();
   const { taskerId, pageFrom } = location.state;
@@ -91,12 +91,8 @@ export default function TradesmanProfile() {
             Go Back
           </button>
         </Link>
-        <div className='ReportProfile'>
-          <i className='bi-flag-fill ReportFlag'></i>
-          <p className='ReportMessage'>Report</p>
-        </div>
       </div>
-      <Profile {...taskerData} />
+      <Profile profile={taskerData} isTasker={isTasker} />
     </div>
   )
 }
@@ -116,7 +112,7 @@ function StarDisplay({ stars }) {
   return <div className='StarDisplay'> {starArr} </div>
 }
 
-function Profile(profile: Tasker) {
+function Profile({profile, isTasker}) {
 
   const maxReview = 190;
   const [mapZoom, setMapZoom] = useState(10);
@@ -192,8 +188,17 @@ function Profile(profile: Tasker) {
           </div>
           <Ratings {...profile.rating} />
         </div>
+        <div>
+          <RateButton isTasker={isTasker} />
+        </div>
       </div>
     </div >
+  )
+}
+
+function RateButton({isTasker}) {
+  return (
+    isTasker ? <button> Rate </button> : null
   )
 }
 
