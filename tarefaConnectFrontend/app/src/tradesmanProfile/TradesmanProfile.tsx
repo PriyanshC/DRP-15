@@ -173,6 +173,11 @@ function Profile({profile, setShowModal}) {
             {profile.user.email !== '' && 'Email : ' + profile.user.email}
             {profile.user.email !== '' && < br />}
           </div>
+          <div>
+            <button className='RateTaskerButton' onClick={() =>
+              setShowModal(true)
+            }> Rate </button>
+          </div>
           <hr></hr>
           <div className='ProfileReviews'>
             <div className='ProfileReviewsHeader'>Reviews</div>
@@ -215,11 +220,6 @@ function Profile({profile, setShowModal}) {
             </APIProvider>
           </div>
           <Ratings {...profile.rating} />
-        </div>
-        <div>
-          <button onClick={() =>
-            setShowModal(true)
-          }> Rate </button>
         </div>
       </div>
     </div >
