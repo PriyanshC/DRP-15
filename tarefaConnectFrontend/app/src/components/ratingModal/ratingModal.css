@@ -8,8 +8,8 @@
   }
   
   .modalContainer {
-    width: 700px;
-    height: 700px;
+    width: 40vw;
+    height: 60vh;
     border-radius: 12px;
     background-color:var(--background-secondary);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -44,6 +44,7 @@
     padding: 10px 10px 10px;
     margin-bottom: 30px;
     resize: none;
+    color: inherit;
   }
   
   .modalContainer .footer {
