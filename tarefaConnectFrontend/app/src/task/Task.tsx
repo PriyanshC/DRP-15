@@ -3,7 +3,7 @@ import "./Task.css";
 
 import CreateTask from "./create/CreateTask.tsx";
 import TaskDisplay from "./display/TaskDisplay.tsx"
-import React, { FormEvent, ReactNode, useEffect, useState } from "react";
+import React, { FormEvent, ReactNode, useState } from "react";
 import { api } from "../App.tsx";
 import { useInterval } from "usehooks-ts";
 import { POLLING_INTERVAL_MILLIS } from "../index.jsx";
