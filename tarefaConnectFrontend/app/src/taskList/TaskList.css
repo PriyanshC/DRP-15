@@ -42,6 +42,8 @@
     gap: 20px;
     margin-bottom: 20px;
     padding-inline: 50px;
+    vertical-align: middle;
+    justify-content: center;
  }
 
  .TaskMiniProfile {

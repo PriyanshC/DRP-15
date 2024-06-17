@@ -98,15 +98,13 @@ interface TaskProps {
   categories: string[],
   setScrollHeight: React.Dispatch<React.SetStateAction<number>>
   post_code: string,
-  setTaskIdCB: (arg0: number) => void,
-  loaded
+  setTaskIdCB: (arg0: number) => void
 }
 
 function TaskPanel(props: Props) {
-  const [loading, setLoading] = useState(true);
-  const taskProps: TaskProps = { ...props, loaded: setLoading };
-  console.log('loading', loading)
-  return loading ? (<div style={{ height: '300px', width: '300px' }}><Loading /></div>) : (
+  const taskProps: TaskProps = { ...props };
+
+  return (
     <div className="TaskPanel">
       <div className="TaskPanelTitle">
         <h1> Find people in need of help </h1>
@@ -120,12 +118,10 @@ function TaskPanel(props: Props) {
 }
 
 function AvailableTasks(props: TaskProps) {
-  const [taskData, setTaskData] = useState([<div key={-1}></div>]);
-
+  const [taskData, setTaskData] = useState([(<div key={-1} style={{ height: '10vmin', width: '10vmin' }}><Loading /></div>)]);
   useEffect(() => {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
-        props.loaded(false);
         console.log(resp.data);
         const tasks = resp.data.filter((item) => {
           return (
