@@ -254,7 +254,8 @@ def hash_password(password: str) -> str:
 
 
 def reply_to_response(reply: schemas.Reply) -> schemas.ReplyResponse:
-    return schemas.ReplyResponse(tasker_id=reply.tasker_id,
+    return schemas.ReplyResponse(task_id=reply.task_id,
+                                 tasker_id=reply.tasker_id,
                                  tasker_forename=reply.tasker.user.forename,
                                  tasker_surname=reply.tasker.user.surname,
                                  message=reply.message,
