@@ -2,7 +2,7 @@ import React from "react";
 import "./Modal.css";
 import { useState } from "react";
 
-function RatingModal({ setShowModal, taskerName, handleRate }) {
+export function RatingModal({ setShowModal, taskerName, handleRate }) {
   const [taskHelpDescription, updateDescription] = useState('')
 
   const [descriptionisValid, setDescriptionValid] = useState(true)
@@ -113,5 +113,3 @@ function RatingModal({ setShowModal, taskerName, handleRate }) {
     </div>
   );
 }
-
-export default RatingModal;
