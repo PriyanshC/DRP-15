@@ -36,7 +36,7 @@ export function FilterPanel({ setRating, distance, setDistance, handleCategory }
                 <label className='FilterHeader'> Maximum Distance: </label>
                 <div className="DistanceSlider">
                     <input className='DistanceFilter' id='DistanceFilter' type='range'
-                        min="0" max="1000" steps="1" defaultValue="5" onChange={(e) => setDistance(e.target.value)} />
+                        min="0" max="50" steps="1" defaultValue="5" onChange={(e) => setDistance(e.target.value)} />
                     <label> {distance === -1 ? 20 : distance} km </label>
                 </div>
             </div>

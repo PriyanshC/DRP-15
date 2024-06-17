@@ -75,9 +75,7 @@ function TaskList({ post_code, user_id }) {
     setTaskId(taskId);
   }
 
-  const [loading, setLoading] = useState(true);
-
-  return loading ? (<Loading />) : (
+  return (
     <div className="PageContainer">
       <FilterPanel setRating={setRating} distance={distanceFilter} setDistance={setDistance}
         handleCategory={handleCategory} />
@@ -90,21 +88,37 @@ function TaskList({ post_code, user_id }) {
   )
 }
 
+interface TaskProps {
+  handleSearch: (word: string) => void,
+  search: string,
+  distanceFilter: number,
+  ratingFilter: number,
+  setShowModal: Dispatch<SetStateAction<boolean>>,
+  setTaskUsername: React.Dispatch<React.SetStateAction<string>>,
+  categories: string[],
+  setScrollHeight: React.Dispatch<React.SetStateAction<number>>
+  post_code: string,
+  setTaskIdCB: (arg0: number) => void,
+  loaded: () => void
+}
+
 function TaskPanel(props: Props) {
-  return (
+  const [loading, setLoading] = useState(true);
+  const taskProps: TaskProps = { ...props, loaded: () => { setLoading(false) } };
+  return loading ? (<Loading />) : (
     <div className="TaskPanel">
       <div className="TaskPanelTitle">
         <h1> Find people in need of help </h1>
       </div>
       <div className='TaskContentPanel'>
         <SearchPanel handleSearch={props.handleSearch} toSearchFor={"a job"} />
-        <AvailableTasks {...props} />
+        <AvailableTasks {...taskProps} />
       </div>
     </div>
   )
 }
 
-function AvailableTasks(props: Props) {
+function AvailableTasks(props: TaskProps) {
   const [taskData, setTaskData] = useState([<div key={-1}></div>]);
 
   useEffect(() => {
@@ -112,11 +126,11 @@ function AvailableTasks(props: Props) {
       .then(resp => {
         console.log(resp.data);
         const tasks = resp.data.filter((item) => {
-          return (true
-            // (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
-            // (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
-            // (props.distanceFilter === -1 ? item.distance <= 7 : item.distance <= props.distanceFilter) &&
-            // (props.categories.length === 1 ? item : props.categories.includes(item.category))
+          return (
+            (props.search.toLowerCase() === '' ? item : item.title.toLowerCase().includes(props.search)) &&
+            (props.ratingFilter === -1 ? item : item.rating >= props.ratingFilter) &&
+            (props.distanceFilter === -1 ? item.distance >= 0 : item.distance <= props.distanceFilter) &&
+            (props.categories.length === 1 ? item : props.categories.includes(item.category))
           );
         }).map((item) => {
           const randStar = Math.round(Math.random() * 5);
