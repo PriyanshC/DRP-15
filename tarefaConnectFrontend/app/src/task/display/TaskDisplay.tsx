@@ -6,11 +6,20 @@ import './TaskDisplay.css';
 import GmapsApi from '../../components/location/GmapsApi.tsx';
 import { Link } from 'react-router-dom';
 
+interface Rating {
+  number_ratings: 0,
+  overall_rating: 0,
+  punctuality: 0,
+  time_taken: 0,
+  value_for_money: 0
+}
+
 interface TaskReply {
   tasker_id: number,
-  tasker_name: string,
-  rating: number,
-  content: string
+  tasker_forename: string,
+  tasker_surname: string,
+  rating: Rating,
+  message: string
 }
 
 interface TaskData {
@@ -54,22 +63,9 @@ function TaskRepliesPanel({ task_id }) {
 
 function RepliesSection({ task_id }) {
 
-  const startingData: TaskReply[] = [
-    {
-      tasker_id: 0,
-      tasker_name: 'Thomas JR',
-      rating: 3,
-      content: 'Hey, I am a local student studying economic management and I would love to help out mowing your lawn. I am available as required: once a week, and I am a very hard worker! Thanks, Thomas'
-    },
-    {
-      tasker_id: 1,
-      tasker_name: 'Thomas JR',
-      rating: 4,
-      content: 'Hey, I am a local student studying economic management and I would love to help out mowing your lawn. I am available as required: once a week, and I am a very hard worker! Thanks, Thomas'
-    },
-  ]
 
-  const [repliesData, setRepliesData] = useState(startingData);
+  const emptyReplies: TaskReply[] = []
+  const [repliesData, setRepliesData] = useState(emptyReplies);
 
 
   const getReplies = (taskId: number) => {
@@ -90,18 +86,19 @@ function RepliesSection({ task_id }) {
   const maxContentChars = 65;
 
   const replies = repliesData.map((item, index) => {
+    const aveRating = Math.round((item.rating.overall_rating + item.rating.punctuality + item.rating.time_taken + item.rating.value_for_money) / 4);
     return (
       <div className="ReplyElement" key={item.tasker_id} >
         <div className="ReplyNameContainer">
           <div className="ReplyName">
-            {item.tasker_name}
+            {item.tasker_forename + " " + item.tasker_surname}
           </div>
           <div className="StarContainer">
-            <StarDisplay number={item.rating} />
+            <StarDisplay number={aveRating} />
           </div>
         </div>
         <div className='Divider'></div>
-        <div className='ReplyContent'>{item.content.length > maxContentChars ? item.content.substring(0, maxContentChars - 3) + '...' : item.content}</div>
+        <div className='ReplyContent'>{item.message.length > maxContentChars ? item.message.substring(0, maxContentChars - 3) + '...' : item.message}</div>
         <div className='Divider'></div>
         <Link to={'/tradesmanProfile'} state={{ taskerId: item.tasker_id, pageFrom: '/task' }} style={{
           color: 'inherit'
