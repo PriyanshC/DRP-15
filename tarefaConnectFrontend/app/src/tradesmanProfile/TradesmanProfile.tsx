@@ -198,7 +198,7 @@ function Profile({profile, isTasker}) {
 
 function RateButton({isTasker}) {
   return (
-    isTasker ? <button> Rate </button> : null
+    isTasker ? null : <button> Rate </button>
   )
 }
 
