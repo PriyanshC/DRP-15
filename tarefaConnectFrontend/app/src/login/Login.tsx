@@ -65,6 +65,7 @@ export default function Login(props: Props) {
             } else {
               userData = response.data;
               console.log(response.data);
+              props.setTasker(-1);
               console.log("User Login");
             }
             console.log(userData);

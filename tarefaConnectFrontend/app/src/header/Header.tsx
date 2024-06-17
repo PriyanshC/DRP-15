@@ -14,7 +14,8 @@ interface HeaderItem {
 
 interface Props {
   changeTheme: () => void,
-  currentTheme: string
+  currentTheme: string,
+  resetUser: () => void
 }
 
 export default function Header(props: Props) {
@@ -45,7 +46,7 @@ export default function Header(props: Props) {
       iconClass: 'ProfileIcon',
       redirectTo: "/login",
       link: false,
-      onClick: () => { }
+      onClick: () => { props.resetUser() }
     }
   ];
 

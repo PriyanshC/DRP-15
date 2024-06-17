@@ -67,15 +67,20 @@ function App() {
   }
 
   const setTaskerLogin: (arg1: number) => void = (id) => {
-    setTaskerId({ tasker: true, id: id });
+    setTaskerId({ tasker: id > 0, id: id });
     return;
+  }
+
+  const resetUser = () => {
+    setTaskerId({ tasker: false, id: -1 });
+    setUserData(emptyData);
   }
 
   return (
     <main className="App" data-theme={theme} style={{ fontFamily: 'var(--font-family)' }}>
       <Router>
         <CheckHeader>
-          <Header changeTheme={changeTheme} currentTheme={theme} />
+          <Header changeTheme={changeTheme} currentTheme={theme} resetUser={resetUser} />
         </CheckHeader>
         <Routes>
           <Route path='/'>
