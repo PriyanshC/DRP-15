@@ -5,8 +5,6 @@ import CreateTask from "./create/CreateTask.tsx";
 import TaskDisplay from "./display/TaskDisplay.tsx"
 import React, { FormEvent, ReactNode, useState } from "react";
 import { api } from "../App.tsx";
-import { useInterval } from "usehooks-ts";
-import { POLLING_INTERVAL_MILLIS } from "../index.jsx";
 // import { useLocation } from "react-router-dom";
 
 export interface ITask {
@@ -32,7 +30,7 @@ export default function Task(props: Props) {
   const taskEmptyData: ITask[] = [];
   const [taskData, setTaskData] = useState(taskEmptyData);
 
-  useInterval(() => {
+  useEffect(() => {
     api.get(props.userId + '/tasks')
       .then(resp => {
         setTaskData(resp.data);
@@ -40,7 +38,7 @@ export default function Task(props: Props) {
       .catch(err => {
         console.log(err);
       })
-  }, POLLING_INTERVAL_MILLIS)
+  }, [props.userId])
 
   const [index, setIndex] = useState(startingId);
   const [categories, setCategories] = useState(Array.from(new Set(taskData.map((item) => item.user_heading).filter((item) => { return item }))));
