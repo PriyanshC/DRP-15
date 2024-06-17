@@ -43,6 +43,7 @@
     font-size: large;
     padding: 10px 10px 10px;
     resize: none;
+    color: inherit;
   }
   
   .modalContainer .footer {
