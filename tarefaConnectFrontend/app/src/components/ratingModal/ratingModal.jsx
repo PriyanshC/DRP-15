@@ -20,7 +20,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
           <h1> Rate Worker </h1>
         </div>
         <div className="body">
-          <label style={{ flex: '1' }}> Let <b> {taskerName} </b> how they did: </label>
+          <label style={{ flex: '1', marginBottom: '10px'}}> Let <b> {taskerName} </b> how they did: </label>
           <textarea type="text" className="ReviewDescription"
             onChange={(e) => updateDescription(e.target.value)}
             style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'var(--accent-color)' : 'crimson' }}
