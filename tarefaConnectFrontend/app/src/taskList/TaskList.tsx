@@ -99,12 +99,13 @@ interface TaskProps {
   setScrollHeight: React.Dispatch<React.SetStateAction<number>>
   post_code: string,
   setTaskIdCB: (arg0: number) => void,
-  loaded: () => void
+  loaded
 }
 
 function TaskPanel(props: Props) {
   const [loading, setLoading] = useState(true);
-  const taskProps: TaskProps = { ...props, loaded: () => { setLoading(false) } };
+  const taskProps: TaskProps = { ...props, loaded: setLoading };
+  console.log('loading', loading)
   return loading ? (<div style={{ height: '300px', width: '300px' }}><Loading /></div>) : (
     <div className="TaskPanel">
       <div className="TaskPanelTitle">
@@ -124,7 +125,7 @@ function AvailableTasks(props: TaskProps) {
   useEffect(() => {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
-        props.loaded();
+        props.loaded(false);
         console.log(resp.data);
         const tasks = resp.data.filter((item) => {
           return (
