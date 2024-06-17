@@ -9,6 +9,8 @@ import Modal from '../components/modal/Modal.jsx'
 import { api } from '../App.tsx'
 import Loading from '../components/loading/Loading.tsx'
 import Error from '../components/error/Error.tsx';
+import { useInterval } from 'usehooks-ts'
+import { POLLING_INTERVAL_MILLIS } from '../index.jsx'
 
 interface Props {
   handleSearch: (word: string) => void,
@@ -119,7 +121,7 @@ function TaskPanel(props: Props) {
 
 function AvailableTasks(props: TaskProps) {
   const [taskData, setTaskData] = useState([(<div key={-1} style={{ height: '10vmin', width: '10vmin' }}><Loading /></div>)]);
-  useEffect(() => {
+  useInterval(() => {
     api.post('tasks', { post_code: props.post_code, limit: 1000 })
       .then(resp => {
         console.log(resp.data);
@@ -149,7 +151,7 @@ function AvailableTasks(props: TaskProps) {
               A network error has occurred!
             </div>)]);
       })
-  }, [props])
+  }, POLLING_INTERVAL_MILLIS)
 
   console.log('taskData: ', taskData);
   return <div className='AvailableTasks'>{taskData}</div>
