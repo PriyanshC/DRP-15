@@ -26,6 +26,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'var(--accent-color)' : 'crimson' }}
             placeholder="E.g. I thought John did an amazing job, I would recommend him because..." />
           <div className="taskerRate" id='cost-rate'>
+            <label className="TaskerRateHeader"> Cost: </label>
             <fieldset className="cost-rating">
               <input id="cost-rate-input-5" name="cost-rate" type="radio" value="5" onChange={() => setCostRating(5)} /><label for="cost-rate-input-5"> 5 </label>
               <input id="cost-rate-input-4" name="cost-rate" type="radio" value="4" onChange={() => setCostRating(4)} /><label for="cost-rate-input-4"> 4 </label>
@@ -33,9 +34,9 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
               <input id="cost-rate-input-2" name="cost-rate" type="radio" value="2" onChange={() => setCostRating(2)} /><label for="cost-rate-input-2"> 2 </label>
               <input id="cost-rate-input-1" name="cost-rate" type="radio" value="1" onChange={() => setCostRating(1)} /><label for="cost-rate-input-1"> 1 </label>
             </fieldset>
-            <label className="TaskerRateHeader"> Cost: </label>
           </div>
           <div className="taskerRate" id='punctuality-rate'>
+            <label className="TaskerRateHeader"> Punctuality: </label>
             <fieldset className="punctuality-rating">
               <input id="punctuality-rate-input-5" name="punctuality-rate" type="radio" value="5" onChange={() => setPunctualityRating(5)} /><label for="punctuality-rate-input-5"> 5 </label>
               <input id="punctuality-rate-input-4" name="punctuality-rate" type="radio" value="4" onChange={() => setPunctualityRating(4)} /><label for="punctuality-rate-input-4"> 4 </label>
@@ -43,9 +44,9 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
               <input id="punctuality-rate-input-2" name="punctuality-rate" type="radio" value="2" onChange={() => setPunctualityRating(2)} /><label for="punctuality-rate-input-2"> 2 </label>
               <input id="punctuality-rate-input-1" name="punctuality-rate" type="radio" value="1" onChange={() => setPunctualityRating(1)} /><label for="punctuality-rate-input-1"> 1 </label>
             </fieldset>
-            <label className="TaskerRateHeader"> Punctuality: </label>
           </div>
           <div className="taskerRate" id='time-rate'>
+            <label className="TaskerRateHeader"> Time: </label>
             <fieldset className="time-rating">
               <input id="time-rate-input-5" name="time-rate" type="radio" value="5" onChange={() => setTimeRating(5)} /><label for="time-rate-input-5"> 5 </label>
               <input id="time-rate-input-4" name="time-rate" type="radio" value="4" onChange={() => setTimeRating(4)} /><label for="time-rate-input-4"> 4 </label>
@@ -53,9 +54,9 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
               <input id="time-rate-input-2" name="time-rate" type="radio" value="2" onChange={() => setTimeRating(2)} /><label for="time-rate-input-2"> 2 </label>
               <input id="time-rate-input-1" name="time-rate" type="radio" value="1" onChange={() => setTimeRating(1)} /><label for="time-rate-input-1"> 1 </label>
             </fieldset>
-            <label className="TaskerRateHeader"> Time: </label>
           </div>
           <div className="taskerRate" id='overall-rate'>
+            <label className="TaskerRateHeader"> Overall: </label>
             <fieldset className="overall-rating">
               <input id="overall-rate-input-5" name="overall-rate" type="radio" value="5" onChange={() => setOverallRating(5)} /><label for="overall-rate-input-5"> 5 </label>
               <input id="overall-rate-input-4" name="overall-rate" type="radio" value="4" onChange={() => setOverallRating(4)} /><label for="overall-rate-input-4"> 4 </label>
@@ -63,7 +64,6 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
               <input id="overall-rate-input-2" name="overall-rate" type="radio" value="2" onChange={() => setOverallRating(2)} /><label for="overall-rate-input-2"> 2 </label>
               <input id="overall-rate-input-1" name="overall-rate" type="radio" value="1" onChange={() => setOverallRating(1)} /><label for="overall-rate-input-1"> 1 </label>
             </fieldset>
-            <label className="TaskerRateHeader"> Overall: </label>
           </div>
         </div>
         <div className="footer">
