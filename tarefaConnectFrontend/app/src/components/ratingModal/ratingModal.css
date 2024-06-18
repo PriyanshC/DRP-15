@@ -17,8 +17,6 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding: 25px;
   }
   
@@ -84,13 +82,14 @@
     font-weight: 600;
     color: var(--font-color-primary);
     text-align: left;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
   }
 
   .taskerRate {
       height: 46px;
       width:fit-content;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
+      justify-content: space-between;
   }
 
   .cost-rating {
