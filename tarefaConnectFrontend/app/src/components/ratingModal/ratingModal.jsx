@@ -67,7 +67,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
           </div>
         </div>
         <div className="footer">
-          <button
+          <button className="CancelButton"
             style={{borderWidth: '3px', borderColor: ratingsAreValid ? 'none' : 'crimson'}}
             onClick={() => {
               setShowModal(false);
@@ -77,7 +77,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
           >
             Cancel
           </button>
-          <button
+          <button className="SubmitButton"
             onClick={() => {
 
               if (costRating === -1 || punctualityRating === -1 || punctualityRating === -1 || overallRating === -1) {

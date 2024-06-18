@@ -52,27 +52,30 @@
   .modalContainer .footer {
     flex: 20%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
   }
   
-  .modalContainer .footer button {
+  .SubmitButton .CancelButton {
     width: 150px;
     height: 45px;
     margin: 10px;
     border: none;
-    background-color: var(--button-color);
     color: inherit;
     border-radius: 8px;
     font-size: 20px;
     cursor: pointer;
   }
 
-  .footer button:hover {
+  .SubmitButton {
+    background-color: var(--button-color);
+  }
+
+  .SubmitButton:hover {
     background-color: var(--button-press);
   }
   
-  #cancelBtn {
+  .CancelButton {
     background-color: crimson;
   }
 
