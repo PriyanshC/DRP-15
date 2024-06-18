@@ -83,13 +83,13 @@ TEST_TASKER_REVIEWS = [
 
 
 TEST_TASKER = {
-    "forename": 'Jason',
-    "surname": ' Mimosa',
-    "email": "jason@mail.com",
+    "forename": 'Richard',
+    "surname": ' Costa',
+    "email": "richard@mail.com",
     "password": "password",
     "post_code": 'W5 4TN',
-    "headline": "Hello! I'm Sam Johnson, a dedicated and passionate gardening amateur based in the beautiful city of "
-                "Minneapolis. With over 15 years of experience in the gardening and landscaping my own garden, I have "
+    "headline": "Hello! I'm Richard Costa, a dedicated and passionate gardening amateur based in the beautiful city of "
+                "London. With over 15 years of experience in the gardening and landscaping my own garden, I have "
                 "honed my skills to transform my outdoor space into a lush, vibrant garden.Let's work together to "
                 "create the garden of your dreams! Whether you need a complete garden makeover or just a little help "
                 "with maintenance, I'm here to help. Give me a call or send me an email, and let's get started on your "
