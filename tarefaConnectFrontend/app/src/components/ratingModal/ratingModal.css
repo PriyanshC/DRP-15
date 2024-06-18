@@ -91,7 +91,22 @@
       margin-bottom: 15px;
   }
 
-  .cost-rating .punctuality-rating .time-rating .overall-rating {
+  .cost-rating {
+    border: none;
+    float: left;
+  }
+
+  .punctuality-rating {
+    border: none;
+    float: left;
+  }
+
+  .time-rating {
+    border: none;
+    float: left;
+  }
+
+  .overall-rating {
     border: none;
     float: left;
   }

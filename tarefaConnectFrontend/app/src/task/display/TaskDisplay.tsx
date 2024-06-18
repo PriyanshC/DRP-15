@@ -100,7 +100,7 @@ function RepliesSection({ task_id }) {
         <div className='Divider'></div>
         <div className='ReplyContent'>{item.message.length > maxContentChars ? item.message.substring(0, maxContentChars - 3) + '...' : item.message}</div>
         <div className='Divider'></div>
-        <Link to={'/tradesmanProfile'} state={{ taskerId: item.tasker_id, pageFrom: '/task' }} style={{
+        <Link to={'/tradesmanProfile'} state={{ taskerId: item.tasker_id, pageFrom: '/task', task_id: task_id }} style={{
           color: 'inherit'
         }}>
           < button className='MessageButton' >
