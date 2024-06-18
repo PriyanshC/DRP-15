@@ -25,60 +25,59 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             onChange={(e) => updateDescription(e.target.value)}
             style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'var(--accent-color)' : 'crimson' }}
             placeholder="E.g. I thought John did an amazing job, I would recommend him because..." />
+          <label className="TaskerRateHeader"> Cost Rating: </label>
+          <div className="taskerRate" id='cost-rate'>
+              <input type="radio" id="cost-star5" name="cost-rate" value="5" onChange={() => setCostRating(5)} />
+              <label title="5 stars"></label>
+              <input type="radio" id="cost-star4" name="cost-rate" value="4" onChange={() => setCostRating(4)} />
+              <label title="4 stars"></label>
+              <input type="radio" id="cost-star3" name="cost-rate" value="3" onChange={() => setCostRating(3)} />
+              <label title="3 stars"></label>
+              <input type="radio" id="cost-star2" name="cost-rate" value="2" onChange={() => setCostRating(2)} />
+              <label title="2 stars"></label>
+              <input type="radio" id="cost-star1" name="cost-rate" value="1" onChange={() => setCostRating(1)} />
+              <label title="1 star"></label>
+          </div>
+          <label className="TaskerRateHeader"> Punctuality Rating: </label>
+          <div className="taskerRate" id='punctuality-rate'>
+              <input type="radio" id="punctuality-star5" name="punctuality-rate'" value="5" onChange={() => setPunctualityRating(5)} />
+              <label title="5 stars"></label>
+              <input type="radio" id="punctuality-star4" name="punctuality-rate'" value="4" onChange={() => setPunctualityRating(4)} />
+              <label title="4 stars"></label>
+              <input type="radio" id="punctuality-star3" name="punctuality-rate'" value="3" onChange={() => setPunctualityRating(3)} />
+              <label title="3 stars"></label>
+              <input type="radio" id="punctuality-star2" name="punctuality-rate'" value="2" onChange={() => setPunctualityRating(2)} />
+              <label title="2 stars"></label>
+              <input type="radio" id="punctuality-star1" name="punctuality-rate'" value="1" onChange={() => setPunctualityRating(1)} />
+              <label title="1 star"></label>
+          </div>
+          <label className="TaskerRateHeader"> Time Rating: </label>
+          <div className="taskerRate" id='time-rate'>
+              <input type="radio" id="time-star5" name="time-rate" value="5" onChange={() => setTimeRating(5)} />
+              <label title="5 stars"></label>
+              <input type="radio" id="time-star4" name="time-rate" value="4" onChange={() => setTimeRating(4)} />
+              <label title="4 stars"></label>
+              <input type="radio" id="time-star3" name="time-rate" value="3" onChange={() => setTimeRating(3)} />
+              <label title="3 stars"></label>
+              <input type="radio" id="time-star2" name="time-rate" value="2" onChange={() => setTimeRating(2)} />
+              <label title="2 stars"></label>
+              <input type="radio" id="time-star1" name="time-rate" value="1" onChange={() => setTimeRating(1)} />
+              <label title="1 star"></label>
+          </div>
+          <label className="TaskerRateHeader"> Overall Rating: </label>
+          <div className="taskerRate" id='overall-rate'>
+              <input type="radio" id="overall-star5" name="overall-rate'" value="5" onChange={() => setOverallRating(5)} />
+              <label title="5 stars"></label>
+              <input type="radio" id="overall-star4" name="overall-rate'" value="4" onChange={() => setOverallRating(4)} />
+              <label title="4 stars"></label>
+              <input type="radio" id="overall-star3" name="overall-rate'" value="3" onChange={() => setOverallRating(3)} />
+              <label title="3 stars"></label>
+              <input type="radio" id="overall-star2" name="overall-rate'" value="2" onChange={() => setOverallRating(2)} />
+              <label title="2 stars"></label>
+              <input type="radio" id="overall-star1" name="overall-rate'" value="1" onChange={() => setOverallRating(1)} />
+              <label title="1 star"></label>
+          </div>
         </div>
-        <label className="TaskerRateHeader"> Cost Rating: </label>
-                <div className="taskerRate" id='cost-rate'>
-                    <input type="radio" id="cost-star5" name="cost-rate" value="5" onChange={() => setCostRating(5)} />
-                    <label htmlFor="star5" title="5 stars"></label>
-                    <input type="radio" id="cost-star4" name="cost-rate" value="4" onChange={() => setCostRating(4)} />
-                    <label htmlFor="star4" title="4 stars"></label>
-                    <input type="radio" id="cost-star3" name="cost-rate" value="3" onChange={() => setCostRating(3)} />
-                    <label htmlFor="star3" title="3 stars"></label>
-                    <input type="radio" id="cost-star2" name="cost-rate" value="2" onChange={() => setCostRating(2)} />
-                    <label htmlFor="star2" title="2 stars"></label>
-                    <input type="radio" id="cost-star1" name="cost-rate" value="1" onChange={() => setCostRating(1)} />
-                    <label htmlFor="star1" title="1 star"></label>
-                </div>
-        <label className="TaskerRateHeader"> Punctuality Rating: </label>
-                <div className="taskerRate" id='punctuality-rate'>
-                    <input type="radio" id="punctuality-star5" name="punctuality-rate'" value="5" onChange={() => setPunctualityRating(5)} />
-                    <label htmlFor="star5" title="5 stars"></label>
-                    <input type="radio" id="punctuality-star4" name="punctuality-rate'" value="4" onChange={() => setPunctualityRating(4)} />
-                    <label htmlFor="star4" title="4 stars"></label>
-                    <input type="radio" id="punctuality-star3" name="punctuality-rate'" value="3" onChange={() => setPunctualityRating(3)} />
-                    <label htmlFor="star3" title="3 stars"></label>
-                    <input type="radio" id="punctuality-star2" name="punctuality-rate'" value="2" onChange={() => setPunctualityRating(2)} />
-                    <label htmlFor="star2" title="2 stars"></label>
-                    <input type="radio" id="punctuality-star1" name="punctuality-rate'" value="1" onChange={() => setPunctualityRating(1)} />
-                    <label htmlFor="star1" title="1 star"></label>
-                </div>
-        <label className="TaskerRateHeader"> Time Rating: </label>
-                <div className="taskerRate" id='time-rate'>
-                    <input type="radio" id="time-star5" name="time-rate" value="5" onChange={() => setTimeRating(5)} />
-                    <label htmlFor="star5" title="5 stars"></label>
-                    <input type="radio" id="time-star4" name="time-rate" value="4" onChange={() => setTimeRating(4)} />
-                    <label htmlFor="star4" title="4 stars"></label>
-                    <input type="radio" id="time-star3" name="time-rate" value="3" onChange={() => setTimeRating(3)} />
-                    <label htmlFor="star3" title="3 stars"></label>
-                    <input type="radio" id="time-star2" name="time-rate" value="2" onChange={() => setTimeRating(2)} />
-                    <label htmlFor="star2" title="2 stars"></label>
-                    <input type="radio" id="time-star1" name="time-rate" value="1" onChange={() => setTimeRating(1)} />
-                    <label htmlFor="star1" title="1 star"></label>
-                </div>
-        <label className="TaskerRateHeader"> Overall Rating: </label>
-                <div className="taskerRate" id='overall-rate'>
-                    <input type="radio" id="overall-star5" name="overall-rate'" value="5" onChange={() => setOverallRating(5)} />
-                    <label htmlFor="star5" title="5 stars"></label>
-                    <input type="radio" id="overall-star4" name="overall-rate'" value="4" onChange={() => setOverallRating(4)} />
-                    <label htmlFor="star4" title="4 stars"></label>
-                    <input type="radio" id="overall-star3" name="overall-rate'" value="3" onChange={() => setOverallRating(3)} />
-                    <label htmlFor="star3" title="3 stars"></label>
-                    <input type="radio" id="overall-star2" name="overall-rate'" value="2" onChange={() => setOverallRating(2)} />
-                    <label htmlFor="star2" title="2 stars"></label>
-                    <input type="radio" id="overall-star1" name="overall-rate'" value="1" onChange={() => setOverallRating(1)} />
-                    <label htmlFor="star1" title="1 star"></label>
-                </div>
-        
         <div className="footer">
           <button
             style={{borderWidth: '3px', borderColor: ratingsAreValid ? 'none' : 'crimson'}}
