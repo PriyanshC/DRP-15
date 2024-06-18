@@ -5,6 +5,7 @@ import { useInterval } from 'usehooks-ts'
 import { api } from '../App.tsx';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { RatingModal } from '../components/ratingModal/ratingModal.jsx'
+import { POLLING_INTERVAL_MILLIS } from '../index.jsx';
 
 interface Rating {
   punctuality: number,
@@ -111,7 +112,7 @@ export default function TradesmanProfile() {
       .catch(err => {
         console.log(err);
       })
-  }, 1000);
+  }, POLLING_INTERVAL_MILLIS);
 
   return (
     <div className="TradesmanContainer">
