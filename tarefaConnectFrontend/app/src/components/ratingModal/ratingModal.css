@@ -1,0 +1,248 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(40, 39, 39, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ratingModalContainer {
+    width: 500px;
+    height: 700px;
+    border-radius: 12px;
+    background-color:var(--background-secondary);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
+  
+  .modalContainer .title {
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+  }
+  
+  .modalContainer .body {
+    flex: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .ReviewDescription {
+    font-family: inherit;
+    flex: 3;
+    max-width: 100%;
+    min-width: 100%;
+    height: fit-content;
+    font-size: large;
+    padding: 15px 25px 15px;
+    margin-bottom: 30px;
+    resize: none;
+    color: inherit;
+  }
+  
+  .modalContainer .footer {
+    flex: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .SubmitButton .CancelButton {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    color: inherit;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .SubmitButton {
+    background-color: var(--button-color);
+  }
+
+  .SubmitButton:hover {
+    background-color: var(--button-press);
+  }
+  
+  .CancelButton {
+    background-color: crimson;
+  }
+
+  .TaskerRateHeader {
+    font-size: medium;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--font-color-primary);
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .taskerRate {
+      height: 46px;
+      width:fit-content;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .cost-rating {
+    border: none;
+    float: left;
+  }
+
+  .punctuality-rating {
+    border: none;
+    float: left;
+  }
+
+  .time-rating {
+    border: none;
+    float: left;
+  }
+
+  .overall-rating {
+    border: none;
+    float: left;
+  }
+
+  .cost-rating > input{
+    display: none;
+  }
+  
+  .cost-rating > label:before{
+    content: '\f005';
+    font-family: FontAwesome;
+    margin: 5px;
+    font-size: 1.5rem;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .cost-rating > label{
+    color:   var(--accent-color);
+    float: right;
+    cursor: pointer;
+  }
+
+.cost-rating > input:checked ~ label,
+.cost-rating:not(:checked) > label:hover, 
+.cost-rating:not(:checked) > label:hover ~ label{
+	color: #deb217;
+}
+
+.cost-rating > input:checked + label:hover,
+.cost-rating > input:checked ~ label:hover,
+.cost-rating > label:hover ~ input:checked ~ label,
+.cost-rating > input:checked ~ label:hover ~ label{
+	color: #FBD930;
+}
+
+
+.punctuality-rating > input{
+  display: none;
+}
+
+.punctuality-rating > label:before{
+  content: '\f005';
+  font-family: FontAwesome;
+  margin: 5px;
+  font-size: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.punctuality-rating > label{
+  color:   var(--accent-color);
+  float: right;
+  cursor: pointer;
+}
+
+.punctuality-rating > input:checked ~ label,
+.punctuality-rating:not(:checked) > label:hover, 
+.punctuality-rating:not(:checked) > label:hover ~ label{
+color: #deb217;
+}
+
+.punctuality-rating > input:checked + label:hover,
+.punctuality-rating > input:checked ~ label:hover,
+.punctuality-rating > label:hover ~ input:checked ~ label,
+.punctuality-rating > input:checked ~ label:hover ~ label{
+color: #FBD930;
+}
+
+
+.time-rating > input{
+  display: none;
+}
+
+.time-rating > label:before{
+  content: '\f005';
+  font-family: FontAwesome;
+  margin: 5px;
+  font-size: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.time-rating > label{
+  color:   var(--accent-color);
+  float: right;
+  cursor: pointer;
+}
+
+.time-rating > input:checked ~ label,
+.time-rating:not(:checked) > label:hover, 
+.time-rating:not(:checked) > label:hover ~ label{
+color: #deb217;
+}
+
+.time-rating > input:checked + label:hover,
+.time-rating > input:checked ~ label:hover,
+.time-rating > label:hover ~ input:checked ~ label,
+.time-rating > input:checked ~ label:hover ~ label{
+color: #FBD930;
+}
+
+
+.overall-rating > input{
+  display: none;
+}
+
+.overall-rating > label:before{
+  content: '\f005';
+  font-family: FontAwesome;
+  margin: 5px;
+  font-size: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.overall-rating > label{
+  color:   var(--accent-color);
+  float: right;
+  cursor: pointer;
+}
+
+.overall-rating > input:checked ~ label,
+.overall-rating:not(:checked) > label:hover, 
+.overall-rating:not(:checked) > label:hover ~ label{
+color: #deb217;
+}
+
+.overall-rating > input:checked + label:hover,
+.overall-rating > input:checked ~ label:hover,
+.overall-rating > label:hover ~ input:checked ~ label,
+.overall-rating > input:checked ~ label:hover ~ label{
+color: #FBD930;
+}

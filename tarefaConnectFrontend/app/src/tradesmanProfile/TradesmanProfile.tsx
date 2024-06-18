@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import './TradesmanProfile.css'
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
+import { useInterval } from 'usehooks-ts'
 import { api } from '../App.tsx';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { RatingModal } from '../components/ratingModal/ratingModal.jsx'
 
 interface Rating {
   punctuality: number,
@@ -41,7 +43,7 @@ interface Tasker {
 export default function TradesmanProfile() {
 
   const location = useLocation();
-  const { taskerId, pageFrom } = location.state;
+  const { taskerId, pageFrom, task_id } = location.state;
 
   // enum state {
   //   loading = 0,
@@ -71,8 +73,37 @@ export default function TradesmanProfile() {
 
   // const [currentState, setState] = useState(state.loading);
   const [taskerData, setTaskerData] = useState(emptyTasker);
+  const [showModal, setShowModal] = useState(false)
 
-  useEffect(() => {
+  const handleRate = (msg: string, cost: number, punctuality: number, time: number, overall: number) => {
+    console.log("message: " + msg)
+    console.log("cost rating: " + cost.toString())
+    console.log("punctuality rating: " + punctuality.toString())
+    console.log("time rating: " + time.toString())
+    console.log("overall rating: " + overall.toString())
+
+
+    const data = {
+      comment: msg,
+      task_id: task_id,
+      overall_rating: overall,
+      punctuality: punctuality,
+      time_taken: time,
+      value_for_money: cost
+    }
+
+    console.log(data);
+
+    api.post("taskers/" + taskerId + "/review", data)
+    .then(resp => {
+      console.log("sent message: " + resp.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })      
+  }
+
+  useInterval(() => {
     api.get('taskers/' + taskerId)
       .then(resp => {
         setTaskerData(resp.data);
@@ -80,7 +111,7 @@ export default function TradesmanProfile() {
       .catch(err => {
         console.log(err);
       })
-  }, [taskerId]);
+  }, 1000);
 
   return (
     <div className="TradesmanContainer">
@@ -91,12 +122,9 @@ export default function TradesmanProfile() {
             Go Back
           </button>
         </Link>
-        <div className='ReportProfile'>
-          <i className='bi-flag-fill ReportFlag'></i>
-          <p className='ReportMessage'>Report</p>
-        </div>
       </div>
-      <Profile {...taskerData} />
+      <Profile profile={taskerData} setShowModal={setShowModal} />
+      {showModal && <RatingModal setShowModal={setShowModal} taskerName={taskerData.user.forename} handleRate={handleRate} />}
     </div>
   )
 }
@@ -116,7 +144,7 @@ function StarDisplay({ stars }) {
   return <div className='StarDisplay'> {starArr} </div>
 }
 
-function Profile(profile: Tasker) {
+function Profile({profile, setShowModal}) {
 
   const maxReview = 190;
   const [mapZoom, setMapZoom] = useState(10);
@@ -145,13 +173,15 @@ function Profile(profile: Tasker) {
           <div className='ProfileLocation'>
             {profile.user.email !== '' && 'Email : ' + profile.user.email}
             {profile.user.email !== '' && < br />}
-            {/* {profile.contact.phone !== '' && 'Phone : ' + profile.contact.phone}
-            {profile.contact.phone !== '' && < br />}
-            {profile.contact.website !== '' && 'Website : ' + profile.contact.website} */}
+          </div>
+          <div>
+            <button className='RateTaskerButton' onClick={() =>
+              setShowModal(true)
+            }> Rate </button>
           </div>
           <hr></hr>
           <div className='ProfileReviews'>
-            <div className='ProfileReviewsHeader'>Top Reviews</div>
+            <div className='ProfileReviewsHeader'>Reviews</div>
             {profile.reviews.map((item, index) => (
               <div className='ProfileReviewElement' key={index}>
                 <div className='ProfileReviewLeft'>

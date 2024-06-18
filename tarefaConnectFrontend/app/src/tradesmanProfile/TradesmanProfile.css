@@ -117,6 +117,25 @@
     margin-bottom: 5px;
 }
 
+.RateTaskerButton {
+    background-color: var(--button-color);
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    padding: 15px 20px 15px;
+    text-decoration: inherit;
+    color: inherit;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    transition: all 0.3s;
+    margin-bottom: 15px;
+}
+
+.RateTaskerButton:hover {
+    background-color: var(--button-press);
+ }
+
 .ProfileLocation {
     padding-left: 10px;
     font-size: 17px;

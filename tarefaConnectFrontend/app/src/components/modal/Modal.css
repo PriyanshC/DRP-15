@@ -41,8 +41,9 @@
     max-width: 100%;
     min-width: 100%;
     font-size: large;
-    padding: 10px 10px 10px;
+    padding: 15px 20px 15px;
     resize: none;
+    color: inherit;
   }
   
   .modalContainer .footer {
@@ -58,7 +59,7 @@
     margin: 10px;
     border: none;
     background-color: var(--button-color);
-    color: white;
+    color: inherit;
     border-radius: 8px;
     font-size: 20px;
     cursor: pointer;
