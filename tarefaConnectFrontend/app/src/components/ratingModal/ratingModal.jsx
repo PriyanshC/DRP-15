@@ -14,7 +14,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
   const [overallRating, setOverallRating] = useState(-1)
 
   return (
-    <div className="modalBackground" style={{ position: 'absolute' }}>
+    // <div className="modalBackground" style={{ position: 'absolute' }}>
       <div className="modalContainer">
         <div className="title">
           <h1> Rate Worker </h1>
@@ -97,6 +97,6 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             }> Submit </button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
