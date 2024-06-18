@@ -88,7 +88,7 @@
       height: 46px;
       width:fit-content;
       margin-bottom: 10px;
-      display: inline;
+      display: flex;
       justify-content: space-between;
   }
 
