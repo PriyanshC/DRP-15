@@ -91,16 +91,16 @@
       margin-bottom: 15px;
   }
 
-  .rating{
+  .cost-rating .punctuality-rating .time-rating .overall-rating {
     border: none;
     float: left;
   }
 
-  .rating > input{
+  .cost-rating > input{
     display: none;
   }
   
-  .rating > label:before{
+  .cost-rating > label:before{
     content: '\f005';
     font-family: FontAwesome;
     margin: 5px;
@@ -109,21 +109,120 @@
     cursor: pointer;
   }
 
-  .rating > label{
+  .cost-rating > label{
     color:   var(--accent-color);
     float: right;
     cursor: pointer;
   }
 
-.rating > input:checked ~ label,
-.rating:not(:checked) > label:hover, 
-.rating:not(:checked) > label:hover ~ label{
+.cost-rating > input:checked ~ label,
+.cost-rating:not(:checked) > label:hover, 
+.cost-rating:not(:checked) > label:hover ~ label{
 	color: #deb217;
 }
 
-.rating > input:checked + label:hover,
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label,
-.rating > input:checked ~ label:hover ~ label{
+.cost-rating > input:checked + label:hover,
+.cost-rating > input:checked ~ label:hover,
+.cost-rating > label:hover ~ input:checked ~ label,
+.cost-rating > input:checked ~ label:hover ~ label{
 	color: #FBD930;
+}
+
+
+.punctuality-rating > input{
+  display: none;
+}
+
+.punctuality-rating > label:before{
+  content: '\f005';
+  font-family: FontAwesome;
+  margin: 5px;
+  font-size: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.punctuality-rating > label{
+  color:   var(--accent-color);
+  float: right;
+  cursor: pointer;
+}
+
+.punctuality-rating > input:checked ~ label,
+.punctuality-rating:not(:checked) > label:hover, 
+.punctuality-rating:not(:checked) > label:hover ~ label{
+color: #deb217;
+}
+
+.punctuality-rating > input:checked + label:hover,
+.punctuality-rating > input:checked ~ label:hover,
+.punctuality-rating > label:hover ~ input:checked ~ label,
+.punctuality-rating > input:checked ~ label:hover ~ label{
+color: #FBD930;
+}
+
+
+.time-rating > input{
+  display: none;
+}
+
+.time-rating > label:before{
+  content: '\f005';
+  font-family: FontAwesome;
+  margin: 5px;
+  font-size: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.time-rating > label{
+  color:   var(--accent-color);
+  float: right;
+  cursor: pointer;
+}
+
+.time-rating > input:checked ~ label,
+.time-rating:not(:checked) > label:hover, 
+.time-rating:not(:checked) > label:hover ~ label{
+color: #deb217;
+}
+
+.time-rating > input:checked + label:hover,
+.time-rating > input:checked ~ label:hover,
+.time-rating > label:hover ~ input:checked ~ label,
+.time-rating > input:checked ~ label:hover ~ label{
+color: #FBD930;
+}
+
+
+.overall-rating > input{
+  display: none;
+}
+
+.overall-rating > label:before{
+  content: '\f005';
+  font-family: FontAwesome;
+  margin: 5px;
+  font-size: 1.5rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.overall-rating > label{
+  color:   var(--accent-color);
+  float: right;
+  cursor: pointer;
+}
+
+.overall-rating > input:checked ~ label,
+.overall-rating:not(:checked) > label:hover, 
+.overall-rating:not(:checked) > label:hover ~ label{
+color: #deb217;
+}
+
+.overall-rating > input:checked + label:hover,
+.overall-rating > input:checked ~ label:hover,
+.overall-rating > label:hover ~ input:checked ~ label,
+.overall-rating > input:checked ~ label:hover ~ label{
+color: #FBD930;
 }

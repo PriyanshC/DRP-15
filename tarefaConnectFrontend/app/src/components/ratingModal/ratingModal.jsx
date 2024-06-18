@@ -27,42 +27,43 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             placeholder="E.g. I thought John did an amazing job, I would recommend him because..." />
           <label className="TaskerRateHeader"> Cost: </label>
           <div className="taskerRate" id='cost-rate'>
-            <fieldset className="rating">
-              <input id="rate-input-1" name="cost-rate" type="radio" value="1" onChange={() => setCostRating(1)} /><label for="rate-input-1"> 1 </label>
-              <input id="rate-input-2" name="cost-rate" type="radio" value="2" onChange={() => setCostRating(2)} /><label for="rate-input-2"> 2 </label>
-              <input id="rate-input-3" name="cost-rate" type="radio" value="3" onChange={() => setCostRating(3)} /><label for="rate-input-3"> 3 </label>
-              <input id="rate-input-4" name="cost-rate" type="radio" value="4" onChange={() => setCostRating(4)} /><label for="rate-input-4"> 4 </label>
+            <fieldset className="cost-rating">
               <input id="rate-input-5" name="cost-rate" type="radio" value="5" onChange={() => setCostRating(5)} /><label for="rate-input-5"> 5 </label>
+              <input id="rate-input-4" name="cost-rate" type="radio" value="4" onChange={() => setCostRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-3" name="cost-rate" type="radio" value="3" onChange={() => setCostRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-2" name="cost-rate" type="radio" value="2" onChange={() => setCostRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-1" name="cost-rate" type="radio" value="1" onChange={() => setCostRating(1)} /><label for="rate-input-1"> 1 </label>
             </fieldset>
           </div>
           <label className="TaskerRateHeader"> Punctuality: </label>
           <div className="taskerRate" id='punctuality-rate'>
-            <fieldset className="rating">
-              <input id="rate-input-1" name="punctuality-rate" type="radio" value="1" onChange={() => setPunctualityRating(1)} /><label for="rate-input-1"> 1 </label>
-              <input id="rate-input-2" name="punctuality-rate" type="radio" value="2" onChange={() => setPunctualityRating(2)} /><label for="rate-input-2"> 2 </label>
-              <input id="rate-input-3" name="punctuality-rate" type="radio" value="3" onChange={() => setPunctualityRating(3)} /><label for="rate-input-3"> 3 </label>
-              <input id="rate-input-4" name="punctuality-rate" type="radio" value="4" onChange={() => setPunctualityRating(4)} /><label for="rate-input-4"> 4 </label>
+            <fieldset className="punctuality-rating">
               <input id="rate-input-5" name="punctuality-rate" type="radio" value="5" onChange={() => setPunctualityRating(5)} /><label for="rate-input-5"> 5 </label>
+              <input id="rate-input-4" name="punctuality-rate" type="radio" value="4" onChange={() => setPunctualityRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-3" name="punctuality-rate" type="radio" value="3" onChange={() => setPunctualityRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-2" name="punctuality-rate" type="radio" value="2" onChange={() => setPunctualityRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-1" name="punctuality-rate" type="radio" value="1" onChange={() => setPunctualityRating(1)} /><label for="rate-input-1"> 1 </label>
             </fieldset>
           </div>
           <label className="TaskerRateHeader"> Time: </label>
           <div className="taskerRate" id='time-rate'>
-            <fieldset className="rating">
-              <input id="rate-input-1" name="time-rate" type="radio" value="1" onChange={() => setTimeRating(1)} /><label for="rate-input-1"> 1 </label>
-              <input id="rate-input-2" name="time-rate" type="radio" value="2" onChange={() => setTimeRating(2)} /><label for="rate-input-2"> 2 </label>
-              <input id="rate-input-3" name="time-rate" type="radio" value="3" onChange={() => setTimeRating(3)} /><label for="rate-input-3"> 3 </label>
-              <input id="rate-input-4" name="time-rate" type="radio" value="4" onChange={() => setTimeRating(4)} /><label for="rate-input-4"> 4 </label>
+            <fieldset className="time-rating">
               <input id="rate-input-5" name="time-rate" type="radio" value="5" onChange={() => setTimeRating(5)} /><label for="rate-input-5"> 5 </label>
+              <input id="rate-input-4" name="time-rate" type="radio" value="4" onChange={() => setTimeRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-3" name="time-rate" type="radio" value="3" onChange={() => setTimeRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-2" name="time-rate" type="radio" value="2" onChange={() => setTimeRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-1" name="time-rate" type="radio" value="1" onChange={() => setTimeRating(1)} /><label for="rate-input-1"> 1 </label>
             </fieldset>
           </div>
           <label className="TaskerRateHeader"> Overall: </label>
           <div className="taskerRate" id='overall-rate'>
-            <fieldset className="rating">
-              <input id="rate-input-1" name="overall-rate" type="radio" value="1" onChange={() => setOverallRating(1)} /><label for="rate-input-1"> 1 </label>
-              <input id="rate-input-2" name="overall-rate" type="radio" value="2" onChange={() => setOverallRating(2)} /><label for="rate-input-2"> 2 </label>
-              <input id="rate-input-3" name="overall-rate" type="radio" value="3" onChange={() => setOverallRating(3)} /><label for="rate-input-3"> 3 </label>
-              <input id="rate-input-4" name="overall-rate" type="radio" value="4" onChange={() => setOverallRating(4)} /><label for="rate-input-4"> 4 </label>
+            <fieldset className="overall-rating">
               <input id="rate-input-5" name="overall-rate" type="radio" value="5" onChange={() => setOverallRating(5)} /><label for="rate-input-5"> 5 </label>
+              <input id="rate-input-4" name="overall-rate" type="radio" value="4" onChange={() => setOverallRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-3" name="overall-rate" type="radio" value="3" onChange={() => setOverallRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-2" name="overall-rate" type="radio" value="2" onChange={() => setOverallRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-1" name="overall-rate" type="radio" value="1" onChange={() => setOverallRating(1)} /><label for="rate-input-1"> 1 </label>
+
             </fieldset>
           </div>
         </div>
