@@ -27,35 +27,35 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             placeholder="E.g. I thought John did an amazing job, I would recommend him because..." />
           <label className="TaskerRateHeader"> Cost: </label>
           <div className="taskerRate" id='cost-rate'>
-              <input type="radio" onChange={() => setCostRating(5)} />
-              <input type="radio" onChange={() => setCostRating(4)} />
-              <input type="radio" onChange={() => setCostRating(3)} />
-              <input type="radio" onChange={() => setCostRating(2)} />
-              <input type="radio" onChange={() => setCostRating(1)} />
+              <input className="rate-input" type="radio" onChange={() => setCostRating(5)} />
+              <input className="rate-input" type="radio" onChange={() => setCostRating(4)} />
+              <input className="rate-input" type="radio" onChange={() => setCostRating(3)} />
+              <input className="rate-input" type="radio" onChange={() => setCostRating(2)} />
+              <input className="rate-input" type="radio" onChange={() => setCostRating(1)} />
           </div>
           <label className="TaskerRateHeader"> Punctuality: </label>
           <div className="taskerRate" id='punctuality-rate'>
-              <input type="radio" onChange={() => setPunctualityRating(5)} />
-              <input type="radio" onChange={() => setPunctualityRating(4)} />
-              <input type="radio" onChange={() => setPunctualityRating(3)} />
-              <input type="radio" onChange={() => setPunctualityRating(2)} />
-              <input type="radio" onChange={() => setPunctualityRating(1)} />
+              <input className="rate-input" type="radio" onChange={() => setPunctualityRating(5)} />
+              <input className="rate-input" type="radio" onChange={() => setPunctualityRating(4)} />
+              <input className="rate-input" type="radio" onChange={() => setPunctualityRating(3)} />
+              <input className="rate-input" type="radio" onChange={() => setPunctualityRating(2)} />
+              <input className="rate-input" type="radio" onChange={() => setPunctualityRating(1)} />
           </div>
           <label className="TaskerRateHeader"> Time: </label>
           <div className="taskerRate" id='time-rate'>
-              <input type="radio" onChange={() => setTimeRating(5)} />
-              <input type="radio" onChange={() => setTimeRating(4)} />
-              <input type="radio" onChange={() => setTimeRating(3)} />
-              <input type="radio" onChange={() => setTimeRating(2)} />
-              <input type="radio" onChange={() => setTimeRating(1)} />
+              <input className="rate-input" type="radio" onChange={() => setTimeRating(5)} />
+              <input className="rate-input" type="radio" onChange={() => setTimeRating(4)} />
+              <input className="rate-input" type="radio" onChange={() => setTimeRating(3)} />
+              <input className="rate-input" type="radio" onChange={() => setTimeRating(2)} />
+              <input className="rate-input" type="radio" onChange={() => setTimeRating(1)} />
           </div>
           <label className="TaskerRateHeader"> Overall: </label>
           <div className="taskerRate" id='overall-rate'>
-              <input type="radio" onChange={() => setOverallRating(5)} />
-              <input type="radio" onChange={() => setOverallRating(4)} />
-              <input type="radio" onChange={() => setOverallRating(3)} />
-              <input type="radio" onChange={() => setOverallRating(2)} />
-              <input type="radio" onChange={() => setOverallRating(1)} />
+              <input className="rate-input" type="radio" onChange={() => setOverallRating(5)} />
+              <input className="rate-input" type="radio" onChange={() => setOverallRating(4)} />
+              <input className="rate-input" type="radio" onChange={() => setOverallRating(3)} />
+              <input className="rate-input" type="radio" onChange={() => setOverallRating(2)} />
+              <input className="rate-input" type="radio" onChange={() => setOverallRating(1)} />
           </div>
         </div>
         <div className="footer">
