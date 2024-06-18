@@ -20,7 +20,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
           <h1> Rate Worker </h1>
         </div>
         <div className="body">
-          <label style={{ flex: '1', marginBottom: '10px'}}> Let <b> {taskerName} </b> how they did: </label>
+          <label style={{ flex: '1', marginBottom: '10px'}}> Let <b> {taskerName} </b> know how they did: </label>
           <textarea type="text" className="ReviewDescription"
             onChange={(e) => updateDescription(e.target.value)}
             style={{ borderWidth: '3px', borderColor: descriptionisValid ? 'var(--accent-color)' : 'crimson' }}
@@ -67,7 +67,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
           </div>
         </div>
         <div className="footer">
-          <button className="CancelButton"
+          <button type="button" className="CancelButton"
             style={{borderWidth: '3px', borderColor: ratingsAreValid ? 'none' : 'crimson'}}
             onClick={() => {
               setShowModal(false);
@@ -77,7 +77,7 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
           >
             Cancel
           </button>
-          <button className="SubmitButton"
+          <button type="submit" className="SubmitButton"
             onClick={() => {
 
               if (costRating === -1 || punctualityRating === -1 || punctualityRating === -1 || overallRating === -1) {

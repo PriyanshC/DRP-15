@@ -52,7 +52,7 @@
   .modalContainer .footer {
     flex: 20%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
   }
   
