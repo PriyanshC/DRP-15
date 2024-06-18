@@ -27,56 +27,43 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             placeholder="E.g. I thought John did an amazing job, I would recommend him because..." />
           <label className="TaskerRateHeader"> Cost: </label>
           <div className="taskerRate" id='cost-rate'>
-              <input className="rate-input" name="cost-rate" type="radio" onChange={() => setCostRating(1)} />
-              <label> 1 </label>
-              <input className="rate-input" name="cost-rate" type="radio" onChange={() => setCostRating(2)} />
-              <label> 2 </label>
-              <input className="rate-input" name="cost-rate" type="radio" onChange={() => setCostRating(3)} />
-              <label> 3 </label>
-              <input className="rate-input" name="cost-rate" type="radio" onChange={() => setCostRating(4)} />
-              <label> 4 </label>
-              <input className="rate-input" name="cost-rate" type="radio" onChange={() => setCostRating(5)} />
-              <label> 5 </label>
+            <fieldset className="rating">
+              <input id="rate-input-1" name="cost-rate" type="radio" value="1" onChange={() => setCostRating(1)} /><label for="rate-input-1"> 1 </label>
+              <input id="rate-input-2" name="cost-rate" type="radio" value="2" onChange={() => setCostRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-3" name="cost-rate" type="radio" value="3" onChange={() => setCostRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-4" name="cost-rate" type="radio" value="4" onChange={() => setCostRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-5" name="cost-rate" type="radio" value="5" onChange={() => setCostRating(5)} /><label for="rate-input-5"> 5 </label>
+            </fieldset>
           </div>
           <label className="TaskerRateHeader"> Punctuality: </label>
           <div className="taskerRate" id='punctuality-rate'>
-              <input className="rate-input" name="punctuality-rate" type="radio" onChange={() => setPunctualityRating(1)} />
-              <label> 1 </label>
-              <input className="rate-input" name="punctuality-rate" type="radio" onChange={() => setPunctualityRating(2)} />
-              <label> 2 </label>
-              <input className="rate-input" name="punctuality-rate" type="radio" onChange={() => setPunctualityRating(3)} />
-              <label> 3 </label>
-              <input className="rate-input" name="punctuality-rate" type="radio" onChange={() => setPunctualityRating(4)} />
-              <label> 4 </label>
-              <input className="rate-input" name="punctuality-rate" type="radio" onChange={() => setPunctualityRating(5)} />
-              <label> 5 </label>
+            <fieldset className="rating">
+              <input id="rate-input-1" name="punctuality-rate" type="radio" value="1" onChange={() => setPunctualityRating(1)} /><label for="rate-input-1"> 1 </label>
+              <input id="rate-input-2" name="punctuality-rate" type="radio" value="2" onChange={() => setPunctualityRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-3" name="punctuality-rate" type="radio" value="3" onChange={() => setPunctualityRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-4" name="punctuality-rate" type="radio" value="4" onChange={() => setPunctualityRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-5" name="punctuality-rate" type="radio" value="5" onChange={() => setPunctualityRating(5)} /><label for="rate-input-5"> 5 </label>
+            </fieldset>
           </div>
           <label className="TaskerRateHeader"> Time: </label>
           <div className="taskerRate" id='time-rate'>
-              <input className="rate-input" name="time-rate" type="radio" onChange={() => setTimeRating(1)} />
-              <label> 1 </label>
-              <input className="rate-input" name="time-rate" type="radio" onChange={() => setTimeRating(2)} />
-              <label> 2 </label>
-              <input className="rate-input" name="time-rate" type="radio" onChange={() => setTimeRating(3)} />
-              <label> 3 </label>
-              <input className="rate-input" name="time-rate" type="radio" onChange={() => setTimeRating(4)} />
-              <label> 4 </label>
-              <input className="rate-input" name="time-rate" type="radio" onChange={() => setTimeRating(5)} />
-              <label> 5 </label>
-
+            <fieldset className="rating">
+              <input id="rate-input-1" name="time-rate" type="radio" value="1" onChange={() => setTimeRating(1)} /><label for="rate-input-1"> 1 </label>
+              <input id="rate-input-2" name="time-rate" type="radio" value="2" onChange={() => setTimeRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-3" name="time-rate" type="radio" value="3" onChange={() => setTimeRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-4" name="time-rate" type="radio" value="4" onChange={() => setTimeRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-5" name="time-rate" type="radio" value="5" onChange={() => setTimeRating(5)} /><label for="rate-input-5"> 5 </label>
+            </fieldset>
           </div>
           <label className="TaskerRateHeader"> Overall: </label>
           <div className="taskerRate" id='overall-rate'>
-              <input className="rate-input" name="overall-rate" type="radio" onChange={() => setOverallRating(1)} />
-              <label> 1 </label>
-              <input className="rate-input" name="overall-rate" type="radio" onChange={() => setOverallRating(2)} />
-              <label> 2 </label>
-              <input className="rate-input" name="overall-rate" type="radio" onChange={() => setOverallRating(3)} />
-              <label> 3 </label>
-              <input className="rate-input" name="overall-rate" type="radio" onChange={() => setOverallRating(4)} />
-              <label> 4 </label>
-              <input className="rate-input" name="overall-rate" type="radio" onChange={() => setOverallRating(5)} />
-              <label> 5 </label>
+            <fieldset className="rating">
+              <input id="rate-input-1" name="overall-rate" type="radio" value="1" onChange={() => setOverallRating(1)} /><label for="rate-input-1"> 1 </label>
+              <input id="rate-input-2" name="overall-rate" type="radio" value="2" onChange={() => setOverallRating(2)} /><label for="rate-input-2"> 2 </label>
+              <input id="rate-input-3" name="overall-rate" type="radio" value="3" onChange={() => setOverallRating(3)} /><label for="rate-input-3"> 3 </label>
+              <input id="rate-input-4" name="overall-rate" type="radio" value="4" onChange={() => setOverallRating(4)} /><label for="rate-input-4"> 4 </label>
+              <input id="rate-input-5" name="overall-rate" type="radio" value="5" onChange={() => setOverallRating(5)} /><label for="rate-input-5"> 5 </label>
+            </fieldset>
           </div>
         </div>
         <div className="footer">
@@ -94,16 +81,15 @@ export function RatingModal({ setShowModal, taskerName, handleRate }) {
             onClick={() => {
 
               if (costRating === -1 || punctualityRating === -1 || punctualityRating === -1 || overallRating === -1) {
+                console.log("ratings not allowed")
                 setRatingsAreValid(false)
-              }
-
-              if (taskHelpDescription.length === 0) {
-                (setDescriptionValid(false))
               } else {
-                if (ratingsAreValid) {
-                  handleRate(taskHelpDescription, costRating, punctualityRating, timeRating, overallRating);
-                  setShowModal(false)
-                  document.body.style.overflow = "scroll"
+                if (taskHelpDescription.length === 0) {
+                  (setDescriptionValid(false))
+                } else {
+                    handleRate(taskHelpDescription, costRating, punctualityRating, timeRating, overallRating);
+                    setShowModal(false)
+                    document.body.style.overflow = "scroll"
                 }
               }
             }

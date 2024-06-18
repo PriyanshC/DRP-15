@@ -1,3 +1,5 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
+
 .modalBackground {
     width: 100vw;
     height: 100vh;
@@ -74,7 +76,7 @@
     background-color: crimson;
   }
 
-  .TaskerHeader {
+  .TaskerRateHeader {
     font-size: medium;
     font-style: italic;
     font-weight: 600;
@@ -89,6 +91,39 @@
       margin-bottom: 15px;
   }
 
-  .rate-input {
-    background-color: #FBD930;
+  .rating{
+    border: none;
+    float: left;
   }
+
+  .rating > input{
+    display: none;
+  }
+  
+  .rating > label:before{
+    content: '\f005';
+    font-family: FontAwesome;
+    margin: 5px;
+    font-size: 1.5rem;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .rating > label{
+    color:   var(--accent-color);
+    float: right;
+    cursor: pointer;
+  }
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover, 
+.rating:not(:checked) > label:hover ~ label{
+	color: #deb217;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label{
+	color: #FBD930;
+}
