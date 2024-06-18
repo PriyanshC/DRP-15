@@ -29,10 +29,9 @@ def create_test_info(db: Session) -> tuple[list[schemas.User], schemas.Tasker]:
 
         users_db.append(test_user_db)
 
-    user_id = 1
+    user_id = 2
     for task in testInfo.TEST_USER_TASKS:
-        create_task(db, schemas.TaskCreate(**task), user_id)
-        create_task(db, schemas.TaskCreate(**task), user_id)
+        create_task(db, schemas.TaskCreate(**task), int(user_id / 2))
         user_id += 1
 
     keys = [key for key in schemas.UserCreate.__fields__.keys()]
@@ -89,7 +88,6 @@ def create_tasker(db: Session, tasker_details: dict[str, str | list[schemas.Expe
     db.refresh(db_tasker)
 
     for each_expertise in expertise:
-        print(each_expertise)
         create_expertise(db, each_expertise, db_tasker.id)
 
     create_rating(db, schemas.RatingCreate(tasker_id=db_tasker.id))
