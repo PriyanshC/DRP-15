@@ -59,7 +59,7 @@
     margin: 10px;
     border: none;
     background-color: var(--button-color);
-    color: white;
+    color: inherit;
     border-radius: 8px;
     font-size: 20px;
     cursor: pointer;
